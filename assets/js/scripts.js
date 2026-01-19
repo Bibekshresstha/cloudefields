@@ -215,6 +215,15 @@ document.fonts.ready.then((fontFaceSet) => {
 
 jQuery(document).ready(function ($) {
 
+    //add sticky class on header
+    jQuery(window).on('load scroll', function () {
+        if (jQuery(this).scrollTop() > 10) {
+            jQuery('.site-header').addClass('sticky');
+        } else {
+            jQuery('.site-header').removeClass('sticky');
+        }
+    });
+
     //add animated class on main banner
     setTimeout(function () {
         jQuery('.main-banner').addClass('is-animated');
@@ -258,6 +267,16 @@ jQuery(document).ready(function ($) {
 
     jQuery('#nav li button').on('click', function (e) {
         e.stopPropagation();
+    });
+
+    //init swiper
+    const swiper = new Swiper('.swiper', {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
     });
 
 }); //document close
