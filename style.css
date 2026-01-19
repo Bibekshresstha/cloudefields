@@ -2015,7 +2015,7 @@ SITE FOOTER
     margin-top: 1.875rem;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-end;
 }
 
 .footer-bottom .footer-copyright-holder {
