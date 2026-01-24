@@ -1139,6 +1139,7 @@ html[lang="en-US"] {
 COMMON CSS
 ===================================*/
 #wrapper {
+    background: #167bed;
     overflow: hidden;
     position: relative;
     z-index: 9;
@@ -1332,6 +1333,34 @@ COMMON CSS
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.snake-decor {
+    position: absolute;
+    top: 19.3125rem;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+}
+
+.snake-decor svg {
+    max-width: 93.7%;
+    margin: 0 auto;
+    position: relative;
+    top: -0.1875rem;
+    right: 0;
+}
+
+.snake-decor svg g[class*="path-group"] {
+    position: relative;
+}
+
+/* .site-main div[class*="-decor"] {
+    display: none !important;
+} */
+
+.st0 {
+    opacity: 0;
 }
 
 /*======================================
@@ -1566,6 +1595,7 @@ MAIN BANNER
     right: 0;
     pointer-events: none;
     height: 100%;
+    z-index: 9;
 }
 
 .main-banner .banner-img {
@@ -2101,8 +2131,13 @@ SITE FOOTER
     position: relative;
     width: 20rem;
     height: 20rem;
-    animation: swirl-rotate 20s linear infinite;
     transform-origin: center center;
+}
+
+.footer-bottom .footer-decor img {
+    max-width: 100%;
+    width: 83%;
+    animation: swirl-rotate 20s linear infinite;
 }
 
 /* Animation for continuous swirl rotation */
@@ -2114,12 +2149,6 @@ SITE FOOTER
     to {
         transform: rotate(360deg);
     }
-}
-
-.footer-bottom .footer-decor img {
-    max-width: 100%;
-    width: 100%;
-    height: 100%;
 }
 
 /*====================================

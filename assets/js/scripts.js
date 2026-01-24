@@ -360,6 +360,53 @@ document.fonts.ready.then((fontFaceSet) => {
             stagger: { amount: 0 }
         });
     });
+
+    $(".st0").each(function () {
+        var gsapDelay = jQuery(this).attr('data-gsap-delay') || 0;
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: $(this),
+                start: "top bottom",
+                end: "bottom top",
+                scrub: false,
+                toggleActions: "play none play reverse",
+            }
+        });
+        tl.to($(this), {
+            opacity: 1,
+            duration: 2,
+            delay: gsapDelay,
+        });
+    });
+
+    $(".st1").each(function () {
+        let delayAmt = 0;
+
+        for (let i = 0; i < jQuery(this).length; i++) {
+            delayAmt += 0.25;
+            jQuery(this).eq(i).attr('data-gsap-delay', delayAmt);
+        }
+
+        var gsapDelay = jQuery(this).attr('data-gsap-delay') || 0;
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: $(this),
+                start: "top bottom",
+                end: "bottom top",
+                scrub: false,
+                toggleActions: "play none play reverse",
+            }
+        });
+        tl.from($(this), {
+            rotation: 60,
+            yPercent: -100,
+            xPercent: -100,
+            opacity: 0,
+            duration: 1,
+            stagger: { amount: 0.5 },
+            delay: gsapDelay,
+        });
+    });
 });
 
 
