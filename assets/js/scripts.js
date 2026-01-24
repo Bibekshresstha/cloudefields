@@ -1,4 +1,14 @@
 document.fonts.ready.then((fontFaceSet) => {
+
+    //init scrollsmoother
+    if (jQuery(window).width() > 767) {
+        gsap.registerPlugin(ScrollSmoother);
+        ScrollSmoother.create({
+            wrapper: "#wrapper",
+            content: "#wrapper-inn",
+        });
+    }
+
     // Wrap each word with span
     jQuery('.wrap-word').each(function () {
         var self = jQuery(this);
@@ -111,7 +121,7 @@ document.fonts.ready.then((fontFaceSet) => {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: $(this),
-                start: "top bottom",
+                start: "top 70%",
                 end: "bottom center",
                 scrub: false,
                 toggleActions: "play none play reverse",
@@ -132,7 +142,7 @@ document.fonts.ready.then((fontFaceSet) => {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: $(this),
-                start: "top bottom",
+                start: "top 70%",
                 end: "bottom center",
                 scrub: false,
                 toggleActions: "play none play reverse",
@@ -153,7 +163,7 @@ document.fonts.ready.then((fontFaceSet) => {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: $(this),
-                start: "top bottom",
+                start: "top 70%",
                 end: "bottom center",
                 scrub: false,
                 toggleActions: "play none play reverse",
@@ -182,7 +192,7 @@ document.fonts.ready.then((fontFaceSet) => {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: $(this),
-                start: "top bottom",
+                start: "top 70%",
                 end: "bottom center",
                 scrub: false,
                 toggleActions: "play none play reverse",
@@ -235,6 +245,7 @@ document.fonts.ready.then((fontFaceSet) => {
     });
 
     $(".fade-in-right").each(function () {
+        var gsapDelay = jQuery(this).attr('data-gsap-delay') || 0;
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: $(this),
@@ -245,10 +256,11 @@ document.fonts.ready.then((fontFaceSet) => {
             }
         });
         tl.from($(this), {
-            xPercent: -40,
+            xPercent: -60,
             opacity: 0,
-            duration: 3,
-            stagger: { amount: 0.5 }
+            duration: 1,
+            stagger: { amount: 0.5 },
+            delay: gsapDelay
         });
     });
 
@@ -256,7 +268,7 @@ document.fonts.ready.then((fontFaceSet) => {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: $(this),
-                start: "top bottom",
+                start: "top 70%",
                 end: "bottom top",
                 scrub: false,
                 toggleActions: "play none play reverse",
@@ -276,7 +288,7 @@ document.fonts.ready.then((fontFaceSet) => {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: $(this),
-                start: "top bottom",
+                start: "top 70%",
                 end: "bottom top",
                 scrub: false,
                 toggleActions: "play none play reverse",
@@ -304,7 +316,7 @@ document.fonts.ready.then((fontFaceSet) => {
             yPercent: 100,
             opacity: 0,
             duration: 0.5,
-            delay: 1,
+            delay: 0.75,
             ease: "back.out(2)",
             stagger: { amount: 3 }
         });
@@ -411,10 +423,38 @@ jQuery(document).ready(function ($) {
     const swiper = new Swiper('.swiper', {
         slidesPerView: 1,
         spaceBetween: 10,
+        effect: "fade",
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
+        on: {
+            slideChangeTransitionStart: function () {
+                // Remove active class from all slides
+                jQuery('.cloud-slide').removeClass('active');
+            },
+            slideChangeTransitionEnd: function () {
+                // Add active class to the current slide
+                jQuery('.cloud-slide').eq(this.activeIndex).addClass('active');
+            },
+            init: function () {
+                gsap.to(jQuery('.cloud-slide').eq(this.activeIndex), {
+                    scrollTrigger: {
+                        trigger: jQuery('.cloud-slide').eq(this.activeIndex),
+                        start: "top 70%",
+                        end: "bottom top",
+                        markers: false,
+                        onToggle: (self) => {
+                            if (self.isActive) {
+                                jQuery('.cloud-slide').eq(this.activeIndex).addClass('active');
+                            } else {
+                                jQuery('.cloud-slide').eq(this.activeIndex).removeClass('active');
+                            }
+                        },
+                    }
+                });
+            }
+        }
     });
 
 }); //document close
