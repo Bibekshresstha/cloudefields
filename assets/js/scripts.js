@@ -3,25 +3,66 @@ document.fonts.ready.then((fontFaceSet) => {
     jQuery('.wrap-word').each(function () {
         var self = jQuery(this);
 
+        // Function to wrap words while preserving highlight class elements
+        function wrapWords(element) {
+            var contents = element.contents();
+            var result = [];
+
+            contents.each(function () {
+                // If it's a text node
+                if (this.nodeType === 3) {
+                    var text = this.textContent;
+                    var words = text.split(' ').filter(function (word) {
+                        return word.length > 0;
+                    });
+
+                    words.forEach(function (word, index) {
+                        result.push('<span class="custom-word">' + word + '</span>');
+                        // Add space between words except for the last one
+                        if (index < words.length - 1) {
+                            result.push(' ');
+                        }
+                    });
+                }
+                // If it's an element node
+                else if (this.nodeType === 1) {
+                    var $elem = jQuery(this);
+
+                    // If it has highlight class, preserve it as is
+                    if ($elem.hasClass('highlight')) {
+                        result.push($elem[0].outerHTML);
+                    } else {
+                        // Recursively process other elements
+                        var tagName = this.tagName.toLowerCase();
+                        var attrs = '';
+
+                        // Preserve attributes
+                        jQuery.each(this.attributes, function () {
+                            attrs += ' ' + this.name + '="' + this.value + '"';
+                        });
+
+                        result.push('<' + tagName + attrs + '>');
+                        wrapWords($elem);
+                        result.push('</' + tagName + '>');
+                    }
+                }
+            });
+
+            // Only update HTML if we processed text nodes
+            if (result.length > 0) {
+                element.html(result.join(''));
+            }
+        }
+
         // Check if content is wrapped in p tag
         if (self.find('p').length > 0) {
             // Handle p tags separately
             self.find('p').each(function () {
-                var text = jQuery(this).text();
-                var words = text.split(' ');
-                var wrapped = words.map(function (word) {
-                    return '<span class="custom-word">' + word + '</span>';
-                }).join(' ');
-                jQuery(this).html(wrapped);
+                wrapWords(jQuery(this));
             });
         } else {
             // Handle non-p tag content
-            var text = self.text();
-            var words = text.split(' ');
-            var wrapped = words.map(function (word) {
-                return '<span class="custom-word">' + word + '</span>';
-            }).join(' ');
-            self.html(wrapped);
+            wrapWords(self);
         }
     });
 
@@ -76,7 +117,7 @@ document.fonts.ready.then((fontFaceSet) => {
                 toggleActions: "play none play reverse",
             }
         });
-        tl.from($(this).find(".custom-word"), {
+        tl.from($(this).find(".custom-word, .highlight"), {
             opacity: 0.01,
             skewX: 0,
             yPercent: 200,
@@ -210,19 +251,116 @@ document.fonts.ready.then((fontFaceSet) => {
             stagger: { amount: 0.5 }
         });
     });
+
+    $(".img-rotate-fade").each(function () {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: $(this),
+                start: "top bottom",
+                end: "bottom top",
+                scrub: false,
+                toggleActions: "play none play reverse",
+            }
+        });
+        tl.from($(this), {
+            xPercent: 40,
+            rotation: 0,
+            transformOrigin: "50% center",
+            opacity: 1,
+            duration: 1,
+            stagger: { amount: 0.5 }
+        });
+    });
+
+    $(".belief-sec .section-title").each(function () {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: $(this),
+                start: "top bottom",
+                end: "bottom top",
+                scrub: false,
+                toggleActions: "play none play reverse",
+            }
+        });
+        tl.from($(this).find('.line > .word .char'), {
+            xPercent: -300,
+            opacity: 0,
+            duration: 1,
+            stagger: { amount: 0.5 }
+        });
+    });
+
+    $(".belief-sec .highlight").each(function () {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: $(this),
+                start: "top bottom",
+                end: "bottom top",
+                scrub: false,
+                toggleActions: "play none play reverse",
+            }
+        });
+        tl.from($(this), {
+            yPercent: 100,
+            opacity: 0,
+            duration: 0.5,
+            delay: 1,
+            ease: "back.out(2)",
+            stagger: { amount: 3 }
+        });
+    });
+
+    $(".btn-icon").each(function () {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: $(this),
+                start: "top bottom",
+                end: "bottom top",
+                scrub: false,
+                toggleActions: "play none play reverse",
+            }
+        });
+        tl.from($(this), {
+            xPercent: -60,
+            opacity: 1,
+            duration: 0.3,
+            ease: "expoScale(0.5,7,none)",
+            stagger: { amount: 0 }
+        });
+    });
+
+    $(".btn-text").each(function () {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: $(this),
+                start: "top bottom",
+                end: "bottom top",
+                scrub: false,
+                toggleActions: "play none play reverse",
+            }
+        });
+        tl.from($(this), {
+            xPercent: -1,
+            opacity: 1,
+            duration: 0.5,
+            delay: 0.25,
+            ease: "back.out(50)",
+            stagger: { amount: 0 }
+        });
+    });
 });
 
 
 jQuery(document).ready(function ($) {
 
     //add sticky class on header
-    jQuery(window).on('load scroll', function () {
-        if (jQuery(this).scrollTop() > 10) {
-            jQuery('.site-header').addClass('sticky');
-        } else {
-            jQuery('.site-header').removeClass('sticky');
-        }
-    });
+    // jQuery(window).on('load scroll', function () {
+    //     if (jQuery(this).scrollTop() > 10) {
+    //         jQuery('.site-header').addClass('sticky');
+    //     } else {
+    //         jQuery('.site-header').removeClass('sticky');
+    //     }
+    // });
 
     //add animated class on main banner
     setTimeout(function () {
