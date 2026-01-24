@@ -1,0 +1,24 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path id="circlePath" d="M 250, 250 m -180, 0 a 180,180 0 1,1 360,0 a 180,180 0 1,1 -360,0" />
+  </defs>
+  <style>
+    @font-face {
+        font-family: 'BlockPro-Condensed';
+        src: url('../fonts/BlockPro-Condensed.woff2') format('woff2');
+    }
+    .circle-text {
+      fill: #FDFEFF;
+      font-family: 'BlockPro-Condensed', sans-serif;
+      font-weight: bold;
+      font-size: 48px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+  </style>
+  <text class="circle-text">
+    <textPath href="#circlePath" startOffset="50%" text-anchor="middle">
+      PAUSE, SMILE, ENJOY AND DREAM • ICE CREAMS THAT MAKE YOU • 
+    </textPath>
+  </text>
+</svg>

@@ -1,0 +1,18 @@
+<svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Radius 200. Path: Semi-circle -->
+    <path id="bottomPath" d="M 500, 300 A 200,200 0 1,1 100,300" />
+  </defs>
+  <!-- Background Sticker -->
+  <text font-family="'BlockPro-Condensed', Impact, sans-serif" font-weight="bold" font-size="40" letter-spacing="1" stroke="#FDFEFF" stroke-width="50" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <textPath href="#bottomPath" startOffset="50%" text-anchor="middle">
+      ICE CREAMS THAT MAKE YOU
+    </textPath>
+  </text>
+  <!-- Foreground Text -->
+  <text font-family="'BlockPro-Condensed', Impact, sans-serif" font-weight="bold" font-size="40" letter-spacing="1" fill="#F05423">
+    <textPath href="#bottomPath" startOffset="50%" text-anchor="middle">
+      ICE CREAMS THAT MAKE YOU
+    </textPath>
+  </text>
+</svg>
