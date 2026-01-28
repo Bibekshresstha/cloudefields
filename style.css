@@ -1449,6 +1449,68 @@ SITE HEADER
     color: #A4CED3;
 }
 
+.menu-toggle-holder {
+    margin-left: auto;
+}
+
+.menu-toggle-holder .menu-toggle {
+    background: #A4CED3;
+    border: none;
+    padding: 0;
+    width: 2.1875rem;
+    height: 2.1875rem;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 100%;
+}
+
+.menu-toggle-holder .menu-toggle span {
+    background: #167BED;
+    width: 1.25rem;
+    height: 2px;
+    border-radius: 100px;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+}
+
+.menu-toggle-holder .menu-toggle span:first-child {
+    top: -12px;
+}
+
+.menu-toggle-holder .menu-toggle span:last-child {
+    bottom: -12px;
+}
+
+.site-navigation .close {
+    width: 2.1875rem;
+    height: 2.1875rem;
+    background: none;
+    border: none;
+    padding: 0;
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+}
+
+.site-navigation .close::before,
+.site-navigation .close::after {
+    content: "";
+    background: #fff;
+    width: 2.1875rem;
+    height: 2px;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    border-radius: 100px;
+    transform: rotate(45deg);
+}
+
+.site-navigation .close::after {
+    transform: rotate(-45deg);
+}
+
 .site-header .site-navigation {
     width: 100%;
     display: flex;
@@ -2140,6 +2202,19 @@ SITE FOOTER
     animation: swirl-rotate 20s linear infinite;
 }
 
+/*--------------------------------------------------------------
+# SVG Fill Animation Styles
+--------------------------------------------------------------*/
+/* Ensure SVG containers don't clip the animations */
+svg {
+    overflow: visible;
+}
+
+/* Keep the original fill for .decor-bg paths */
+svg path.decor-bg {
+    /* Fill is preserved from HTML */
+}
+
 /* Animation for continuous swirl rotation */
 @keyframes swirl-rotate {
     from {
@@ -2157,6 +2232,11 @@ RESPONSIVE CSS
 @media (min-width: 768px) {
     html {
         font-size: var(--root-font-size, 10px);
+    }
+
+    .menu-toggle-holder,
+    .site-navigation .close {
+        display: none;
     }
 }
 
@@ -2186,4 +2266,211 @@ RESPONSIVE CSS
         bottom: 4px;
     }
 
+    /*=======================================
+    SITE HEADER
+    =======================================*/
+    .site-header .header-top {
+        padding: 1.25rem 0.9375rem;
+    }
+
+    .social-list {
+        gap: 0.5rem;
+    }
+
+    .social-list li a {
+        width: 2.1875rem;
+        height: 2.1875rem;
+        font-size: 1rem;
+    }
+
+    .site-header .site-navigation {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        justify-content: center;
+        transition: all ease 0.3s;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .nav_active .site-header .site-navigation {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .site-navigation ul.main-menu {
+        flex-direction: column;
+        flex-wrap: initial;
+        width: 100%;
+        max-width: 25rem;
+        margin: 0 auto;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .site-navigation ul.main-menu li {
+        transition: all ease 0.3s;
+        transform: translateY(-100%);
+        overflow: hidden;
+        opacity: 0;
+    }
+
+    .nav_active .site-navigation ul.main-menu li {
+        transform: translateY(0);
+        opacity: 2;
+        transition-delay: var(--trans-delay);
+    }
+
+    .site-navigation ul.main-menu li a {
+        background: none;
+    }
+
+    /*=======================================
+    MAIN BANNER
+    =======================================*/
+    .main-banner {
+        padding-inline: 0.9375rem;
+    }
+
+    .main-banner .banner-item {
+        min-height: 92dvh;
+    }
+
+    .main-banner .banner-title {
+        margin-top: 2rem;
+        font-size: 2.5rem;
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+
+    .main-banner .banner-title .highlight {
+        font-size: inherit;
+    }
+
+    .main-banner .banner-content {
+        flex-wrap: wrap;
+        text-align: center;
+    }
+
+    .main-banner .banner-text {
+        position: static;
+        margin-top: 1.5rem;
+        font-size: 1.5rem;
+    }
+
+    .main-banner .btn-holder {
+        margin-top: 1.5rem;
+    }
+
+    .main-banner .btn {
+        justify-content: center;
+    }
+
+    .btn .btn-icon {
+        width: 2.8125rem;
+        height: 2.8125rem;
+        font-size: 1rem;
+    }
+
+    .btn .btn-text {
+        min-width: 12rem;
+        min-height: 2.8125rem;
+        font-size: 1.125rem;
+    }
+
+    .main-banner .banner-img {
+        max-width: 20rem;
+        left: 0;
+    }
+
+    .main-banner .banner-img img {
+        bottom: -6.25rem;
+    }
+
+    .main-banner .banner-decor-top {
+        top: auto;
+        width: 8rem;
+        height: auto;
+        bottom: 17.125rem;
+        right: -1rem;
+    }
+
+    .main-banner .banner-decor-bottom {
+        top: auto;
+        bottom: -6rem;
+        left: -2rem;
+        width: 13rem;
+        height: auto;
+        transform: rotate(-27deg);
+    }
+
+    /*=======================================
+    ABOUT SECTION
+    =======================================*/
+    .about-sec {
+        padding: 6.25rem 0.9375rem 3.75rem;
+    }
+
+    .about-sec .section-header {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+
+    .section-subtitle {
+        font-size: 1.25rem;
+        margin-bottom: 1.875rem;
+    }
+
+    .about-sec .section-subtitle {
+        margin-bottom: 2.5rem;
+    }
+
+    .section-title {
+        font-size: 3.125rem;
+    }
+
+    .about-sec .section-title {
+        margin-bottom: 3.75rem;
+    }
+
+    .section-desc {
+        font-size: 1.375rem;
+    }
+
+    .about-sec .section-img {
+        max-width: initial;
+        flex-basis: 100%;
+        top: 0;
+        right: 0;
+        margin-top: 5rem;
+        margin-right: 2rem;
+        margin-left: -2.5rem;
+    }
+
+    .about-sec div[class*="about-decor"] {
+        display: none;
+    }
+
+    .about-sec div.about-decor1 {
+        left: auto;
+        right: 0;
+        top: -2.5rem;
+        width: 12.5rem;
+        transform: rotate(45deg);
+    }
+
+    .about-sec div.about-decor2 {
+        left: -4.375rem;
+        top: 18.75rem;
+        width: 25rem;
+    }
+
+}
+
+@media (max-width: 375px) {
+    html {
+        font-size: 5vw;
+    }
 }

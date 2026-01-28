@@ -361,52 +361,222 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     });
 
-    $(".st0").each(function () {
-        var gsapDelay = jQuery(this).attr('data-gsap-delay') || 0;
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: $(this),
-                start: "top bottom",
-                end: "bottom top",
-                scrub: false,
-                toggleActions: "play none play reverse",
-            }
+    // $(".st0").each(function () {
+    //     var gsapDelay = jQuery(this).attr('data-gsap-delay') || 0;
+    //     const tl = gsap.timeline({
+    //         scrollTrigger: {
+    //             trigger: $(this),
+    //             start: "top bottom",
+    //             end: "bottom top",
+    //             scrub: false,
+    //             toggleActions: "play none play reverse",
+    //         }
+    //     });
+    //     tl.to($(this), {
+    //         opacity: 1,
+    //         duration: 2,
+    //         delay: gsapDelay,
+    //     });
+    // });
+
+    // $(".st1").each(function () {
+    //     let delayAmt = 0;
+
+    //     for (let i = 0; i < jQuery(this).length; i++) {
+    //         delayAmt += 0.25;
+    //         jQuery(this).eq(i).attr('data-gsap-delay', delayAmt);
+    //     }
+
+    //     var gsapDelay = jQuery(this).attr('data-gsap-delay') || 0;
+    //     const tl = gsap.timeline({
+    //         scrollTrigger: {
+    //             trigger: $(this),
+    //             start: "top bottom",
+    //             end: "bottom top",
+    //             scrub: false,
+    //             toggleActions: "play none play reverse",
+    //         }
+    //     });
+    //     tl.from($(this), {
+    //         rotation: 60,
+    //         yPercent: -100,
+    //         xPercent: -100,
+    //         opacity: 0,
+    //         duration: 1,
+    //         stagger: { amount: 0.5 },
+    //         delay: gsapDelay,
+    //     });
+    // });
+
+    // SVG Fill Animation on Scroll
+    // Animate filled SVG paths by revealing them from 0% to 100%
+
+    console.log('Initializing SVG fill reveal animations...');
+
+    // Animate all SVG paths in banner decorations
+    $(".banner-decor-top svg .decor-bg, .banner-decor-bottom svg .decor-bg").each(function (index) {
+        const pathElement = this;
+
+        // Wrap path in a clipPath for animation
+        const svg = $(pathElement).closest('svg')[0];
+        const pathId = 'path-' + Date.now() + '-' + index;
+        const clipPathId = 'clip-' + Date.now() + '-' + index;
+
+        // Set ID on path
+        pathElement.setAttribute('id', pathId);
+
+        // Create clipPath element
+        const defs = svg.querySelector('defs') || svg.insertBefore(document.createElementNS('http://www.w3.org/2000/svg', 'defs'), svg.firstChild);
+        const clipPath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
+        clipPath.setAttribute('id', clipPathId);
+
+        // Clone the path for clipping
+        const clipPathPath = pathElement.cloneNode(true);
+        clipPathPath.removeAttribute('id');
+        clipPathPath.removeAttribute('class');
+        clipPath.appendChild(clipPathPath);
+        defs.appendChild(clipPath);
+
+        // Apply clip-path to original element
+        pathElement.style.clipPath = `url(#${clipPathId})`;
+
+        // Set initial state - fully visible (we'll animate the clip path)
+        gsap.set(clipPathPath, {
+            attr: {
+                'stroke-dasharray': function () {
+                    const length = clipPathPath.getTotalLength();
+                    return length + ' ' + length;
+                },
+                'stroke-dashoffset': function () {
+                    return clipPathPath.getTotalLength();
+                }
+            },
+            stroke: '#FCFDFF',
+            strokeWidth: 100,
+            fill: 'none'
         });
-        tl.to($(this), {
-            opacity: 1,
+
+        // Animate the clip path
+        gsap.to(clipPathPath, {
+            attr: { 'stroke-dashoffset': 0 },
             duration: 2,
-            delay: gsapDelay,
-        });
-    });
-
-    $(".st1").each(function () {
-        let delayAmt = 0;
-
-        for (let i = 0; i < jQuery(this).length; i++) {
-            delayAmt += 0.25;
-            jQuery(this).eq(i).attr('data-gsap-delay', delayAmt);
-        }
-
-        var gsapDelay = jQuery(this).attr('data-gsap-delay') || 0;
-        const tl = gsap.timeline({
+            ease: "power1.inOut",
             scrollTrigger: {
-                trigger: $(this),
-                start: "top bottom",
-                end: "bottom top",
-                scrub: false,
-                toggleActions: "play none play reverse",
+                trigger: $(pathElement).closest('.banner-decor-top, .banner-decor-bottom')[0],
+                start: "top 80%",
+                end: "bottom 20%",
+                scrub: 1,
+                markers: false,
+                onEnter: () => console.log('Banner SVG fill animation triggered:', index)
             }
         });
-        tl.from($(this), {
-            rotation: 60,
-            yPercent: -100,
-            xPercent: -100,
-            opacity: 0,
-            duration: 1,
-            stagger: { amount: 0.5 },
-            delay: gsapDelay,
+    });
+
+    // Animate SVG paths in about section decorations
+    $(".about-decor1 svg .decor-bg, .about-decor2 svg .decor-bg").each(function (index) {
+        const pathElement = this;
+
+        const svg = $(pathElement).closest('svg')[0];
+        const pathId = 'about-path-' + Date.now() + '-' + index;
+        const clipPathId = 'about-clip-' + Date.now() + '-' + index;
+
+        pathElement.setAttribute('id', pathId);
+
+        const defs = svg.querySelector('defs') || svg.insertBefore(document.createElementNS('http://www.w3.org/2000/svg', 'defs'), svg.firstChild);
+        const clipPath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
+        clipPath.setAttribute('id', clipPathId);
+
+        const clipPathPath = pathElement.cloneNode(true);
+        clipPathPath.removeAttribute('id');
+        clipPathPath.removeAttribute('class');
+        clipPath.appendChild(clipPathPath);
+        defs.appendChild(clipPath);
+
+        pathElement.style.clipPath = `url(#${clipPathId})`;
+
+        gsap.set(clipPathPath, {
+            attr: {
+                'stroke-dasharray': function () {
+                    const length = clipPathPath.getTotalLength();
+                    return length + ' ' + length;
+                },
+                'stroke-dashoffset': function () {
+                    return clipPathPath.getTotalLength();
+                }
+            },
+            stroke: '#FCFDFF',
+            strokeWidth: 100,
+            fill: 'none'
+        });
+
+        gsap.to(clipPathPath, {
+            attr: { 'stroke-dashoffset': 0 },
+            duration: 2,
+            ease: "power1.inOut",
+            scrollTrigger: {
+                trigger: $(pathElement).closest('.about-decor1, .about-decor2')[0],
+                start: "top 80%",
+                end: "bottom 20%",
+                scrub: 1,
+                markers: false,
+                onEnter: () => console.log('About SVG fill animation triggered:', index)
+            }
         });
     });
+
+    // Animate all other SVG paths
+    $("svg .decor-bg").not(".banner-decor-top svg .decor-bg, .banner-decor-bottom svg .decor-bg, .about-decor1 svg .decor-bg, .about-decor2 svg .decor-bg").each(function (index) {
+        const pathElement = this;
+
+        const svg = $(pathElement).closest('svg')[0];
+        const pathId = 'other-path-' + Date.now() + '-' + index;
+        const clipPathId = 'other-clip-' + Date.now() + '-' + index;
+
+        pathElement.setAttribute('id', pathId);
+
+        const defs = svg.querySelector('defs') || svg.insertBefore(document.createElementNS('http://www.w3.org/2000/svg', 'defs'), svg.firstChild);
+        const clipPath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
+        clipPath.setAttribute('id', clipPathId);
+
+        const clipPathPath = pathElement.cloneNode(true);
+        clipPathPath.removeAttribute('id');
+        clipPathPath.removeAttribute('class');
+        clipPath.appendChild(clipPathPath);
+        defs.appendChild(clipPath);
+
+        pathElement.style.clipPath = `url(#${clipPathId})`;
+
+        gsap.set(clipPathPath, {
+            attr: {
+                'stroke-dasharray': function () {
+                    const length = clipPathPath.getTotalLength();
+                    return length + ' ' + length;
+                },
+                'stroke-dashoffset': function () {
+                    return clipPathPath.getTotalLength();
+                }
+            },
+            stroke: '#FCFDFF',
+            strokeWidth: 100,
+            fill: 'none'
+        });
+
+        gsap.to(clipPathPath, {
+            attr: { 'stroke-dashoffset': 0 },
+            duration: 2,
+            ease: "power1.inOut",
+            scrollTrigger: {
+                trigger: $(pathElement).closest('svg')[0],
+                start: "top 80%",
+                end: "bottom 20%",
+                scrub: 1,
+                markers: false,
+                onEnter: () => console.log('Other SVG fill animation triggered:', index)
+            }
+        });
+    });
+
+    console.log('SVG fill reveal animations initialized');
 });
 
 
@@ -444,6 +614,12 @@ jQuery(document).ready(function ($) {
             }
         });
     }
+
+    //add transition delay on menu items
+    jQuery('.site-navigation ul.main-menu li').each(function (index) {
+        const delay = (index * 0.12).toFixed(1);
+        jQuery(this).css('--trans-delay', `${delay}s`);
+    });
 
     let submenuTglBtn = jQuery('<button class="submenu-tgl-btn"><i class="fa-solid fa-angle-down"></i></button>');
     jQuery('#nav .menu-item-has-children').find('> a').after(submenuTglBtn);
