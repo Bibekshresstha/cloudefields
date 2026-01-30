@@ -1,5 +1,8 @@
 document.fonts.ready.then((fontFaceSet) => {
 
+    //register plugins first
+    gsap.registerPlugin(MotionPathPlugin);
+
     //init scrollsmoother
     if (jQuery(window).width() > 767) {
         gsap.registerPlugin(ScrollSmoother);
@@ -11,6 +14,20 @@ document.fonts.ready.then((fontFaceSet) => {
             normalizeScroll: true,
             smoothTouch: 0.1
         });
+    }
+
+    //animate element along snake path - only if elements exist
+    if (jQuery(".decor-svg").length > 0 && jQuery(".decor-path .st0").length > 0) {
+        gsap.to("svg path:not(.decor-bg)", {
+            duration: 5,
+            ease: "power1.inOut",
+            immediateRender: true,
+            motionPath: {
+                path: ".decor-path .st0",
+                autoRotate: true
+            }
+        });
+
     }
 
     jQuery('.is-sticky').each(function () {
@@ -67,6 +84,76 @@ document.fonts.ready.then((fontFaceSet) => {
                 trigger: element,
                 start: "top 120%",
                 end: "bottom 70%",
+                scrub: true,
+            }
+        });
+    });
+
+    // jQuery(".banner-logo").each(function () {
+    //     var element = jQuery(this);
+    //     gsap.to(element, {
+    //         yPercent: -100,
+    //         duration: 1.5,
+    //         scrollTrigger: {
+    //             trigger: element,
+    //             start: "30% 25%",
+    //             end: "bottom -70%",
+    //             scrub: true,
+    //         }
+    //     });
+    // });
+
+    jQuery('.main-banner .banner-img img').each(function () {
+        var element = jQuery(this);
+        gsap.to(element, {
+            yPercent: -100,
+            duration: 0.5,
+            scrollTrigger: {
+                trigger: element,
+                start: "-80% 50%",
+                end: "bottom 100%",
+                scrub: true,
+            }
+        });
+    });
+
+    jQuery(".banner-title").each(function () {
+        var element = jQuery(this);
+        gsap.to(element, {
+            left: '-100%',
+            duration: 15,
+            scrollTrigger: {
+                trigger: element,
+                start: "top 45%",
+                end: "200% 10%",
+                scrub: true,
+            }
+        });
+    });
+
+    jQuery(".main-banner .btn-holder").each(function () {
+        var element = jQuery(this);
+        gsap.to(element, {
+            right: '-100%',
+            duration: 15,
+            scrollTrigger: {
+                trigger: element,
+                start: "top 45%",
+                end: "200% 10%",
+                scrub: true,
+            }
+        });
+    });
+
+    jQuery(".main-banner .banner-text").each(function () {
+        var element = jQuery(this);
+        gsap.to(element, {
+            bottom: '100%',
+            duration: 15,
+            scrollTrigger: {
+                trigger: element,
+                start: "top 87%",
+                end: "bottom top",
                 scrub: true,
             }
         });
@@ -179,6 +266,38 @@ document.fonts.ready.then((fontFaceSet) => {
             stagger: { amount: 0.1 },
         }, "<");
     });
+
+    // jQuery(".main-banner .banner-decor-top").each(function () {
+    //     var element = jQuery(this);
+    //     gsap.from(element, {
+    //         height: 0,
+    //         duration: 1,
+    //         delay: 3,
+    //         scrollTrigger: {
+    //             trigger: $(this),
+    //             start: "top bottom",
+    //             end: "bottom center",
+    //             scrub: false,
+    //             toggleActions: "play none play reverse",
+    //         }
+    //     });
+    // });
+
+    // jQuery(".main-banner .banner-decor-bottom").each(function () {
+    //     var element = jQuery(this);
+    //     gsap.from(element, {
+    //         height: 0,
+    //         duration: 1,
+    //         delay: 3.5,
+    //         scrollTrigger: {
+    //             trigger: $(this),
+    //             start: "top bottom",
+    //             end: "bottom center",
+    //             scrub: false,
+    //             toggleActions: "play none play reverse",
+    //         }
+    //     });
+    // });
 
     $('.wrap-word').each(function () {
         gsap.from($(this).find(".custom-word, .highlight"), {

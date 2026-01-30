@@ -1284,6 +1284,15 @@ COMMON CSS
     z-index: -1 !important;
 }
 
+.decor-path {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+}
+
 .hs-mb {
     margin-bottom: 1.5rem !important;
 }
@@ -1592,7 +1601,7 @@ MAIN BANNER
     font-family: var(--blockProExtraCn);
     font-size: 4.75rem;
     line-height: 1;
-    transition: all ease-in-out 0.7s;
+    transition: transform ease-in-out 0.7s, opacity ease-in-out 0.7s;
     transition-delay: 0.3s;
     transform: translateX(-50%);
     opacity: 0;
@@ -1614,7 +1623,7 @@ MAIN BANNER
     max-width: 33.75rem;
     width: 100%;
     color: var(--white-color);
-    transition: all ease-in-out 0.7s;
+    transition: transform ease-in-out 0.7s, opacity ease-in-out 0.7s;
     transition-delay: 0.7s;
     transform: translateY(100%);
     opacity: 0;
@@ -1629,6 +1638,7 @@ MAIN BANNER
     margin-top: 3.75rem;
     max-width: 31.25rem;
     width: 100%;
+    position: relative;
 }
 
 .main-banner .btn {
@@ -1678,21 +1688,21 @@ MAIN BANNER
     right: 0;
     max-width: 47.5rem;
     margin: 0 auto;
-}
-
-.main-banner .banner-img img {
-    width: 100%;
-    position: relative;
-    bottom: -19.375rem;
     transition: all ease-in-out 0.7s;
     transition-delay: 0.8s;
     transform: translateY(100%);
     visibility: hidden;
 }
 
-.main-banner.is-animated .banner-img img {
+.main-banner.is-animated .banner-img {
     transform: translateY(0);
     visibility: visible;
+}
+
+.main-banner .banner-img img {
+    width: 100%;
+    position: relative;
+    bottom: -19.375rem;
 }
 
 .main-banner .banner-decor-top {
@@ -1701,6 +1711,7 @@ MAIN BANNER
     right: 10.625rem;
     width: 16.5625rem;
     height: auto;
+    overflow: hidden;
 }
 
 .main-banner .banner-decor-bottom {
@@ -1710,6 +1721,7 @@ MAIN BANNER
     width: 25rem;
     height: auto;
     z-index: 9;
+    overflow: hidden;
 }
 
 .main-banner .banner-decor-top img,
