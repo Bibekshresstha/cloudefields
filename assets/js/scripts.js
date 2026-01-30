@@ -121,7 +121,7 @@ document.fonts.ready.then((fontFaceSet) => {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: $(this),
-                start: "top 70%",
+                start: "top 80%",
                 end: "bottom center",
                 scrub: false,
                 toggleActions: "play none play reverse",
@@ -192,7 +192,7 @@ document.fonts.ready.then((fontFaceSet) => {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: $(this),
-                start: "top 70%",
+                start: "top 80%",
                 end: "bottom center",
                 scrub: false,
                 toggleActions: "play none play reverse",
@@ -268,8 +268,8 @@ document.fonts.ready.then((fontFaceSet) => {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: $(this),
-                start: "top 70%",
-                end: "bottom top",
+                start: "top 80%",
+                end: "bottom center",
                 scrub: false,
                 toggleActions: "play none play reverse",
             }
@@ -278,7 +278,7 @@ document.fonts.ready.then((fontFaceSet) => {
             xPercent: 40,
             rotation: 0,
             transformOrigin: "50% center",
-            opacity: 1,
+            opacity: 0,
             duration: 1,
             stagger: { amount: 0.5 }
         });

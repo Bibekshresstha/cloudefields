@@ -1140,7 +1140,7 @@ COMMON CSS
 ===================================*/
 #wrapper {
     background: #167bed;
-    overflow: hidden;
+    overflow: hidden !important;
     position: relative;
     z-index: 9;
 }
@@ -1159,6 +1159,11 @@ COMMON CSS
 
 .d-none {
     display: none !important;
+}
+
+#main {
+    position: relative;
+    z-index: 99;
 }
 
 .custom-word,
@@ -1369,7 +1374,7 @@ SITE HEADER
 .site-header {
     background: #167bed;
     position: relative;
-    z-index: 99;
+    z-index: 999;
 }
 
 .site-header.sticky {
@@ -1690,7 +1695,7 @@ MAIN BANNER
     top: 10.625rem;
     right: 10.625rem;
     width: 16.5625rem;
-    height: 18.4375rem;
+    height: auto;
 }
 
 .main-banner .banner-decor-bottom {
@@ -1698,7 +1703,7 @@ MAIN BANNER
     bottom: -10.625rem;
     left: -8.125rem;
     width: 25rem;
-    height: 38.75rem;
+    height: auto;
     z-index: 9;
 }
 
@@ -1825,6 +1830,7 @@ BELIEF SECTION
     width: 38.5625rem;
     right: 19.375rem;
     margin: 0 auto;
+    pointer-events: none;
 }
 
 .belief-sec .section-header {
@@ -1840,7 +1846,7 @@ BELIEF SECTION
 
 .belief-sec .section-title {
     margin-top: 5.6rem;
-    font-size: 13.125rem;
+    font-size: 12.5rem;
     color: #ff5001;
     position: relative;
     z-index: 2;
@@ -2147,6 +2153,7 @@ SITE FOOTER
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
+    overflow: hidden;
 }
 
 .footer-bottom .footer-copyright-holder {
@@ -2174,7 +2181,7 @@ SITE FOOTER
 }
 
 .footer-copyright {
-    font-family: 'G2Erika-Mono';
+    font-family: var(--g2erikaMono);
     font-size: 13px;
     font-weight: 400;
     letter-spacing: 0.5px;
@@ -2231,7 +2238,7 @@ RESPONSIVE CSS
 ===================================*/
 @media (min-width: 768px) {
     html {
-        font-size: var(--root-font-size, 10px);
+        font-size: var(--root-font-size, 16px);
     }
 
     .menu-toggle-holder,
@@ -2240,7 +2247,7 @@ RESPONSIVE CSS
     }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1025px) {
     html {
         font-size: var(--root-font-size, 0.8888888889vw);
     }
@@ -2249,6 +2256,242 @@ RESPONSIVE CSS
 @media (min-width: 1801px) {
     html {
         font-size: var(--root-font-size, 16px);
+    }
+}
+
+@media (max-width: 1024px) {
+    .site-header .header-top {
+        padding: 1.875rem;
+    }
+
+    .site-header .site-navigation {
+        padding-left: 167px;
+    }
+
+    /*================================
+    MAIN BANNER
+    ================================*/
+    .main-banner {
+        padding-inline: 1.875rem;
+    }
+
+    .main-banner .banner-item {
+        min-height: 62rem;
+    }
+
+    .main-banner .banner-title {
+        font-size: 3.75rem;
+        max-width: 57%;
+    }
+
+    .main-banner .banner-title .highlight {
+        font-size: 3.75rem;
+    }
+
+    .btn .btn-icon {
+        width: 3.125rem;
+        height: 3.125rem;
+        font-size: 1.125rem;
+    }
+
+    .btn .btn-text {
+        min-width: 15rem;
+        min-height: 3.125rem;
+        font-size: 1.5rem;
+    }
+
+    .main-banner .banner-img-holder {
+        max-width: 43.75rem;
+        height: 60vw;
+    }
+
+    .main-banner .banner-decor-top {
+        right: 0;
+        width: 10rem;
+        top: auto;
+        bottom: calc(100% - 25vw);
+    }
+
+    .main-banner .banner-img {
+        max-width: 35rem;
+        left: -2rem;
+    }
+
+    .main-banner .banner-decor-bottom {
+        width: 15rem;
+        left: -3rem;
+        bottom: -5rem;
+    }
+
+    .main-banner .banner-text {
+        position: static;
+        flex-basis: 100%;
+        max-width: 100%;
+        order: 3;
+        margin-top: 2rem;
+    }
+
+    .main-banner .banner-content {
+        flex-wrap: wrap;
+    }
+
+    .main-banner .btn-holder {
+        max-width: 43%;
+    }
+
+    /*==============================
+    ABOUT SECTION
+    ===============================*/
+    .about-sec {
+        padding-inline: 1.875rem;
+        padding-top: 7.5rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .about-sec div.about-decor1 {
+        width: 13rem;
+        top: -3rem;
+        left: 7.5rem;
+    }
+
+    .about-sec div.about-decor2 {
+        width: 24rem;
+        left: 17rem;
+        top: 5rem;
+        z-index: -1;
+    }
+
+    .about-sec div.about-decor3 {
+        width: 25rem;
+        right: -3.5rem;
+        top: 11rem;
+    }
+
+    .about-sec div.about-decor4 {
+        right: 20rem;
+        width: 4rem;
+        bottom: -8rem;
+    }
+
+    .about-sec .section-subtitle {
+        margin-bottom: 10rem;
+    }
+
+    .section-title {
+        font-size: 6.25rem;
+    }
+
+    .section-desc {
+        font-size: 1.5rem;
+    }
+
+    .about-sec .section-img {
+        right: -3%;
+        max-width: 33.75rem;
+        flex-basis: 33.75rem;
+        position: absolute;
+        width: 100%;
+        z-index: -1;
+        top: -5%;
+    }
+
+    /*===================================
+    BELIEF SECTION
+    ===================================*/
+    .belief-sec {
+        min-height: auto;
+        padding-inline: 1.875rem;
+    }
+
+    .belief-sec .belief-decor1 {
+        width: 27rem;
+        right: 7.25rem;
+        left: auto;
+        transform: rotate(-27deg);
+        top: 2rem;
+    }
+
+    .belief-sec .section-desc {
+        flex-basis: 55%;
+        max-width: 55%;
+        margin-top: 0;
+    }
+
+    .belief-sec .section-title {
+        font-size: 11vw;
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+
+    /*=================================
+    CLOUD SECTION 
+    ===================================*/
+    .cloud-sec {
+        padding-inline: 1.875rem;
+        overflow: hidden;
+    }
+
+    .cloud-sec div.cloud-decor1 {
+        width: 17rem;
+        left: auto;
+        right: -1.05rem;
+        transform: rotate(-22deg);
+        top: -10.45rem;
+    }
+
+    .cloud-sec div.cloud-decor2 {
+        width: 32rem;
+        top: 6rem;
+    }
+
+    .cloud-sec .section-title {
+        font-size: 4.625rem;
+        max-width: 57%;
+        flex-basis: 57%;
+        line-height: 1;
+        padding-right: 1.25rem;
+    }
+
+    .cloud-sec .section-desc {
+        flex-basis: 40%;
+        max-width: 40%;
+        font-size: 2.25rem;
+        top: 1rem;
+        line-height: 1;
+    }
+
+    .cloud-sec .cloud-img {
+        margin-top: 0;
+    }
+
+    .cloud-sec .cloud-img:has(img[src*="joyfully-indulgent.svg"]),
+    .cloud-sec .cloud-img:has(img[src*="always-exploring.svg"]) {
+        margin-top: 0;
+    }
+
+    /*=================================
+    SITE FOOTER
+    ===================================*/
+    .site-footer {
+        padding-inline: 1.875rem;
+    }
+
+    .site-footer .footer-links {
+        flex: 1;
+    }
+
+    .site-footer .footer-newsletter {
+        max-width: 25rem;
+    }
+
+    .footer-bottom .footer-decor {
+        top: 10rem;
+    }
+
+    .footer-copyright span {
+        padding-left: 0;
+        display: inline;
     }
 }
 
@@ -2352,6 +2595,7 @@ RESPONSIVE CSS
     .main-banner .banner-content {
         flex-wrap: wrap;
         text-align: center;
+        justify-content: center;
     }
 
     .main-banner .banner-text {
@@ -2362,6 +2606,7 @@ RESPONSIVE CSS
 
     .main-banner .btn-holder {
         margin-top: 1.5rem;
+        max-width: 100%;
     }
 
     .main-banner .btn {
@@ -2380,6 +2625,10 @@ RESPONSIVE CSS
         font-size: 1.125rem;
     }
 
+    .main-banner .banner-img-holder {
+        max-width: 30rem;
+    }
+
     .main-banner .banner-img {
         max-width: 20rem;
         left: 0;
@@ -2392,7 +2641,6 @@ RESPONSIVE CSS
     .main-banner .banner-decor-top {
         top: auto;
         width: 8rem;
-        height: auto;
         bottom: 17.125rem;
         right: -1rem;
     }
@@ -2400,9 +2648,8 @@ RESPONSIVE CSS
     .main-banner .banner-decor-bottom {
         top: auto;
         bottom: -6rem;
-        left: -2rem;
+        left: 0;
         width: 13rem;
-        height: auto;
         transform: rotate(-27deg);
     }
 
@@ -2445,32 +2692,254 @@ RESPONSIVE CSS
         top: 0;
         right: 0;
         margin-top: 5rem;
-        margin-right: 2rem;
-        margin-left: -2.5rem;
-    }
-
-    .about-sec div[class*="about-decor"] {
-        display: none;
+        margin-right: 0;
+        margin-left: 0;
+        position: relative;
+        width: auto;
     }
 
     .about-sec div.about-decor1 {
-        left: auto;
+        left: 9rem;
         right: 0;
-        top: -2.5rem;
-        width: 12.5rem;
-        transform: rotate(45deg);
+        top: -4.5rem;
+        width: 10rem;
+        margin: 0 auto;
     }
 
     .about-sec div.about-decor2 {
-        left: -4.375rem;
-        top: 18.75rem;
+        left: auto;
+        right: -7.75rem;
+        top: 17rem;
         width: 25rem;
+        transform: rotate(130deg);
+        display: none;
+    }
+
+    .about-sec div.about-decor3 {
+        width: 22rem;
+        right: -0.75rem;
+        top: auto;
+        bottom: -2rem;
+    }
+
+    .about-sec div.about-decor4 {
+        width: 3rem;
+        bottom: -6rem;
+    }
+
+    /*==============================
+    BELIEF SECTION
+    ===============================*/
+    .belief-sec {
+        padding-inline: 0.9375rem;
+        padding-bottom: 3.125rem;
+        min-height: 45rem;
+    }
+
+    .belief-sec .belief-decor1 {
+        width: 20.5rem;
+        right: 4.75rem;
+        transform: rotate(-38deg);
+        top: 1rem;
+    }
+
+    .belief-sec .section-header {
+        display: block;
+        flex: initial;
+    }
+
+    .belief-sec .section-title {
+        margin-top: 0;
+        font-size: 3.125rem;
+    }
+
+    .belief-sec .section-desc {
+        margin-top: 3rem;
+        order: 0;
+    }
+
+    .belief-sec .btn-holder {
+        margin-top: 3rem;
+        padding-right: 0;
+        align-items: flex-start;
+    }
+
+    /*==================================
+    CLOUD SECTION
+    ==================================*/
+    .cloud-sec {
+        padding: 3.125rem 0.9375rem;
+        min-height: auto;
+    }
+
+    .cloud-sec div.cloud-decor1 {
+        display: none;
+    }
+
+    .cloud-sec div.cloud-decor2 {
+        width: 28rem;
+        top: 1rem;
+        transform: rotate(-10deg);
+        left: -2rem;
+    }
+
+    .cloud-sec .section-title {
+        flex-basis: 100%;
+        max-width: 100%;
+        line-height: 1.2;
+    }
+
+    .cloud-sec .section-desc {
+        flex-basis: 100%;
+        max-width: 100%;
+        font-size: 2rem;
+        line-height: 1.1;
+        top: 0;
+        margin-top: 1.875rem;
+    }
+
+    .cloud-sec .cloud-img {
+        max-width: 100%;
+        margin-top: 2rem;
+    }
+
+    .cloud-sec .cloud-img:has(img[src*="joyfully-indulgent.svg"]),
+    .cloud-sec .cloud-img:has(img[src*="always-exploring.svg"]) {
+        margin-top: 2rem;
+    }
+
+    .cloud-sec .cloud-img-info {
+        margin-top: 2.5rem;
+        font-size: 1rem;
+    }
+
+    .cloud-sec .cloud-slider-holder .swiper-arrow-holder {
+        gap: 1.25rem;
+    }
+
+    .cloud-sec .cloud-slider-holder .swiper-arrow {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.25rem;
+    }
+
+    /*================================
+    SITE FOOTER
+    =================================*/
+    .site-footer {
+        padding: 3.125rem 0.9375rem;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .site-footer .footer-top {
+        position: relative;
+        z-index: 2;
+    }
+
+    .site-footer .container-fluid {
+        gap: 0;
+    }
+
+    .site-footer .footer-logo {
+        max-width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .site-footer .footer-links {
+        width: 100%;
+        position: relative;
+        padding-bottom: 2.5rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .site-footer .footer-links::after {
+        content: "";
+        background: rgba(255, 255, 255, 0.3);
+        height: 1px;
+        position: absolute;
+        bottom: 0;
+        left: -999px;
+        right: -999px;
+    }
+
+    .site-footer .footer-menu li {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .site-footer .footer-newsletter {
+        max-width: 100%;
+    }
+
+    .site-footer form {
+        text-align: center;
+    }
+
+    .site-footer form .form-control {
+        padding-inline: 1.5rem;
+        height: 3.75rem;
+        font-size: 1.125rem;
+    }
+
+    .site-footer form .btn-submit {
+        min-width: 100%;
+        min-height: 3.75rem;
+        font-size: 1.5rem;
+    }
+
+    .footer-bottom .footer-copyright-holder {
+        flex-basis: 100%;
+        max-width: 100%;
+        padding-bottom: 0;
+        position: relative;
+        z-index: 2;
+    }
+
+    .footer-bottom .social-list {
+        margin-bottom: 1.875rem;
+        justify-content: center;
+    }
+
+    .footer-bottom .social-list li a {
+        width: 2.875rem;
+        height: 2.875rem;
+        font-size: 1.25rem;
+    }
+
+    .footer-copyright {
+        font-size: 0.875rem;
+        text-align: center;
+    }
+
+    .footer-copyright span {
+        padding-left: 0;
+        display: inline;
+    }
+
+    .footer-bottom .footer-decor {
+        flex-basis: 100%;
+        max-width: initial;
+        text-align: center;
+        position: fixed;
+        top: auto;
+        bottom: -15%;
+        left: -8%;
+        right: -8%;
+        width: auto;
+        height: 0;
+        padding-bottom: 100%;
+        opacity: 0.3;
+    }
+
+    .footer-bottom .footer-decor img {
+        width: 100%;
     }
 
 }
 
-@media (max-width: 375px) {
+@media (max-width: 480px) {
     html {
-        font-size: 5vw;
+        font-size: 3.3333vw;
     }
 }
