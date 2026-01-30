@@ -1279,6 +1279,11 @@ COMMON CSS
     color: #fcfdff;
 }
 
+.is-fading {
+    position: relative !important;
+    z-index: -1 !important;
+}
+
 .hs-mb {
     margin-bottom: 1.5rem !important;
 }

@@ -6,8 +6,71 @@ document.fonts.ready.then((fontFaceSet) => {
         ScrollSmoother.create({
             wrapper: "#wrapper",
             content: "#wrapper-inn",
+            smooth: 1,
+            effects: true,
+            normalizeScroll: true,
+            smoothTouch: 0.1
         });
     }
+
+    jQuery('.is-sticky').each(function () {
+        var element = jQuery(this);
+        ScrollTrigger.create({
+            trigger: element,
+            start: "top top",
+            end: "+=120%",
+            pin: true,
+            pinSpacing: false,
+            onEnter: function () {
+                element.addClass('is-pinned');
+            },
+            onLeave: function () {
+                element.removeClass('is-pinned');
+            },
+            onEnterBack: function () {
+                element.addClass('is-pinned');
+            },
+            onLeaveBack: function () {
+                element.removeClass('is-pinned');
+            }
+        });
+    });
+
+    jQuery(".anim-opacity").each(function () {
+        var element = this;
+        gsap.to(element, {
+            opacity: 0,
+            scrollTrigger: {
+                trigger: element,
+                start: "top top",
+                end: "bottom top",
+                scrub: true,
+                onUpdate: function (self) {
+                    var progress = self.progress;
+                    var currentOpacity = 1 - progress; // Calculate opacity based on progress
+
+                    if (currentOpacity < 1) {
+                        jQuery(element).addClass('is-fading');
+                    } else {
+                        jQuery(element).removeClass('is-fading');
+                    }
+                }
+            }
+        });
+    });
+
+    jQuery(".scroll-left").each(function () {
+        var element = jQuery(this);
+        gsap.from(element, {
+            xPercent: -100,
+            scrollTrigger: {
+                trigger: element,
+                start: "top 120%",
+                end: "bottom 70%",
+                scrub: true,
+            }
+        });
+    });
 
     // Wrap each word with span
     jQuery('.wrap-word').each(function () {
@@ -118,57 +181,43 @@ document.fonts.ready.then((fontFaceSet) => {
     });
 
     $('.wrap-word').each(function () {
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: $(this),
-                start: "top 80%",
-                end: "bottom center",
-                scrub: false,
-                toggleActions: "play none play reverse",
-            }
-        });
-        tl.from($(this).find(".custom-word, .highlight"), {
-            opacity: 0.01,
+        gsap.from($(this).find(".custom-word, .highlight"), {
+            opacity: 1,
             skewX: 0,
-            yPercent: 200,
+            yPercent: 100,
             duration: 1,
             stagger: { amount: 0.2 },
-            delay: 0.3
-        }, "<");
+            ease: "back.out(2)",
+            scrollTrigger: {
+                trigger: $(this),
+                start: "top 90%",
+                end: "bottom 50%",
+                scrub: true,
+            }
+        });
     });
 
     $(".headline-animation").each(function () {
         var gsapDelay = jQuery(this).attr('data-gsap-delay') || 0;
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: $(this),
-                start: "top 70%",
-                end: "bottom center",
-                scrub: false,
-                toggleActions: "play none play reverse",
-            }
-        });
-        tl.from($(this).find(".line"), {
-            opacity: 0.01,
+        gsap.from($(this).find(".line"), {
+            opacity: 1,
             skewX: 0,
-            yPercent: 200,
+            yPercent: 100,
             duration: 1,
             stagger: { amount: 0.25 },
-            delay: gsapDelay
-        }, "<");
+            delay: gsapDelay,
+            ease: "back.out(2)",
+            scrollTrigger: {
+                trigger: $(this).find(".line"),
+                start: "top 100%",
+                end: "bottom 80%",
+                scrub: true,
+            }
+        });
     });
 
     $(".list-animation").each(function () {
         var gsapDelay = jQuery(this).attr('data-gsap-delay') || 0;
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: $(this),
-                start: "top 70%",
-                end: "bottom center",
-                scrub: false,
-                toggleActions: "play none play reverse",
-            }
-        });
 
         var animItem;
         if ($(this).find('li').length > 0) {
@@ -177,52 +226,53 @@ document.fonts.ready.then((fontFaceSet) => {
             $(this).find(".line");
         }
 
-        tl.from(animItem, {
+        gsap.from(animItem, {
             opacity: 0.01,
             skewX: 0,
             yPercent: 200,
             duration: 1,
             stagger: { amount: 0.25 },
-            delay: gsapDelay
-        }, "<");
+            delay: gsapDelay,
+            scrollTrigger: {
+                trigger: $(this),
+                start: "top 100%",
+                end: "bottom 70%",
+                scrub: true,
+            }
+        });
     });
 
     $(".paragraph-animation").each(function () {
         var gsapDelay = jQuery(this).attr('data-gsap-delay') || 0;
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: $(this),
-                start: "top 80%",
-                end: "bottom center",
-                scrub: false,
-                toggleActions: "play none play reverse",
-            }
-        });
-        tl.from($(this).find(".word"), {
-            yPercent: 200,
+        gsap.from($(this).find(".word"), {
+            yPercent: 100,
             skewX: 0,
             opacity: 0,
             duration: 1,
             stagger: { amount: 0.5 },
-            delay: gsapDelay
-        }, "<");
+            delay: gsapDelay,
+            ease: "back.out(2)",
+            scrollTrigger: {
+                trigger: $(this),
+                start: "top 80%",
+                end: "bottom 40%",
+                scrub: true,
+            }
+        });
     });
 
     $(".fade-in-up").each(function () {
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: $(this),
-                start: "top bottom",
-                end: "bottom top",
-                scrub: false,
-                toggleActions: "play none play reverse",
-            }
-        });
-        tl.from($(this), {
+        gsap.from($(this), {
             yPercent: 100,
             opacity: 0,
             duration: 1,
-            stagger: { amount: 0.3 }
+            stagger: { amount: 0.3 },
+            scrollTrigger: {
+                trigger: $(this),
+                start: "top 100%",
+                end: "bottom 60%",
+                scrub: true,
+            }
         });
     });
 
@@ -265,60 +315,49 @@ document.fonts.ready.then((fontFaceSet) => {
     });
 
     $(".img-rotate-fade").each(function () {
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: $(this),
-                start: "top 80%",
-                end: "bottom center",
-                scrub: false,
-                toggleActions: "play none play reverse",
-            }
-        });
-        tl.from($(this), {
+        var element = jQuery(this);
+        gsap.from(element, {
             xPercent: 40,
             rotation: 0,
             transformOrigin: "50% center",
-            opacity: 0,
-            duration: 1,
-            stagger: { amount: 0.5 }
+            opacity: 1,
+            scrollTrigger: {
+                trigger: element,
+                start: "top 100%",
+                end: "bottom 80%",
+                scrub: true,
+            }
         });
     });
 
     $(".belief-sec .section-title").each(function () {
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: $(this),
-                start: "top 70%",
-                end: "bottom top",
-                scrub: false,
-                toggleActions: "play none play reverse",
-            }
-        });
-        tl.from($(this).find('.line > .word .char'), {
+        gsap.from($(this).find('.line > .word .char'), {
             xPercent: -300,
             opacity: 0,
             duration: 1,
-            stagger: { amount: 0.5 }
+            stagger: { amount: 0.5 },
+            scrollTrigger: {
+                trigger: $(this),
+                start: "top 90%",
+                end: "bottom 60%",
+                scrub: true,
+            }
         });
     });
 
     $(".belief-sec .highlight").each(function () {
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: $(this),
-                start: "top bottom",
-                end: "bottom top",
-                scrub: false,
-                toggleActions: "play none play reverse",
-            }
-        });
-        tl.from($(this), {
+        gsap.from($(this), {
             yPercent: 100,
             opacity: 0,
             duration: 0.5,
-            delay: 0.75,
             ease: "back.out(2)",
-            stagger: { amount: 3 }
+            stagger: { amount: 3 },
+            scrollTrigger: {
+                trigger: $(this),
+                start: "top 80%",
+                end: "bottom 60%",
+                scrub: true,
+            }
         });
     });
 
@@ -360,223 +399,6 @@ document.fonts.ready.then((fontFaceSet) => {
             stagger: { amount: 0 }
         });
     });
-
-    // $(".st0").each(function () {
-    //     var gsapDelay = jQuery(this).attr('data-gsap-delay') || 0;
-    //     const tl = gsap.timeline({
-    //         scrollTrigger: {
-    //             trigger: $(this),
-    //             start: "top bottom",
-    //             end: "bottom top",
-    //             scrub: false,
-    //             toggleActions: "play none play reverse",
-    //         }
-    //     });
-    //     tl.to($(this), {
-    //         opacity: 1,
-    //         duration: 2,
-    //         delay: gsapDelay,
-    //     });
-    // });
-
-    // $(".st1").each(function () {
-    //     let delayAmt = 0;
-
-    //     for (let i = 0; i < jQuery(this).length; i++) {
-    //         delayAmt += 0.25;
-    //         jQuery(this).eq(i).attr('data-gsap-delay', delayAmt);
-    //     }
-
-    //     var gsapDelay = jQuery(this).attr('data-gsap-delay') || 0;
-    //     const tl = gsap.timeline({
-    //         scrollTrigger: {
-    //             trigger: $(this),
-    //             start: "top bottom",
-    //             end: "bottom top",
-    //             scrub: false,
-    //             toggleActions: "play none play reverse",
-    //         }
-    //     });
-    //     tl.from($(this), {
-    //         rotation: 60,
-    //         yPercent: -100,
-    //         xPercent: -100,
-    //         opacity: 0,
-    //         duration: 1,
-    //         stagger: { amount: 0.5 },
-    //         delay: gsapDelay,
-    //     });
-    // });
-
-    // SVG Fill Animation on Scroll
-    // Animate filled SVG paths by revealing them from 0% to 100%
-
-    console.log('Initializing SVG fill reveal animations...');
-
-    // Animate all SVG paths in banner decorations
-    $(".banner-decor-top svg .decor-bg, .banner-decor-bottom svg .decor-bg").each(function (index) {
-        const pathElement = this;
-
-        // Wrap path in a clipPath for animation
-        const svg = $(pathElement).closest('svg')[0];
-        const pathId = 'path-' + Date.now() + '-' + index;
-        const clipPathId = 'clip-' + Date.now() + '-' + index;
-
-        // Set ID on path
-        pathElement.setAttribute('id', pathId);
-
-        // Create clipPath element
-        const defs = svg.querySelector('defs') || svg.insertBefore(document.createElementNS('http://www.w3.org/2000/svg', 'defs'), svg.firstChild);
-        const clipPath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
-        clipPath.setAttribute('id', clipPathId);
-
-        // Clone the path for clipping
-        const clipPathPath = pathElement.cloneNode(true);
-        clipPathPath.removeAttribute('id');
-        clipPathPath.removeAttribute('class');
-        clipPath.appendChild(clipPathPath);
-        defs.appendChild(clipPath);
-
-        // Apply clip-path to original element
-        pathElement.style.clipPath = `url(#${clipPathId})`;
-
-        // Set initial state - fully visible (we'll animate the clip path)
-        gsap.set(clipPathPath, {
-            attr: {
-                'stroke-dasharray': function () {
-                    const length = clipPathPath.getTotalLength();
-                    return length + ' ' + length;
-                },
-                'stroke-dashoffset': function () {
-                    return clipPathPath.getTotalLength();
-                }
-            },
-            stroke: '#FCFDFF',
-            strokeWidth: 100,
-            fill: 'none'
-        });
-
-        // Animate the clip path
-        gsap.to(clipPathPath, {
-            attr: { 'stroke-dashoffset': 0 },
-            duration: 2,
-            ease: "power1.inOut",
-            scrollTrigger: {
-                trigger: $(pathElement).closest('.banner-decor-top, .banner-decor-bottom')[0],
-                start: "top 80%",
-                end: "bottom 20%",
-                scrub: 1,
-                markers: false,
-                onEnter: () => console.log('Banner SVG fill animation triggered:', index)
-            }
-        });
-    });
-
-    // Animate SVG paths in about section decorations
-    $(".about-decor1 svg .decor-bg, .about-decor2 svg .decor-bg").each(function (index) {
-        const pathElement = this;
-
-        const svg = $(pathElement).closest('svg')[0];
-        const pathId = 'about-path-' + Date.now() + '-' + index;
-        const clipPathId = 'about-clip-' + Date.now() + '-' + index;
-
-        pathElement.setAttribute('id', pathId);
-
-        const defs = svg.querySelector('defs') || svg.insertBefore(document.createElementNS('http://www.w3.org/2000/svg', 'defs'), svg.firstChild);
-        const clipPath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
-        clipPath.setAttribute('id', clipPathId);
-
-        const clipPathPath = pathElement.cloneNode(true);
-        clipPathPath.removeAttribute('id');
-        clipPathPath.removeAttribute('class');
-        clipPath.appendChild(clipPathPath);
-        defs.appendChild(clipPath);
-
-        pathElement.style.clipPath = `url(#${clipPathId})`;
-
-        gsap.set(clipPathPath, {
-            attr: {
-                'stroke-dasharray': function () {
-                    const length = clipPathPath.getTotalLength();
-                    return length + ' ' + length;
-                },
-                'stroke-dashoffset': function () {
-                    return clipPathPath.getTotalLength();
-                }
-            },
-            stroke: '#FCFDFF',
-            strokeWidth: 100,
-            fill: 'none'
-        });
-
-        gsap.to(clipPathPath, {
-            attr: { 'stroke-dashoffset': 0 },
-            duration: 2,
-            ease: "power1.inOut",
-            scrollTrigger: {
-                trigger: $(pathElement).closest('.about-decor1, .about-decor2')[0],
-                start: "top 80%",
-                end: "bottom 20%",
-                scrub: 1,
-                markers: false,
-                onEnter: () => console.log('About SVG fill animation triggered:', index)
-            }
-        });
-    });
-
-    // Animate all other SVG paths
-    $("svg .decor-bg").not(".banner-decor-top svg .decor-bg, .banner-decor-bottom svg .decor-bg, .about-decor1 svg .decor-bg, .about-decor2 svg .decor-bg").each(function (index) {
-        const pathElement = this;
-
-        const svg = $(pathElement).closest('svg')[0];
-        const pathId = 'other-path-' + Date.now() + '-' + index;
-        const clipPathId = 'other-clip-' + Date.now() + '-' + index;
-
-        pathElement.setAttribute('id', pathId);
-
-        const defs = svg.querySelector('defs') || svg.insertBefore(document.createElementNS('http://www.w3.org/2000/svg', 'defs'), svg.firstChild);
-        const clipPath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
-        clipPath.setAttribute('id', clipPathId);
-
-        const clipPathPath = pathElement.cloneNode(true);
-        clipPathPath.removeAttribute('id');
-        clipPathPath.removeAttribute('class');
-        clipPath.appendChild(clipPathPath);
-        defs.appendChild(clipPath);
-
-        pathElement.style.clipPath = `url(#${clipPathId})`;
-
-        gsap.set(clipPathPath, {
-            attr: {
-                'stroke-dasharray': function () {
-                    const length = clipPathPath.getTotalLength();
-                    return length + ' ' + length;
-                },
-                'stroke-dashoffset': function () {
-                    return clipPathPath.getTotalLength();
-                }
-            },
-            stroke: '#FCFDFF',
-            strokeWidth: 100,
-            fill: 'none'
-        });
-
-        gsap.to(clipPathPath, {
-            attr: { 'stroke-dashoffset': 0 },
-            duration: 2,
-            ease: "power1.inOut",
-            scrollTrigger: {
-                trigger: $(pathElement).closest('svg')[0],
-                start: "top 80%",
-                end: "bottom 20%",
-                scrub: 1,
-                markers: false,
-                onEnter: () => console.log('Other SVG fill animation triggered:', index)
-            }
-        });
-    });
-
-    console.log('SVG fill reveal animations initialized');
 });
 
 
