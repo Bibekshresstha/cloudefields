@@ -1677,7 +1677,6 @@ MAIN BANNER
     right: 0;
     pointer-events: none;
     height: 100%;
-    z-index: 9;
 }
 
 .main-banner .banner-img {
@@ -1688,26 +1687,17 @@ MAIN BANNER
     right: 0;
     max-width: 47.5rem;
     margin: 0 auto;
-    transition: all ease-in-out 0.7s;
-    transition-delay: 0.8s;
-    transform: translateY(100%);
-    visibility: hidden;
-}
-
-.main-banner.is-animated .banner-img {
-    transform: translateY(0);
-    visibility: visible;
 }
 
 .main-banner .banner-img img {
     width: 100%;
     position: relative;
-    bottom: -19.375rem;
+    bottom: -40rem;
 }
 
 .main-banner .banner-decor-top {
     position: absolute;
-    top: 10.625rem;
+    top: 18.625rem;
     right: 10.625rem;
     width: 16.5625rem;
     height: auto;
@@ -1716,11 +1706,11 @@ MAIN BANNER
 
 .main-banner .banner-decor-bottom {
     position: absolute;
-    bottom: -10.625rem;
+    bottom: -18.625rem;
     left: -8.125rem;
     width: 25rem;
     height: auto;
-    z-index: 9;
+    z-index: 10;
     overflow: hidden;
 }
 
@@ -1735,6 +1725,8 @@ ABOUT SECTION
 ====================================*/
 .about-sec {
     padding: 3.125rem 1.875rem 5rem 4.375rem;
+    position: relative;
+    z-index: 9;
 }
 
 .about-sec .section-grid {
@@ -1750,14 +1742,14 @@ ABOUT SECTION
 
 .about-sec div.about-decor1 {
     left: 28.75rem;
-    top: 4.6875rem;
+    top: 15.6875rem;
     width: 20.9375rem;
 }
 
 .about-sec div.about-decor2 {
     width: 47.5rem;
     left: 35.625rem;
-    top: 7.5rem;
+    top: 17.5rem;
     right: 0;
     margin: 0 auto;
     z-index: 0;
@@ -1766,12 +1758,12 @@ ABOUT SECTION
 .about-sec div.about-decor3 {
     width: 40rem;
     right: 4.0625rem;
-    top: 16.5625rem;
+    top: 26.5625rem;
 }
 
 .about-sec div.about-decor4 {
     top: auto;
-    bottom: -9.0625rem;
+    bottom: -15.0625rem;
     right: 43.75rem;
     width: 6.25rem;
 }
@@ -2773,6 +2765,7 @@ RESPONSIVE CSS
     .belief-sec .section-desc {
         margin-top: 3rem;
         order: 0;
+        max-width: 100%;
     }
 
     .belief-sec .btn-holder {

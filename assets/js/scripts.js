@@ -89,20 +89,6 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     });
 
-    // jQuery(".banner-logo").each(function () {
-    //     var element = jQuery(this);
-    //     gsap.to(element, {
-    //         yPercent: -100,
-    //         duration: 1.5,
-    //         scrollTrigger: {
-    //             trigger: element,
-    //             start: "30% 25%",
-    //             end: "bottom -70%",
-    //             scrub: true,
-    //         }
-    //     });
-    // });
-
     jQuery('.main-banner .banner-img img').each(function () {
         var element = jQuery(this);
         gsap.to(element, {
@@ -110,50 +96,98 @@ document.fonts.ready.then((fontFaceSet) => {
             duration: 0.5,
             scrollTrigger: {
                 trigger: element,
-                start: "-80% 50%",
+                start: "0% 80%",
                 end: "bottom 100%",
                 scrub: true,
             }
         });
     });
 
-    jQuery(".banner-title").each(function () {
+    jQuery(".main-banner .banner-decor-top").each(function () {
         var element = jQuery(this);
+
         gsap.to(element, {
-            left: '-100%',
-            duration: 15,
+            yPercent: -100,
+            duration: 10,
             scrollTrigger: {
-                trigger: element,
-                start: "top 45%",
-                end: "200% 10%",
+                trigger: '.main-banner .banner-img',
+                start: "20% 30%",
+                end: "50% 10%",
                 scrub: true,
             }
         });
     });
 
-    jQuery(".main-banner .btn-holder").each(function () {
+    jQuery(".main-banner .banner-decor-bottom").each(function () {
         var element = jQuery(this);
+
         gsap.to(element, {
-            right: '-100%',
-            duration: 15,
+            yPercent: -100,
+            duration: 5,
             scrollTrigger: {
                 trigger: element,
-                start: "top 45%",
-                end: "200% 10%",
+                start: "15% bottom",
+                end: "100% 20%",
                 scrub: true,
             }
         });
     });
 
-    jQuery(".main-banner .banner-text").each(function () {
+    jQuery(".about-sec").each(function () {
         var element = jQuery(this);
+
         gsap.to(element, {
-            bottom: '100%',
-            duration: 15,
+            yPercent: -100,
             scrollTrigger: {
                 trigger: element,
-                start: "top 87%",
+                start: "top bottom",
+                end: "bottom 10%",
+                scrub: true,
+                preventOverlaps: true,
+            }
+        });
+    });
+
+    jQuery(".belief-sec").each(function () {
+        var element = jQuery(this);
+
+        gsap.to(element, {
+            yPercent: -100,
+            scrollTrigger: {
+                trigger: element,
+                start: "top top",
                 end: "bottom top",
+                scrub: true,
+                preventOverlaps: true,
+            }
+        });
+    });
+
+    jQuery('.about-sec div[class*="about-decor"]').each(function () {
+        var element = jQuery(this);
+
+        gsap.to(element, {
+            yPercent: -100,
+            duration: 10,
+            scrollTrigger: {
+                trigger: element,
+                start: "top bottom",
+                end: "200% 10%",
+                scrub: true,
+            }
+        });
+    });
+
+    jQuery('.about-sec div.about-decor-4').each(function () {
+        var element = jQuery(this);
+
+        gsap.to(element, {
+            yPercent: -100,
+            duration: 10,
+            scrollTrigger: {
+                trigger: element,
+                start: "top bottom",
+                end: "200% 15%",
                 scrub: true,
             }
         });
@@ -267,38 +301,6 @@ document.fonts.ready.then((fontFaceSet) => {
         }, "<");
     });
 
-    // jQuery(".main-banner .banner-decor-top").each(function () {
-    //     var element = jQuery(this);
-    //     gsap.from(element, {
-    //         height: 0,
-    //         duration: 1,
-    //         delay: 3,
-    //         scrollTrigger: {
-    //             trigger: $(this),
-    //             start: "top bottom",
-    //             end: "bottom center",
-    //             scrub: false,
-    //             toggleActions: "play none play reverse",
-    //         }
-    //     });
-    // });
-
-    // jQuery(".main-banner .banner-decor-bottom").each(function () {
-    //     var element = jQuery(this);
-    //     gsap.from(element, {
-    //         height: 0,
-    //         duration: 1,
-    //         delay: 3.5,
-    //         scrollTrigger: {
-    //             trigger: $(this),
-    //             start: "top bottom",
-    //             end: "bottom center",
-    //             scrub: false,
-    //             toggleActions: "play none play reverse",
-    //         }
-    //     });
-    // });
-
     $('.wrap-word').each(function () {
         gsap.from($(this).find(".custom-word, .highlight"), {
             opacity: 1,
@@ -388,8 +390,8 @@ document.fonts.ready.then((fontFaceSet) => {
             stagger: { amount: 0.3 },
             scrollTrigger: {
                 trigger: $(this),
-                start: "top 100%",
-                end: "bottom 60%",
+                start: "top 120%",
+                end: "bottom 100%",
                 scrub: true,
             }
         });
