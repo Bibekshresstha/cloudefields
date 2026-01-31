@@ -153,6 +153,7 @@ document.fonts.ready.then((fontFaceSet) => {
 
         gsap.to(element, {
             yPercent: -100,
+            duration: 0.5,
             scrollTrigger: {
                 trigger: element,
                 start: "top top",
@@ -173,21 +174,6 @@ document.fonts.ready.then((fontFaceSet) => {
                 trigger: element,
                 start: "top bottom",
                 end: "200% 10%",
-                scrub: true,
-            }
-        });
-    });
-
-    jQuery('.about-sec div.about-decor-4').each(function () {
-        var element = jQuery(this);
-
-        gsap.to(element, {
-            yPercent: -100,
-            duration: 10,
-            scrollTrigger: {
-                trigger: element,
-                start: "top bottom",
-                end: "200% 15%",
                 scrub: true,
             }
         });
@@ -311,8 +297,8 @@ document.fonts.ready.then((fontFaceSet) => {
             ease: "back.out(2)",
             scrollTrigger: {
                 trigger: $(this),
-                start: "top 90%",
-                end: "bottom 50%",
+                start: "top 100%",
+                end: "+=50%",
                 scrub: true,
             }
         });
@@ -365,7 +351,7 @@ document.fonts.ready.then((fontFaceSet) => {
 
     $(".paragraph-animation").each(function () {
         var gsapDelay = jQuery(this).attr('data-gsap-delay') || 0;
-        gsap.from($(this).find(".word"), {
+        gsap.from($(this), {
             yPercent: 100,
             skewX: 0,
             opacity: 0,
@@ -375,8 +361,8 @@ document.fonts.ready.then((fontFaceSet) => {
             ease: "back.out(2)",
             scrollTrigger: {
                 trigger: $(this),
-                start: "top 80%",
-                end: "bottom 40%",
+                start: "-200% 110%",
+                end: "+=50%",
                 scrub: true,
             }
         });
