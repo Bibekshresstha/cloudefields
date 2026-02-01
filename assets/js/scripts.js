@@ -4,53 +4,94 @@ document.fonts.ready.then((fontFaceSet) => {
     gsap.registerPlugin(MotionPathPlugin);
 
     //init scrollsmoother
-    if (jQuery(window).width() > 767) {
-        gsap.registerPlugin(ScrollSmoother);
-        ScrollSmoother.create({
-            wrapper: "#wrapper",
-            content: "#wrapper-inn",
-            smooth: 1,
-            effects: true,
-            normalizeScroll: true,
-            smoothTouch: 0.1
-        });
-    }
+    gsap.registerPlugin(ScrollSmoother);
+    ScrollSmoother.create({
+        wrapper: "#wrapper",
+        content: "#wrapper-inn",
+        smooth: 1,
+        effects: true, // Disable native effects to prevent initial gaps
+        normalizeScroll: false,
+        smoothTouch: 0.1,
+        ignoreMobileResize: true
+    });
 
-    //animate element along snake path - only if elements exist
-    if (jQuery(".decor-svg").length > 0 && jQuery(".decor-path .st0").length > 0) {
-        gsap.to("svg path:not(.decor-bg)", {
-            duration: 5,
-            ease: "power1.inOut",
-            immediateRender: true,
-            motionPath: {
-                path: ".decor-path .st0",
-                autoRotate: true
-            }
-        });
+    // Custom parallax implementation
+    jQuery("[data-speed]").each(function () {
+        let speed = parseFloat(jQuery(this).attr("data-speed"));
 
-    }
+        // Only apply if speed is different from 1
+        if (speed !== 1) {
+            let yVal = (1 - speed) * 100;
+
+            // For high speeds, we need to ensure the trigger covers consistent ground
+            gsap.fromTo(this, {
+                yPercent: 0
+            }, {
+                yPercent: yVal,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: 'body',
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1
+                }
+            });
+        }
+    });
 
     jQuery('.is-sticky').each(function () {
-        var element = jQuery(this);
-        ScrollTrigger.create({
-            trigger: element,
-            start: "top top",
-            end: "+=120%",
-            pin: true,
-            pinSpacing: false,
-            onEnter: function () {
-                element.addClass('is-pinned');
-            },
-            onLeave: function () {
-                element.removeClass('is-pinned');
-            },
-            onEnterBack: function () {
-                element.addClass('is-pinned');
-            },
-            onLeaveBack: function () {
-                element.removeClass('is-pinned');
+        const $sectionBg = $(this);
+
+        // Store original height once
+        const originalHeight = $sectionBg.outerHeight();
+        $sectionBg.data('originalHeight', originalHeight);
+
+        // Pre-sticky parallax tween with live height update
+        gsap.to($sectionBg, {
+            yPercent: -20, // negative or positive
+            ease: "none",
+            scrollTrigger: {
+                trigger: $sectionBg,
+                start: "top 80%",
+                end: "top 20%",
+                scrub: true,
+                markers: false,
+                onUpdate: function () {
+                    const yPercent = Math.abs(gsap.getProperty($sectionBg[0], "yPercent") || 0);
+                    const newHeight = `calc(${originalHeight}px + ${yPercent}%)`;
+                    $sectionBg.css({
+                        'height': newHeight,
+                        'max-height': newHeight
+                    });
+                }
             }
         });
+
+        // Pin the element
+        ScrollTrigger.create({
+            trigger: $sectionBg[0],
+            start: "top top",
+            end: "bottom top",
+            pin: $sectionBg[0],
+            pinSpacing: false,
+            onEnter: function () { $sectionBg.addClass('is-pinned'); },
+            onLeave: function () { $sectionBg.removeClass('is-pinned'); },
+            onEnterBack: function () { $sectionBg.addClass('is-pinned'); },
+            onLeaveBack: function () { $sectionBg.removeClass('is-pinned'); },
+            onRefresh: function () {
+                // Ensure height is correct on refresh
+                const yPercent = Math.abs(gsap.getProperty($sectionBg[0], "yPercent") || 0);
+                const newHeight = `calc(${originalHeight}px + ${yPercent}%)`;
+                $sectionBg.css({
+                    'height': newHeight,
+                    'max-height': newHeight
+                });
+            }
+        });
+
+        // Set initial height
+        $sectionBg.css('height', originalHeight + 'px');
+        $sectionBg.css('max-height', originalHeight + 'px');
     });
 
     jQuery(".anim-opacity").each(function () {
@@ -89,6 +130,30 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     });
 
+    gsap.to(".main-banner .banner-item", {
+        scrollTrigger: {
+            trigger: ".main-banner",
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+        },
+        opacity: 1,
+        y: 0,
+        ease: "none"
+    });
+
+    gsap.to("section[class*='-sec'] > .container-fluid", {
+        scrollTrigger: {
+            trigger: "section[class*='-sec']",
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+        },
+        opacity: 1,
+        y: 0,
+        ease: "none"
+    });
+
     jQuery('.main-banner .banner-img img').each(function () {
         var element = jQuery(this);
         gsap.to(element, {
@@ -96,8 +161,8 @@ document.fonts.ready.then((fontFaceSet) => {
             duration: 0.5,
             scrollTrigger: {
                 trigger: element,
-                start: "0% 80%",
-                end: "bottom 100%",
+                start: "clamp(top 80%)",
+                end: "clamp(bottom 100%)",
                 scrub: true,
             }
         });
@@ -133,43 +198,41 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     });
 
-    jQuery(".about-sec").each(function () {
+    jQuery('.about-sec div[class*="about-decor"], .belief-sec div[class*="belief-decor"]').each(function () {
         var element = jQuery(this);
 
         gsap.to(element, {
             yPercent: -100,
+            duration: 5,
             scrollTrigger: {
                 trigger: element,
                 start: "top bottom",
-                end: "bottom 10%",
+                end: "200% 10%",
                 scrub: true,
-                preventOverlaps: true,
             }
         });
     });
 
-    jQuery(".belief-sec").each(function () {
+    jQuery('.cloud-sec .cloud-decor1').each(function () {
         var element = jQuery(this);
 
         gsap.to(element, {
             yPercent: -100,
-            duration: 0.5,
+            xPercent: -100,
             scrollTrigger: {
                 trigger: element,
-                start: "top top",
-                end: "bottom top",
+                start: "top bottom",
+                end: "200% 10%",
                 scrub: true,
-                preventOverlaps: true,
             }
         });
     });
 
-    jQuery('.about-sec div[class*="about-decor"]').each(function () {
+    jQuery('.cloud-sec .cloud-decor2').each(function () {
         var element = jQuery(this);
 
         gsap.to(element, {
             yPercent: -100,
-            duration: 10,
             scrollTrigger: {
                 trigger: element,
                 start: "top bottom",
@@ -427,7 +490,6 @@ document.fonts.ready.then((fontFaceSet) => {
             xPercent: 40,
             rotation: 0,
             transformOrigin: "50% center",
-            opacity: 1,
             scrollTrigger: {
                 trigger: element,
                 start: "top 100%",
@@ -595,7 +657,6 @@ jQuery(document).ready(function ($) {
                         trigger: jQuery('.cloud-slide').eq(this.activeIndex),
                         start: "top 70%",
                         end: "bottom top",
-                        markers: false,
                         onToggle: (self) => {
                             if (self.isActive) {
                                 jQuery('.cloud-slide').eq(this.activeIndex).addClass('active');

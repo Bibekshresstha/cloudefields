@@ -1166,6 +1166,28 @@ COMMON CSS
     z-index: 99;
 }
 
+section[class*="-sec"] {
+    isolation: isolate;
+}
+
+section[class*="-sec"]>.container-fluid {
+    position: relative;
+    z-index: 1;
+    will-change: transform;
+}
+
+.section-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 120vh;
+    z-index: -1;
+    transform: translateZ(0);
+    will-change: transform;
+}
+
 .custom-word,
 .wrap-word .highlight {
     display: inline-block;
@@ -1568,6 +1590,7 @@ MAIN BANNER
 .main-banner .banner-item {
     position: relative;
     min-height: 66rem;
+    z-index: 999;
 }
 
 .main-banner .banner-logo {
@@ -1710,7 +1733,7 @@ MAIN BANNER
     left: -8.125rem;
     width: 25rem;
     height: auto;
-    z-index: 10;
+    z-index: 999;
     overflow: hidden;
 }
 
@@ -1742,14 +1765,14 @@ ABOUT SECTION
 
 .about-sec div.about-decor1 {
     left: 28.75rem;
-    top: 15.6875rem;
+    top: 4.6875rem;
     width: 20.9375rem;
 }
 
 .about-sec div.about-decor2 {
     width: 47.5rem;
     left: 35.625rem;
-    top: 17.5rem;
+    top: 7.5rem;
     right: 0;
     margin: 0 auto;
     z-index: 0;
@@ -1758,7 +1781,7 @@ ABOUT SECTION
 .about-sec div.about-decor3 {
     width: 40rem;
     right: 4.0625rem;
-    top: 26.5625rem;
+    top: 16.5625rem;
 }
 
 .about-sec div.about-decor4 {
@@ -1814,9 +1837,10 @@ BELIEF SECTION
 .belief-sec {
     padding: 3.125rem 3.125rem 10.625rem 4.375rem;
     min-height: 62rem;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
+    position: relative;
+    z-index: 9;
 }
 
 .belief-sec .container-fluid {
@@ -1834,12 +1858,19 @@ BELIEF SECTION
 
 .belief-sec .belief-decor1 {
     position: absolute;
-    top: 1.5625rem;
+    top: 10.5625rem;
     left: 0;
     width: 38.5625rem;
     right: 19.375rem;
     margin: 0 auto;
     pointer-events: none;
+}
+
+.belief-sec div.belief-decor4 {
+    position: absolute;
+    top: -7.5rem;
+    right: 43.75rem;
+    width: 6.25rem;
 }
 
 .belief-sec .section-header {
@@ -1889,7 +1920,9 @@ CLOUD SECTION
 .cloud-sec {
     padding: 3.75rem 3.75rem 2.1875rem;
     position: relative;
+    z-index: 9;
     min-height: 62rem;
+    overflow: hidden;
 }
 
 .cloud-sec div[class*="cloud-decor"] {
@@ -1909,7 +1942,7 @@ CLOUD SECTION
 .cloud-sec div.cloud-decor2 {
     top: 19.375rem;
     width: 42.8125rem;
-    left: 0px;
+    left: -3.75rem;
 }
 
 .cloud-sec div[class*="cloud-decor"] img {
@@ -2044,6 +2077,8 @@ SITE FOOTER
 ===================================*/
 .site-footer {
     padding: 4.375rem 4.6875rem 0 4.6875rem;
+    position: relative;
+    z-index: 99;
 }
 
 .site-footer .container-fluid {
@@ -2052,6 +2087,10 @@ SITE FOOTER
     justify-content: space-between;
     gap: 2rem;
     align-items: center;
+}
+
+.site-footer>.container-fluid {
+    display: block;
 }
 
 .site-footer .footer-logo {
@@ -2421,6 +2460,12 @@ RESPONSIVE CSS
         top: 2rem;
     }
 
+    .belief-sec div.belief-decor4 {
+        right: 20rem;
+        width: 4rem;
+        bottom: -8rem;
+    }
+
     .belief-sec .section-desc {
         flex-basis: 55%;
         max-width: 55%;
@@ -2452,6 +2497,7 @@ RESPONSIVE CSS
     .cloud-sec div.cloud-decor2 {
         width: 32rem;
         top: 6rem;
+        left: -1.875rem;
     }
 
     .cloud-sec .section-title {
@@ -2636,15 +2682,13 @@ RESPONSIVE CSS
 
     .main-banner .banner-img-holder {
         max-width: 30rem;
+        height: 100%;
     }
 
     .main-banner .banner-img {
         max-width: 20rem;
         left: 0;
-    }
-
-    .main-banner .banner-img img {
-        bottom: -6.25rem;
+        top: 0;
     }
 
     .main-banner .banner-decor-top {
@@ -2752,6 +2796,11 @@ RESPONSIVE CSS
         top: 1rem;
     }
 
+    .belief-sec div.belief-decor4 {
+        width: 3rem;
+        bottom: -6rem;
+    }
+
     .belief-sec .section-header {
         display: block;
         flex: initial;
@@ -2790,7 +2839,7 @@ RESPONSIVE CSS
         width: 28rem;
         top: 1rem;
         transform: rotate(-10deg);
-        left: -2rem;
+        left: -3rem;
     }
 
     .cloud-sec .section-title {
@@ -2840,6 +2889,7 @@ RESPONSIVE CSS
         padding: 3.125rem 0.9375rem;
         overflow: hidden;
         position: relative;
+        transform: translateZ(0);
     }
 
     .site-footer .footer-top {
