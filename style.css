@@ -1659,7 +1659,7 @@ MAIN BANNER
 
 .main-banner .btn-holder {
     margin-top: 3.75rem;
-    max-width: 31.25rem;
+    max-width: 28.25rem;
     width: 100%;
     position: relative;
 }
@@ -1750,6 +1750,7 @@ ABOUT SECTION
     padding: 3.125rem 1.875rem 5rem 4.375rem;
     position: relative;
     z-index: 9;
+    /* overflow: hidden; */
 }
 
 .about-sec .section-grid {

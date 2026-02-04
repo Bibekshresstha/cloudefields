@@ -31,8 +31,8 @@ document.fonts.ready.then((fontFaceSet) => {
                 ease: "none",
                 scrollTrigger: {
                     trigger: 'body',
-                    start: "top bottom",
-                    end: "bottom top",
+                    start: "clamp(top bottom)",
+                    end: "clamp(bottom top)",
                     scrub: 1
                 }
             });
@@ -40,7 +40,7 @@ document.fonts.ready.then((fontFaceSet) => {
     });
 
     jQuery('.is-sticky').each(function () {
-        const $sectionBg = $(this);
+        const $sectionBg = jQuery(this);
 
         // Store original height once
         const originalHeight = $sectionBg.outerHeight();
@@ -52,8 +52,8 @@ document.fonts.ready.then((fontFaceSet) => {
             ease: "none",
             scrollTrigger: {
                 trigger: $sectionBg,
-                start: "top 80%",
-                end: "top 20%",
+                start: "clamp(top 80%)",
+                end: "clamp(bottom top)",
                 scrub: true,
                 markers: false,
                 onUpdate: function () {
@@ -133,8 +133,8 @@ document.fonts.ready.then((fontFaceSet) => {
     gsap.to(".main-banner .banner-item", {
         scrollTrigger: {
             trigger: ".main-banner",
-            start: "top top",
-            end: "bottom top",
+            start: "clamp(top top)",
+            end: "clamp(bottom top)",
             scrub: true,
         },
         opacity: 1,
@@ -145,8 +145,8 @@ document.fonts.ready.then((fontFaceSet) => {
     gsap.to("section[class*='-sec'] > .container-fluid", {
         scrollTrigger: {
             trigger: "section[class*='-sec']",
-            start: "top top",
-            end: "bottom top",
+            start: "clamp(top top)",
+            end: "clamp(bottom top)",
             scrub: true,
         },
         opacity: 1,
@@ -162,7 +162,7 @@ document.fonts.ready.then((fontFaceSet) => {
             scrollTrigger: {
                 trigger: element,
                 start: "clamp(top 80%)",
-                end: "clamp(bottom 100%)",
+                end: "clamp(bottom top)",
                 scrub: true,
             }
         });
@@ -174,10 +174,11 @@ document.fonts.ready.then((fontFaceSet) => {
         gsap.to(element, {
             yPercent: -100,
             duration: 10,
+            ease: "none",
             scrollTrigger: {
                 trigger: '.main-banner .banner-img',
-                start: "20% 30%",
-                end: "50% 10%",
+                start: "clamp(20% 30%)",
+                end: "clamp(50% 10%)",
                 scrub: true,
             }
         });
@@ -189,26 +190,45 @@ document.fonts.ready.then((fontFaceSet) => {
         gsap.to(element, {
             yPercent: -100,
             duration: 5,
+            ease: "none",
             scrollTrigger: {
                 trigger: element,
-                start: "15% bottom",
-                end: "100% 20%",
+                start: "clamp(top 70%)",
+                end: "clamp(bottom top)",
                 scrub: true,
             }
         });
     });
 
-    jQuery('.about-sec div[class*="about-decor"], .belief-sec div[class*="belief-decor"]').each(function () {
+    jQuery('.about-sec div[class*="about-decor"], .belief-sec .belief-decor4').each(function () {
         var element = jQuery(this);
 
         gsap.to(element, {
             yPercent: -100,
             duration: 5,
+            ease: "none",
             scrollTrigger: {
                 trigger: element,
-                start: "top bottom",
+                start: "clamp(top 70%)",
+                end: "clamp(200% 10%)",
+                scrub: true,
+            }
+        });
+    });
+
+    jQuery('.belief-sec .belief-decor1').each(function () {
+        var element = jQuery(this);
+
+        gsap.to(element, {
+            yPercent: -100,
+            duration: 5,
+            ease: "none",
+            scrollTrigger: {
+                trigger: element,
+                start: "top 70%",
                 end: "200% 10%",
                 scrub: true,
+                toggleActions: "play pause none none",
             }
         });
     });
@@ -218,11 +238,12 @@ document.fonts.ready.then((fontFaceSet) => {
 
         gsap.to(element, {
             yPercent: -100,
-            xPercent: -100,
+            opacity: 0,
+            ease: "none",
             scrollTrigger: {
                 trigger: element,
-                start: "top bottom",
-                end: "200% 10%",
+                start: "clamp(top 150%)",
+                end: "clamp(bottom center)",
                 scrub: true,
             }
         });
@@ -233,10 +254,11 @@ document.fonts.ready.then((fontFaceSet) => {
 
         gsap.to(element, {
             yPercent: -100,
+            ease: "none",
             scrollTrigger: {
                 trigger: element,
-                start: "top bottom",
-                end: "200% 10%",
+                start: "clamp(top bottom)",
+                end: "clamp(200% 10%)",
                 scrub: true,
             }
         });
@@ -331,17 +353,17 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     }
 
-    $('.header-top .header-utilities, .site-navigation').each(function () {
+    jQuery('.header-top .header-utilities, .site-navigation').each(function () {
         const tl = gsap.timeline({
             scrollTrigger: {
-                trigger: $(this),
+                trigger: jQuery(this),
                 start: "top bottom",
                 end: "bottom center",
                 scrub: false,
                 toggleActions: "play none play reverse",
             }
         });
-        tl.from($(this).find("ul, ul.main-menu"), {
+        tl.from(jQuery(this).find("ul, ul.main-menu"), {
             opacity: 0.01,
             skewX: 0,
             yPercent: -200,
@@ -350,8 +372,8 @@ document.fonts.ready.then((fontFaceSet) => {
         }, "<");
     });
 
-    $('.wrap-word').each(function () {
-        gsap.from($(this).find(".custom-word, .highlight"), {
+    jQuery('.wrap-word').each(function () {
+        gsap.from(jQuery(this).find(".custom-word, .highlight"), {
             opacity: 1,
             skewX: 0,
             yPercent: 100,
@@ -359,7 +381,7 @@ document.fonts.ready.then((fontFaceSet) => {
             stagger: { amount: 0.2 },
             ease: "back.out(2)",
             scrollTrigger: {
-                trigger: $(this),
+                trigger: jQuery(this),
                 start: "top 100%",
                 end: "+=50%",
                 scrub: true,
@@ -367,9 +389,9 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     });
 
-    $(".headline-animation").each(function () {
+    jQuery(".headline-animation").each(function () {
         var gsapDelay = jQuery(this).attr('data-gsap-delay') || 0;
-        gsap.from($(this).find(".line"), {
+        gsap.from(jQuery(this).find(".line"), {
             opacity: 1,
             skewX: 0,
             yPercent: 100,
@@ -378,7 +400,7 @@ document.fonts.ready.then((fontFaceSet) => {
             delay: gsapDelay,
             ease: "back.out(2)",
             scrollTrigger: {
-                trigger: $(this).find(".line"),
+                trigger: jQuery(this).find(".line"),
                 start: "top 100%",
                 end: "bottom 80%",
                 scrub: true,
@@ -386,14 +408,14 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     });
 
-    $(".list-animation").each(function () {
+    jQuery(".list-animation").each(function () {
         var gsapDelay = jQuery(this).attr('data-gsap-delay') || 0;
 
         var animItem;
-        if ($(this).find('li').length > 0) {
+        if (jQuery(this).find('li').length > 0) {
             animItem = jQuery(this).find('li');
         } else {
-            $(this).find(".line");
+            animItem = jQuery(this).find(".line");
         }
 
         gsap.from(animItem, {
@@ -404,7 +426,7 @@ document.fonts.ready.then((fontFaceSet) => {
             stagger: { amount: 0.25 },
             delay: gsapDelay,
             scrollTrigger: {
-                trigger: $(this),
+                trigger: jQuery(this),
                 start: "top 100%",
                 end: "bottom 70%",
                 scrub: true,
@@ -412,9 +434,9 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     });
 
-    $(".paragraph-animation").each(function () {
+    jQuery(".paragraph-animation").each(function () {
         var gsapDelay = jQuery(this).attr('data-gsap-delay') || 0;
-        gsap.from($(this), {
+        gsap.from(jQuery(this), {
             yPercent: 100,
             skewX: 0,
             opacity: 0,
@@ -423,7 +445,7 @@ document.fonts.ready.then((fontFaceSet) => {
             delay: gsapDelay,
             ease: "back.out(2)",
             scrollTrigger: {
-                trigger: $(this),
+                trigger: jQuery(this),
                 start: "-200% 110%",
                 end: "+=50%",
                 scrub: true,
@@ -431,14 +453,14 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     });
 
-    $(".fade-in-up").each(function () {
-        gsap.from($(this), {
+    jQuery(".fade-in-up").each(function () {
+        gsap.from(jQuery(this), {
             yPercent: 100,
             opacity: 0,
             duration: 1,
             stagger: { amount: 0.3 },
             scrollTrigger: {
-                trigger: $(this),
+                trigger: jQuery(this),
                 start: "top 120%",
                 end: "bottom 100%",
                 scrub: true,
@@ -446,17 +468,17 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     });
 
-    $(".fade-in-left").each(function () {
+    jQuery(".fade-in-left").each(function () {
         const tl = gsap.timeline({
             scrollTrigger: {
-                trigger: $(this),
+                trigger: jQuery(this),
                 start: "top bottom",
                 end: "bottom top",
                 scrub: false,
                 toggleActions: "play none play reverse",
             }
         });
-        tl.from($(this), {
+        tl.from(jQuery(this), {
             xPercent: 40,
             opacity: 0,
             duration: 3,
@@ -464,18 +486,18 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     });
 
-    $(".fade-in-right").each(function () {
+    jQuery(".fade-in-right").each(function () {
         var gsapDelay = jQuery(this).attr('data-gsap-delay') || 0;
         const tl = gsap.timeline({
             scrollTrigger: {
-                trigger: $(this),
+                trigger: jQuery(this),
                 start: "top bottom",
                 end: "bottom top",
                 scrub: false,
                 toggleActions: "play none play reverse",
             }
         });
-        tl.from($(this), {
+        tl.from(jQuery(this), {
             xPercent: -60,
             opacity: 0,
             duration: 1,
@@ -484,7 +506,7 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     });
 
-    $(".img-rotate-fade").each(function () {
+    jQuery(".img-rotate-fade").each(function () {
         var element = jQuery(this);
         gsap.from(element, {
             xPercent: 40,
@@ -499,14 +521,14 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     });
 
-    $(".belief-sec .section-title").each(function () {
-        gsap.from($(this).find('.line > .word .char'), {
+    jQuery(".belief-sec .section-title").each(function () {
+        gsap.from(jQuery(this).find('.line > .word .char'), {
             xPercent: -300,
             opacity: 0,
             duration: 1,
             stagger: { amount: 0.5 },
             scrollTrigger: {
-                trigger: $(this),
+                trigger: jQuery(this),
                 start: "top 90%",
                 end: "bottom 60%",
                 scrub: true,
@@ -514,15 +536,15 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     });
 
-    $(".belief-sec .highlight").each(function () {
-        gsap.from($(this), {
+    jQuery(".belief-sec .highlight").each(function () {
+        gsap.from(jQuery(this), {
             yPercent: 100,
             opacity: 0,
             duration: 0.5,
             ease: "back.out(2)",
             stagger: { amount: 3 },
             scrollTrigger: {
-                trigger: $(this),
+                trigger: jQuery(this),
                 start: "top 80%",
                 end: "bottom 60%",
                 scrub: true,
@@ -530,17 +552,17 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     });
 
-    $(".btn-icon").each(function () {
+    jQuery(".btn-icon").each(function () {
         const tl = gsap.timeline({
             scrollTrigger: {
-                trigger: $(this),
+                trigger: jQuery(this),
                 start: "top bottom",
                 end: "bottom top",
                 scrub: false,
                 toggleActions: "play none play reverse",
             }
         });
-        tl.from($(this), {
+        tl.from(jQuery(this), {
             xPercent: -60,
             opacity: 1,
             duration: 0.3,
@@ -549,17 +571,17 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     });
 
-    $(".btn-text").each(function () {
+    jQuery(".btn-text").each(function () {
         const tl = gsap.timeline({
             scrollTrigger: {
-                trigger: $(this),
+                trigger: jQuery(this),
                 start: "top bottom",
                 end: "bottom top",
                 scrub: false,
                 toggleActions: "play none play reverse",
             }
         });
-        tl.from($(this), {
+        tl.from(jQuery(this), {
             xPercent: -1,
             opacity: 1,
             duration: 0.5,
@@ -568,6 +590,11 @@ document.fonts.ready.then((fontFaceSet) => {
             stagger: { amount: 0 }
         });
     });
+});
+
+jQuery(window).on('load', function () {
+    // Force scroll to top on page load
+    jQuery(window).scrollTop(0);
 });
 
 
