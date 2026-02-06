@@ -168,6 +168,37 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     });
 
+    gsap.set("#revealBrush", {
+        attr: { r: 0 }
+    });
+
+    gsap.to("#revealBrush", {
+        attr: { r: 470 },
+        ease: "none",
+        scrollTrigger: {
+            trigger: ".banner-decor-top .decor-bg",
+            start: "top 50%",
+            end: "bottom 20%",
+            scrub: false,
+        }
+    });
+
+    gsap.set("#revealBrush2", {
+        attr: { r: 0 }
+    });
+
+    gsap.to("#revealBrush2", {
+        attr: { r: 670 },
+        ease: "none",
+        scrollTrigger: {
+            trigger: ".banner-decor-bottom .decor-bg",
+            start: "top 87%",
+            end: "20% 50%",
+            scrub: true,
+            markers: false
+        }
+    });
+
     jQuery(".main-banner .banner-decor-top").each(function () {
         var element = jQuery(this);
 
