@@ -199,6 +199,81 @@ document.fonts.ready.then((fontFaceSet) => {
         }
     });
 
+    const initSectionDecorReveal = () => {
+        const svgTargets = document.querySelectorAll(".decor-reveal svg");
+        let autoIndex = 0;
+
+        svgTargets.forEach((svg) => {
+            if (svg.querySelector("mask")) {
+                return;
+            }
+
+            const rootGroup = svg.querySelector(":scope > g");
+            const viewBox = svg.getAttribute("viewBox");
+            if (!rootGroup || !viewBox) {
+                return;
+            }
+
+            const parts = viewBox.split(/\s+/).map(Number);
+            if (parts.length !== 4 || parts.some(Number.isNaN)) {
+                return;
+            }
+
+            const [, , width, height] = parts;
+            const origin = (svg.closest(".decor-reveal")?.getAttribute("data-reveal-origin") || "center").toLowerCase();
+            const cx = origin === "left" ? 0 : origin === "right" ? width : width / 2;
+            const startCy = 0;
+            const endCy = height;
+            const maxR = Math.max(
+                Math.hypot(cx, height),
+                Math.hypot(width - cx, height)
+            );
+            const maskId = `revealMaskAuto${autoIndex}`;
+            const circleId = `revealBrushAuto${autoIndex}`;
+            autoIndex += 1;
+
+            const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+            const mask = document.createElementNS("http://www.w3.org/2000/svg", "mask");
+            mask.setAttribute("id", maskId);
+
+            const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            rect.setAttribute("width", "100%");
+            rect.setAttribute("height", "100%");
+            rect.setAttribute("fill", "black");
+
+            const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            circle.setAttribute("id", circleId);
+            circle.setAttribute("cx", cx);
+            circle.setAttribute("cy", startCy);
+            circle.setAttribute("r", 0);
+            circle.setAttribute("fill", "white");
+
+            mask.appendChild(rect);
+            mask.appendChild(circle);
+            defs.appendChild(mask);
+            svg.insertBefore(defs, svg.firstChild);
+
+            rootGroup.setAttribute("mask", `url(#${maskId})`);
+
+            const triggerEl = svg.closest(".decor-reveal") || svg;
+            gsap.fromTo(circle, {
+                attr: { r: 0, cy: startCy }
+            }, {
+                attr: { r: maxR, cy: endCy },
+                ease: "none",
+                scrollTrigger: {
+                    trigger: triggerEl,
+                    start: "top 75%",
+                    end: "bottom 20%",
+                    scrub: true,
+                    markers: false
+                }
+            });
+        });
+    };
+
+    initSectionDecorReveal();
+
     jQuery(".main-banner .banner-decor-top").each(function () {
         var element = jQuery(this);
 
