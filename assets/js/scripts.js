@@ -220,9 +220,15 @@ document.fonts.ready.then((fontFaceSet) => {
             }
 
             const [, , width, height] = parts;
-            const origin = (svg.closest(".decor-reveal")?.getAttribute("data-reveal-origin") || "center").toLowerCase();
+            const decorEl = svg.closest(".decor-reveal");
+            const origin = (decorEl?.getAttribute("data-reveal-origin") || "center").toLowerCase();
+            const initialXAttr = decorEl?.getAttribute("data-initial-x");
+            const initialYAttr = decorEl?.getAttribute("data-initial-y");
+            const initialX = initialXAttr !== null ? parseFloat(initialXAttr) : NaN;
+            const initialY = initialYAttr !== null ? parseFloat(initialYAttr) : NaN;
             const cx = origin === "left" ? 0 : origin === "right" ? width : width / 2;
-            const startCy = 0;
+            const startCx = Number.isFinite(initialX) ? initialX : cx;
+            const startCy = Number.isFinite(initialY) ? initialY : 0;
             const endCy = height;
             const maxR = Math.max(
                 Math.hypot(cx, height),
@@ -243,7 +249,7 @@ document.fonts.ready.then((fontFaceSet) => {
 
             const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
             circle.setAttribute("id", circleId);
-            circle.setAttribute("cx", cx);
+            circle.setAttribute("cx", startCx);
             circle.setAttribute("cy", startCy);
             circle.setAttribute("r", 0);
             circle.setAttribute("fill", "white");
@@ -255,16 +261,18 @@ document.fonts.ready.then((fontFaceSet) => {
 
             rootGroup.setAttribute("mask", `url(#${maskId})`);
 
-            const triggerEl = svg.closest(".decor-reveal") || svg;
+            const triggerEl = decorEl || svg;
+            const scrollStart = triggerEl.getAttribute("data-scroll-start") || "top 75%";
+            const scrollEnd = triggerEl.getAttribute("data-scroll-end") || "bottom 20%";
             gsap.fromTo(circle, {
-                attr: { r: 0, cy: startCy }
+                attr: { r: 0, cx: startCx, cy: startCy }
             }, {
-                attr: { r: maxR, cy: endCy },
+                attr: { r: maxR, cx: cx, cy: endCy },
                 ease: "none",
                 scrollTrigger: {
                     trigger: triggerEl,
-                    start: "top 75%",
-                    end: "bottom 20%",
+                    start: scrollStart,
+                    end: scrollEnd,
                     scrub: true,
                     markers: false
                 }
