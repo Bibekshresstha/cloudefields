@@ -190,10 +190,18 @@ document.fonts.ready.then((fontFaceSet) => {
     gsap.to("#revealBrush2", {
         attr: { r: 670 },
         ease: "none",
+        motionPath: {
+            path: "#motionPath",
+            align: "#revealMask2",
+            autoRotate: 40,
+
+        },
+        duration: 5,
+        ease: "none",
         scrollTrigger: {
             trigger: ".banner-decor-bottom .decor-bg",
-            start: "top 87%",
-            end: "20% 50%",
+            start: "top bottom",
+            end: "bottom 50%",
             scrub: true,
             markers: false
         }
