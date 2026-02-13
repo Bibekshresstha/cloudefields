@@ -12,6 +12,80 @@
       --text-fill: #7c4b1f;
       --text-stroke: #ffffff;
     }
+    @font-face {
+      font-family: 'BlockPro-Bold';
+      src: url('assets/fonts/BlockPro-Bold.woff2') format('woff2'),
+      url('assets/fonts/BlockPro-Bold.woff') format('woff');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'BlockPro-Bold';
+      src: url('assets/fonts/BlockPro-Bold.otf') format('Open type');
+      src: url('assets/fonts/BlockPro-Bold.otf') format('Open type'),
+      url('assets/fonts/BlockPro-Bold.woff2') format('woff2'),
+      url('assets/fonts/BlockPro-Bold.woff') format('woff');
+      font-weight: 700;
+      font-style: normal;
+      font-display: auto;
+    }
+
+    @font-face {
+      font-family: 'BlockPro-Condensed';
+      src: url('assets/fonts/BlockPro-Condensed.otf') format('Open type');
+      src: url('assets/fonts/BlockPro-Condensed.otf') format('Open type'),
+      url('assets/fonts/BlockPro-Condensed.woff2') format('woff2'),
+      url('assets/fonts/BlockPro-Condensed.woff') format('woff');
+      font-weight: 400;
+      font-style: normal;
+      font-display: auto;
+    }
+
+    @font-face {
+      font-family: 'BlockPro-ExtraCn';
+      src: url('assets/fonts/BlockPro-ExtraCn.otf') format('Open type');
+      src: url('assets/fonts/BlockPro-ExtraCn.otf') format('Open type'),
+      url('assets/fonts/BlockPro-ExtraCn.woff2') format('woff2'),
+      url('assets/fonts/BlockPro-ExtraCn.woff') format('woff');
+      font-weight: 300;
+      font-style: normal;
+      font-display: auto;
+    }
+
+    @font-face {
+      font-family: 'BlockPro-Regular';
+      src: url('assets/fonts/BlockPro-Regular.otf') format('Open type');
+      src: url('assets/fonts/BlockPro-Regular.otf') format('Open type'),
+      url('assets/fonts/BlockPro-Regular.woff2') format('woff2'),
+      url('assets/fonts/BlockPro-Regular.woff') format('woff');
+      font-weight: 300;
+      font-style: normal;
+      font-display: auto;
+    }
+
+    @font-face {
+      font-family: 'Carlsbad-BoldItalic';
+      src: url('assets/fonts/Carlsbad-BoldItalic.otf') format('Open type');
+      src: url('assets/fonts/Carlsbad-BoldItalic.otf') format('Open type'),
+      url('assets/fonts/Carlsbad-BoldItalic.woff2') format('woff2'),
+      url('assets/fonts/Carlsbad-BoldItalic.woff') format('woff');
+      font-weight: 700;
+      font-style: italic;
+      font-display: auto;
+    }
+
+    @font-face {
+      font-family: 'G2Erika-Mono';
+      src: url('assets/fonts/G2Erika-Mono.otf') format('Open type');
+      src: url('assets/fonts/G2Erika-Mono.otf') format('Open type'),
+      url('assets/fonts/G2Erika-Mono.woff2') format('woff2'),
+      url('assets/fonts/G2Erika-Mono.woff') format('woff');
+      font-weight: 400;
+      font-style: normal;
+      font-display: auto;
+    }
+
     * { box-sizing: border-box; }
     body {
       margin: 0;
@@ -67,8 +141,9 @@
       word-spacing: 2px;
     }
     .snake-text textPath {
-      letter-spacing: 1.1px;
-      word-spacing: 2px;
+      font-family: 'BlockPro-Condensed', sans-serif;
+      letter-spacing: 5px;
+      word-spacing: 8px;
     }
     .snake-text .snake-text-band {
       fill: none;
@@ -78,10 +153,8 @@
       stroke-linejoin: round;
     }
     .snake-text .scroll-text--bg {
-      fill: rgba(15, 17, 21, 0.95);
-      stroke: rgba(15, 17, 21, 0.95);
+      stroke: #ffffff;
       stroke-width: 36px;
-      opacity: 0.9;
     }
     .snake-guide {
       stroke: rgba(253, 254, 255, 0.18);
@@ -89,7 +162,7 @@
       fill: none;
     }
     .section {
-      min-height: 100vh;
+      min-height: 65vw;
       display: grid;
       place-items: center;
       padding: 12vh 6vw;
@@ -236,8 +309,8 @@
       let scrollStart = 0;
       let scrollEnd = 1;
       let offsetStart = 36;
-      const middleGap = '\u00A0'.repeat(15);
-      const fullText = `AT CLOUDFIELDS${middleGap}${middleGap}${middleGap}WE BELIEVE ICE CREAM IS MORE THAN A TREAT ${middleGap} IT'S A SPACE FOR IMAGINATION ${middleGap} A PLACE WHERE CRAFT AND CREATIVITY MEET ${middleGap} WHERE FLAVOURS ARE EXPLORED WITH INTENTION ${middleGap} AND ${middleGap} WHERE JOY IS DESIGNED INTO EVERY DETAIL.EVERY CLOUDFIELDS CREATION IS THOUGHTFULLY CRAFTED ${middleGap} FROM THE BALANCE OF FLAVOURS TO THE SHAPE IT TAKES IN YOURS HANDS.`;
+      const middleGap = '\u00A0'.repeat(5);
+      const fullText = `AT CLOUDFIELDS${middleGap}${middleGap}${middleGap}WE BELIEVE ICE-CREAM IS MORE THAN A TREAT ${middleGap} IT'S A SPACE FOR IMAGINATION ${middleGap} A PLACE WHERE CRAFT AND CREATIVITY MEET ${middleGap} WHERE FLAVOURS ARE EXPLORED WITH INTENTION ${middleGap} AND ${middleGap} WHERE JOY IS DESIGNED INTO EVERY DETAIL.EVERY CLOUDFIELDS CREATION IS THOUGHTFULLY CRAFTED ${middleGap} FROM THE BALANCE OF FLAVOURS TO THE SHAPE IT TAKES IN YOURS HANDS.`;
 
       if (pathEl) {
         const totalLen = pathEl.getTotalLength();
