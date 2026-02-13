@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Snake TextPath Scroll Demo</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --fg: #fdfcff;
+      --accent: #f8d9a0;
+      --text-fill: #7c4b1f;
+      --text-stroke: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", system-ui, -apple-system, Segoe UI, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+    }
+    .page {
+      position: relative;
+      min-height: 100vh;
+    }
+    .snake-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .snake-wrap {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: grid;
+      place-items: center;
+    }
+    .snake-wrap svg {
+      width: min(880px, 88vw);
+      height: auto;
+      display: block;
+    }
+    .snake-text {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      mix-blend-mode: screen;
+      opacity: 0.92;
+    }
+    .snake-text svg {
+      width: min(900px, 88vw);
+      height: auto;
+    }
+    .snake-text text {
+      fill: var(--text-fill);
+      stroke: var(--text-stroke);
+      stroke-width: 12px;
+      paint-order: stroke;
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    .snake-text .scroll-text--bg {
+      fill: rgba(15, 17, 21, 0.95);
+      stroke: rgba(15, 17, 21, 0.95);
+      stroke-width: 26px;
+      opacity: 0.9;
+    }
+    .snake-guide {
+      stroke: rgba(253, 254, 255, 0.18);
+      stroke-width: 2.5;
+      fill: none;
+    }
+    .section {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 12vh 6vw;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    .section h2 {
+      margin: 0 0 14px;
+      font-size: clamp(1.8rem, 3vw, 3.2rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .section p {
+      margin: 0;
+      max-width: 48rem;
+      font-size: clamp(1rem, 1.2vw, 1.2rem);
+      opacity: 0.75;
+    }
+    @media (max-width: 700px) {
+      .snake-text text {
+        font-size: 26px;
+        stroke-width: 10px;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .snake-text {
+        opacity: 0.75;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page" id="snakePage">
+    <div class="snake-layer">
+      <div class="snake-wrap">
+        <div id="snakeSvgHost" aria-hidden="true"></div>
+      </div>
+      <div class="snake-text" aria-hidden="true">
+        <svg viewBox="0 0 1706.1 3750.7">
+          <defs>
+            <filter id="snakeDistort">
+              <feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="2" seed="3" result="noise" />
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+          </defs>
+          <path id="snakeTextPath" d="" />
+          <text class="scroll-text scroll-text--bg" data-speed="1" filter="url(#snakeDistort)">
+            <textPath href="#snakeTextPath" startOffset="0%">
+              .SDNAH SRUOY NI SEKAT TI EPAHS EHT OT SRUOVALF FO ECNALAB EHT MORF DETFARC YLLUFTHGUOHT SI NOITAERC SDLEIFDUOLC YREVE.LIATED YREVE OTNI DENGISED SI YOJ EREHW DNA NOITNETNI HTIW DEROLPXE ERA SRUOVALF EREHW TEEM YRIVITAERC DNA TFARC EREHW ECALP A   NOITANIGAMI ROF ECAPS A S'TI   TAERT A NAHT EROM SI MAERC ECI EVEILEB EW SDLEIFDUOLC TA
+            </textPath>
+          </text>
+          <text class="scroll-text" data-speed="1" filter="url(#snakeDistort)">
+            <textPath href="#snakeTextPath" startOffset="0%">
+              .SDNAH SRUOY NI SEKAT TI EPAHS EHT OT SRUOVALF FO ECNALAB EHT MORF DETFARC YLLUFTHGUOHT SI NOITAERC SDLEIFDUOLC YREVE.LIATED YREVE OTNI DENGISED SI YOJ EREHW DNA NOITNETNI HTIW DEROLPXE ERA SRUOVALF EREHW TEEM YRIVITAERC DNA TFARC EREHW ECALP A   NOITANIGAMI ROF ECAPS A S'TI   TAERT A NAHT EROM SI MAERC ECI EVEILEB EW SDLEIFDUOLC TA
+            </textPath>
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <section class="section" id="section-1">
+      <div>
+        <h2>Hero Section</h2>
+        <p>Scroll to move the text along the snake path.</p>
+      </div>
+    </section>
+    <section class="section" id="section-2">
+      <div>
+        <h2>At Cloudfields</h2>
+        <p>Both text lines should glide as you scroll.</p>
+      </div>
+    </section>
+    <section class="section" id="section-3">
+      <div>
+        <h2>Section Three</h2>
+        <p>The text motion is tied to scroll speed.</p>
+      </div>
+    </section>
+    <section class="section" id="section-4">
+      <div>
+        <h2>Second Last</h2>
+        <p>Subtle distortion increases with faster scroll.</p>
+      </div>
+    </section>
+    <section class="section" id="section-5">
+      <div>
+        <h2>Last Section</h2>
+        <p>Reverse on scroll up.</p>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
+    if (isFirefox) {
+      document.querySelectorAll('#snakeDistort').forEach((filter) => {
+        filter.querySelectorAll('feDisplacementMap').forEach((node) => node.setAttribute('scale', '0'));
+      });
+    }
+
+    const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+    const setupSnakeTextPath = async () => {
+      const [pathSvg, strokeSvg] = await Promise.all([
+        fetch('assets/images/snake-path.svg').then((res) => res.text()),
+        fetch('assets/images/snake-decor-stroke.svg').then((res) => res.text())
+      ]);
+
+      const parser = new DOMParser();
+      const pathDoc = parser.parseFromString(pathSvg, 'image/svg+xml');
+      const strokeDoc = parser.parseFromString(strokeSvg, 'image/svg+xml');
+
+      const pathEl = pathDoc.querySelector('path');
+      const strokeRoot = strokeDoc.querySelector('svg');
+      const host = document.getElementById('snakeSvgHost');
+      const textPath = document.getElementById('snakeTextPath');
+
+      if (!pathEl || !strokeRoot || !host || !textPath) return;
+
+      textPath.setAttribute('d', pathEl.getAttribute('d') || '');
+
+      const strokePath = strokeRoot.querySelector('.st1-bg');
+      if (strokePath) {
+        strokePath.classList.add('snake-guide');
+      }
+
+      host.innerHTML = '';
+      host.appendChild(strokeRoot);
+
+      const textNodes = Array.from(document.querySelectorAll('.scroll-text textPath'));
+
+      let lastY = window.scrollY;
+      let speed = 0;
+      let rafId = null;
+      const sectionStart = document.getElementById('section-2');
+      const sectionEnd = document.getElementById('section-5');
+      const textLayer = document.querySelector('.snake-text');
+      let scrollStart = 0;
+      let scrollEnd = 1;
+      const offsetStart = 36;
+      const fullText = ".SDNAH SRUOY NI SEKAT TI EPAHS EHT OT SRUOVALF FO ECNALAB EHT MORF DETFARC YLLUFTHGUOHT SI NOITAERC SDLEIFDUOLC YREVE.LIATED YREVE OTNI DENGISED SI YOJ EREHW DNA NOITNETNI HTIW DEROLPXE ERA SRUOVALF EREHW TEEM YRIVITAERC DNA TFARC EREHW ECALP A   NOITANIGAMI ROF ECAPS A S'TI   TAERT A NAHT EROM SI MAERC ECI EVEILEB EW SDLEIFDUOLC TA";
+
+      const updateBounds = () => {
+        const viewH = window.innerHeight;
+        const startRect = sectionStart.getBoundingClientRect();
+        const endRect = sectionEnd.getBoundingClientRect();
+        const scrollTop = window.scrollY || window.pageYOffset;
+        // Start while entering section 2 so the first words are visible there.
+        scrollStart = startRect.top + scrollTop - viewH * 0.35;
+        scrollEnd = endRect.top + scrollTop + Math.max(endRect.height - viewH, 1);
+        if (scrollEnd <= scrollStart) {
+          scrollEnd = scrollStart + viewH;
+        }
+      };
+
+      const onScroll = () => {
+        if (rafId) return;
+        rafId = requestAnimationFrame(() => {
+          const currentY = window.scrollY;
+          const delta = currentY - lastY;
+          speed = 0.85 * speed + 0.15 * Math.abs(delta);
+          lastY = currentY;
+
+          // Bidirectional mapping: down scroll moves forward, up scroll reverses.
+          const progress = clamp((currentY - scrollStart) / (scrollEnd - scrollStart), 0, 1);
+          if (textLayer) {
+            textLayer.style.opacity = progress <= 0 ? '0' : '0.92';
+          }
+          const visibleChars = Math.floor(fullText.length * progress);
+          const visibleText = fullText.slice(0, visibleChars);
+          textNodes.forEach((node) => {
+            node.setAttribute('startOffset', `${offsetStart}%`);
+            node.textContent = visibleText;
+          });
+
+          if (!isFirefox) {
+            const scale = clamp(speed * 0.15, 0, 18);
+            document.querySelectorAll('feDisplacementMap').forEach((node) => {
+              node.setAttribute('scale', scale.toFixed(2));
+            });
+          }
+
+          rafId = null;
+        });
+      };
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', () => {
+        updateBounds();
+        onScroll();
+      });
+      updateBounds();
+      onScroll();
+    };
+
+    setupSnakeTextPath();
+  </script>
+</body>
+</html>
