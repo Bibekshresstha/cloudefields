@@ -125,12 +125,12 @@
           <path id="snakeTextPath" d="" />
           <text class="scroll-text scroll-text--bg" data-speed="1" filter="url(#snakeDistort)">
             <textPath href="#snakeTextPath" startOffset="0%">
-              .SDNAH SRUOY NI SEKAT TI EPAHS EHT OT SRUOVALF FO ECNALAB EHT MORF DETFARC YLLUFTHGUOHT SI NOITAERC SDLEIFDUOLC YREVE.LIATED YREVE OTNI DENGISED SI YOJ EREHW DNA NOITNETNI HTIW DEROLPXE ERA SRUOVALF EREHW TEEM YRIVITAERC DNA TFARC EREHW ECALP A   NOITANIGAMI ROF ECAPS A S'TI   TAERT A NAHT EROM SI MAERC ECI EVEILEB EW SDLEIFDUOLC TA
+              
             </textPath>
           </text>
           <text class="scroll-text" data-speed="1" filter="url(#snakeDistort)">
             <textPath href="#snakeTextPath" startOffset="0%">
-              .SDNAH SRUOY NI SEKAT TI EPAHS EHT OT SRUOVALF FO ECNALAB EHT MORF DETFARC YLLUFTHGUOHT SI NOITAERC SDLEIFDUOLC YREVE.LIATED YREVE OTNI DENGISED SI YOJ EREHW DNA NOITNETNI HTIW DEROLPXE ERA SRUOVALF EREHW TEEM YRIVITAERC DNA TFARC EREHW ECALP A   NOITANIGAMI ROF ECAPS A S'TI   TAERT A NAHT EROM SI MAERC ECI EVEILEB EW SDLEIFDUOLC TA
+              
             </textPath>
           </text>
         </svg>
@@ -216,16 +216,49 @@
       const textLayer = document.querySelector('.snake-text');
       let scrollStart = 0;
       let scrollEnd = 1;
-      const offsetStart = 36;
-      const fullText = ".SDNAH SRUOY NI SEKAT TI EPAHS EHT OT SRUOVALF FO ECNALAB EHT MORF DETFARC YLLUFTHGUOHT SI NOITAERC SDLEIFDUOLC YREVE.LIATED YREVE OTNI DENGISED SI YOJ EREHW DNA NOITNETNI HTIW DEROLPXE ERA SRUOVALF EREHW TEEM YRIVITAERC DNA TFARC EREHW ECALP A   NOITANIGAMI ROF ECAPS A S'TI   TAERT A NAHT EROM SI MAERC ECI EVEILEB EW SDLEIFDUOLC TA";
+      let offsetStart = 36;
+      const fullText = "AT CLOUDFIELDS WE BELIEVE ICE CREAM IS MORE THAN A TREAT   IT'S A SPACE FOR IMAGINATION   A PLACE WHERE CRAFT AND CREATIVIRY MEET WHERE FLAVOURS ARE EXPLORED WITH INTENTION AND WHERE JOY IS DESIGNED INTO EVERY DETAIL.EVERY CLOUDFIELDS CREATION IS THOUGHTFULLY CRAFTED FROM THE BALANCE OF FLAVOURS TO THE SHAPE IT TAKES IN YOURS HANDS.";
+
+      if (pathEl) {
+        const totalLen = pathEl.getTotalLength();
+        const delta = Math.max(1, totalLen / 1500);
+        const samples = 1600;
+        let bestLen = 0;
+        let bestY = Number.POSITIVE_INFINITY;
+
+        // Prefer a top point where forward motion goes downward.
+        for (let i = 0; i <= samples; i += 1) {
+          const len = (totalLen * i) / samples;
+          const p = pathEl.getPointAtLength(len);
+          const pNext = pathEl.getPointAtLength(Math.min(totalLen, len + delta));
+          if (pNext.y >= p.y && p.y < bestY) {
+            bestY = p.y;
+            bestLen = len;
+          }
+        }
+
+        // Fallback to absolute top point if needed.
+        if (!Number.isFinite(bestY)) {
+          for (let i = 0; i <= samples; i += 1) {
+            const len = (totalLen * i) / samples;
+            const p = pathEl.getPointAtLength(len);
+            if (p.y < bestY) {
+              bestY = p.y;
+              bestLen = len;
+            }
+          }
+        }
+
+        offsetStart = (bestLen / totalLen) * 100;
+      }
 
       const updateBounds = () => {
         const viewH = window.innerHeight;
         const startRect = sectionStart.getBoundingClientRect();
         const endRect = sectionEnd.getBoundingClientRect();
         const scrollTop = window.scrollY || window.pageYOffset;
-        // Start while entering section 2 so the first words are visible there.
-        scrollStart = startRect.top + scrollTop - viewH * 0.35;
+        // Start exactly at section 2: first visible character is "A".
+        scrollStart = startRect.top + scrollTop;
         scrollEnd = endRect.top + scrollTop + Math.max(endRect.height - viewH, 1);
         if (scrollEnd <= scrollStart) {
           scrollEnd = scrollStart + viewH;
@@ -242,10 +275,11 @@
 
           // Bidirectional mapping: down scroll moves forward, up scroll reverses.
           const progress = clamp((currentY - scrollStart) / (scrollEnd - scrollStart), 0, 1);
+          const inRange = currentY >= scrollStart;
+          const visibleChars = inRange ? Math.max(1, Math.floor(fullText.length * progress)) : 0;
           if (textLayer) {
-            textLayer.style.opacity = progress <= 0 ? '0' : '0.92';
+            textLayer.style.opacity = visibleChars > 0 ? '0.92' : '0';
           }
-          const visibleChars = Math.floor(fullText.length * progress);
           const visibleText = fullText.slice(0, visibleChars);
           textNodes.forEach((node) => {
             node.setAttribute('startOffset', `${offsetStart}%`);
