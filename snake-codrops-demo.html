@@ -28,6 +28,7 @@
       inset: 0;
       pointer-events: none;
       z-index: 1;
+      overflow: visible;
     }
     .snake-wrap {
       position: sticky;
@@ -37,9 +38,10 @@
       place-items: center;
     }
     .snake-wrap svg {
-      width: min(880px, 88vw);
+      width: min(1060px, 95vw);
       height: auto;
       display: block;
+      overflow: visible;
     }
     .snake-text {
       position: absolute;
@@ -50,8 +52,9 @@
       opacity: 0.92;
     }
     .snake-text svg {
-      width: min(900px, 88vw);
+      width: min(1080px, 95vw);
       height: auto;
+      overflow: visible;
     }
     .snake-text text {
       fill: var(--text-fill);
@@ -233,7 +236,8 @@
       let scrollStart = 0;
       let scrollEnd = 1;
       let offsetStart = 36;
-      const fullText = "AT CLOUDFIELDS WE BELIEVE ICE CREAM IS MORE THAN A TREAT   IT'S A SPACE FOR IMAGINATION   A PLACE WHERE CRAFT AND CREATIVIRY MEET WHERE FLAVOURS ARE EXPLORED WITH INTENTION AND WHERE JOY IS DESIGNED INTO EVERY DETAIL.EVERY CLOUDFIELDS CREATION IS THOUGHTFULLY CRAFTED FROM THE BALANCE OF FLAVOURS TO THE SHAPE IT TAKES IN YOURS HANDS.";
+      const middleGap = '\u00A0'.repeat(10);
+      const fullText = `AT CLOUDFIELDS${middleGap}${middleGap}WE BELIEVE ICE CREAM IS MORE THAN A TREAT ${middleGap} IT'S A SPACE FOR IMAGINATION ${middleGap} A PLACE WHERE CRAFT AND CREATIVITY MEET ${middleGap} WHERE FLAVOURS ARE EXPLORED WITH INTENTION ${middleGap} AND ${middleGap} WHERE JOY IS DESIGNED INTO EVERY DETAIL.EVERY CLOUDFIELDS CREATION IS THOUGHTFULLY CRAFTED ${middleGap} FROM THE BALANCE OF FLAVOURS TO THE SHAPE IT TAKES IN YOURS HANDS.`;
 
       if (pathEl) {
         const totalLen = pathEl.getTotalLength();
@@ -277,6 +281,8 @@
         scrollStart = startRect.top + scrollTop - viewH * 0.2;
         // Keep tail reveal later so bottom text doesn't appear too early.
         scrollEnd = endRect.top + scrollTop + Math.max(endRect.height - viewH, 1) + viewH * 0.15;
+        const maxScroll = Math.max(document.documentElement.scrollHeight - viewH, 1);
+        scrollEnd = Math.min(scrollEnd, maxScroll);
         if (scrollEnd <= scrollStart) {
           scrollEnd = scrollStart + viewH;
         }
@@ -298,8 +304,13 @@
             revealProgress = progress;
           } else if (progress <= 0.4) {
             revealProgress = 0.2 + (progress - 0.2) * 2;
+          } else if (progress <= 0.75) {
+            revealProgress = 0.6 + (progress - 0.4) * 0.6;
+          } else if (progress <= 0.9) {
+            // Requested slower tail speed in the 0.7-0.8+ region.
+            revealProgress = 0.81 + (progress - 0.75) * 0.8;
           } else {
-            revealProgress = 0.60 + (progress - 0.4);
+            revealProgress = 0.93 + (progress - 0.9) * 0.7;
           }
           revealProgress = clamp(revealProgress, 0, 1);
           const inRange = currentY >= scrollStart;
@@ -310,6 +321,8 @@
           const visibleText = fullText.slice(0, visibleChars);
           textNodes.forEach((node) => {
             node.setAttribute('startOffset', `${offsetStart}%`);
+            node.removeAttribute('lengthAdjust');
+            node.removeAttribute('textLength');
             node.textContent = visibleText;
           });
 
