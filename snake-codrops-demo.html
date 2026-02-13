@@ -56,16 +56,28 @@
     .snake-text text {
       fill: var(--text-fill);
       stroke: var(--text-stroke);
-      stroke-width: 12px;
+      stroke-width: 14px;
       paint-order: stroke;
-      font-size: 36px;
+      font-size: 46px;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 1.1px;
+      word-spacing: 2px;
+    }
+    .snake-text textPath {
+      letter-spacing: 1.1px;
+      word-spacing: 2px;
+    }
+    .snake-text .snake-text-band {
+      fill: none;
+      stroke: rgba(15, 17, 21, 0.96);
+      stroke-width: 58px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
     .snake-text .scroll-text--bg {
       fill: rgba(15, 17, 21, 0.95);
       stroke: rgba(15, 17, 21, 0.95);
-      stroke-width: 26px;
+      stroke-width: 36px;
       opacity: 0.9;
     }
     .snake-guide {
@@ -97,9 +109,10 @@
     }
     @media (max-width: 700px) {
       .snake-text text {
-        font-size: 26px;
-        stroke-width: 10px;
+        font-size: 34px;
+        stroke-width: 12px;
       }
+      .snake-text .scroll-text--bg { stroke-width: 30px; }
     }
     @media (prefers-reduced-motion: reduce) {
       .snake-text {
@@ -123,6 +136,7 @@
             </filter>
           </defs>
           <path id="snakeTextPath" d="" />
+          <path id="snakeTextBand" class="snake-text-band" d="" />
           <text class="scroll-text scroll-text--bg" data-speed="1" filter="url(#snakeDistort)">
             <textPath href="#snakeTextPath" startOffset="0%">
               
@@ -193,10 +207,12 @@
       const strokeRoot = strokeDoc.querySelector('svg');
       const host = document.getElementById('snakeSvgHost');
       const textPath = document.getElementById('snakeTextPath');
+      const textBand = document.getElementById('snakeTextBand');
 
-      if (!pathEl || !strokeRoot || !host || !textPath) return;
+      if (!pathEl || !strokeRoot || !host || !textPath || !textBand) return;
 
       textPath.setAttribute('d', pathEl.getAttribute('d') || '');
+      textBand.setAttribute('d', pathEl.getAttribute('d') || '');
 
       const strokePath = strokeRoot.querySelector('.st1-bg');
       if (strokePath) {
@@ -257,9 +273,10 @@
         const startRect = sectionStart.getBoundingClientRect();
         const endRect = sectionEnd.getBoundingClientRect();
         const scrollTop = window.scrollY || window.pageYOffset;
-        // Start exactly at section 2: first visible character is "A".
-        scrollStart = startRect.top + scrollTop;
-        scrollEnd = endRect.top + scrollTop + Math.max(endRect.height - viewH, 1);
+        // Start slightly before section 2.
+        scrollStart = startRect.top + scrollTop - viewH * 0.2;
+        // Keep tail reveal later so bottom text doesn't appear too early.
+        scrollEnd = endRect.top + scrollTop + Math.max(endRect.height - viewH, 1) + viewH * 0.15;
         if (scrollEnd <= scrollStart) {
           scrollEnd = scrollStart + viewH;
         }
@@ -275,8 +292,18 @@
 
           // Bidirectional mapping: down scroll moves forward, up scroll reverses.
           const progress = clamp((currentY - scrollStart) / (scrollEnd - scrollStart), 0, 1);
+          let revealProgress = 0;
+          // Speed profile: normal at start/end, faster in middle band.
+          if (progress <= 0.2) {
+            revealProgress = progress;
+          } else if (progress <= 0.4) {
+            revealProgress = 0.2 + (progress - 0.2) * 2;
+          } else {
+            revealProgress = 0.60 + (progress - 0.4);
+          }
+          revealProgress = clamp(revealProgress, 0, 1);
           const inRange = currentY >= scrollStart;
-          const visibleChars = inRange ? Math.max(1, Math.floor(fullText.length * progress)) : 0;
+          const visibleChars = inRange ? Math.max(1, Math.floor(fullText.length * revealProgress)) : 0;
           if (textLayer) {
             textLayer.style.opacity = visibleChars > 0 ? '0.92' : '0';
           }
