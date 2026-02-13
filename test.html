@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>S Curve Text Animation</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eef3ea;
+    font-family: Arial, sans-serif;
+  }
+
+  .wrapper {
+    width: 100%;
+    max-width: 1000px;
+  }
+
+  svg {
+    width: 100%;
+    height: auto;
+  }
+
+  text {
+    fill: #1f4d2b;          /* Text color */
+    stroke: #ffffff;        /* White outline */
+    stroke-width: 20px;      /* Thickness of outline */
+    paint-order: stroke;    /* Keeps stroke outside text */
+    font-size: 40px;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+
+  /* Animation */
+  .moving-text {
+    animation: moveText 10s linear infinite;
+  }
+
+  @keyframes moveText {
+    from { startOffset: 0%; }
+    to   { startOffset: 100%; }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<svg viewBox="0 0 900 350">
+
+  <!-- S Curve Path -->
+  <path id="sCurve"
+        d="M 50 200 
+           C 200 50, 350 350, 500 200
+           S 800 50, 850 200"
+        fill="transparent" />
+
+  <!-- Animated Text -->
+  <text class="moving-text">
+    <textPath href="#sCurve" startOffset="0%">
+      IT'S A MATCH(A) • IT'S A MATCH(A) • IT'S A MATCH(A) • IT'S A MATCH(A) •
+    </textPath>
+  </text>
+
+</svg>
+
+</div>
+
+</body>
+</html>
