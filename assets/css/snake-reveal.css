@@ -1,0 +1,93 @@
+.site-main {
+  position: relative;
+}
+
+.snake-reveal-layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 3;
+  overflow: visible;
+}
+
+.snake-reveal-wrap {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.snake-reveal-wrap svg {
+  width: min(1060px, 95vw);
+  height: auto;
+  display: block;
+  overflow: visible;
+  opacity: 0.1;
+  transform: translateY(-30vh); /* move snake up */
+}
+
+.snake-reveal-text {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  mix-blend-mode: screen;
+  opacity: 0.92;
+}
+
+.snake-reveal-text svg {
+  width: 90vw;
+  margin-right: auto;
+  height: auto;
+  overflow: visible;
+}
+
+.snake-reveal-text text {
+  fill: #7c4b1f;
+  stroke-width: 14px;
+  paint-order: stroke;
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  word-spacing: 2px;
+}
+
+.snake-reveal-text textPath {
+  font-family: 'BlockPro-Bold', sans-serif;
+  letter-spacing: 1.1px;
+  word-spacing: 2px;
+}
+
+.snake-reveal-band {
+  fill: none;
+  stroke: rgba(15, 17, 21, 0.96);
+  stroke-width: 58px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.snake-reveal-text .snake-reveal-bg {
+  stroke: #ffffff;
+  stroke-width: 36px;
+}
+
+.snake-guide {
+  stroke: rgba(253, 254, 255, 0.18);
+  stroke-width: 2.5;
+  fill: none;
+}
+
+@media (max-width: 700px) {
+  .snake-reveal-text text {
+    font-size: 34px;
+    stroke-width: 12px;
+  }
+
+  .snake-reveal-text .snake-reveal-bg {
+    stroke-width: 30px;
+  }
+}
