@@ -6,6 +6,27 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Snake Decor Stroke Scroll Test</title>
 	<style>
+		@font-face {
+			font-family: 'BlockPro-Condensed';
+			src: url('assets/fonts/BlockPro-Condensed.otf') format('Open type');
+			src: url('assets/fonts/BlockPro-Condensed.otf') format('Open type'),
+			url('assets/fonts/BlockPro-Condensed.woff2') format('woff2'),
+			url('assets/fonts/BlockPro-Condensed.woff') format('woff');
+			font-weight: 400;
+			font-style: normal;
+			font-display: auto;
+		}
+
+		@font-face {
+			font-family: 'BlockPro-ExtraCn';
+			src: url('assets/fonts/BlockPro-ExtraCn.otf') format('Open type');
+			src: url('assets/fonts/BlockPro-ExtraCn.otf') format('Open type'),
+			url('assets/fonts/BlockPro-ExtraCn.woff2') format('woff2'),
+			url('assets/fonts/BlockPro-ExtraCn.woff') format('woff');
+			font-weight: 300;
+			font-style: normal;
+			font-display: auto;
+		}
 		:root {
 			--bg: #0f1115;
 			--fg: #e9eef5;
@@ -47,13 +68,20 @@
 		#split {
 			max-width: 900px;
 			line-height: 1.45;
-			font-family: var(--blockProBold);
+			font-family: 'BlockPro-Condensed', sans-serif;
 			font-size: 46px;
 			font-weight: bolder;
 		}
 
 		#split > div > div {
 			z-index: 9;
+			font-size: 40px;
+			border: 5px solid #fff;
+			border-radius: 50px;
+			background: #fff;
+			border-left: 0;
+			border-right: 0;
+			line-height: 1;
 		}
 
 		#split > div > div:last-child {
