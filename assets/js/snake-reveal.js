@@ -124,10 +124,10 @@
         let revealProgress = 0;
         if (progress <= 0.4) {
           revealProgress = progress;
-        } else if (progress <= 0.75) {
+        } else if (progress <= 0.6) {
           revealProgress = 0.4 + (progress - 0.4) * 1.5;
         } else {
-          revealProgress = 0.925 + (progress - 0.75) * 0.3;
+          revealProgress = 0.6 + (progress - 0.6) * 0.7;
         }
         revealProgress = clamp(revealProgress, 0, 1);
 
