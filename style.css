@@ -3102,3 +3102,81 @@ RESPONSIVE CSS
         font-size: 3.3333vw;
     }
 }
+
+/*snake animation css start*/
+#page {
+    position: absolute;
+    top: 29rem;
+    bottom: 80rem;
+    left: 0;
+    right: 0;
+    width: min(98vw, 1400px);
+    margin: 0 auto;
+    z-index: 99;
+}
+
+#split {
+    max-width: 100%;
+    line-height: 1.45;
+    font-family: var(--blockProBold);
+    font-size: calc(clamp(0.95rem, 3.1vw, 2.875rem) * var(--split-responsive-scale, 1));
+    font-weight: bolder;
+    color: #7c4b1f;
+    letter-spacing: 0;
+    width: min(96vw, 1200px);
+    margin: 0 auto;
+    text-transform: uppercase;
+    display: none;
+}
+
+#split > div > div {
+    z-index: 9;
+    font-size: 40px;
+    border: 5px solid #fff;
+    border-radius: 50px;
+    background: #fff;
+    border-left: 0;
+    border-right: 0;
+    line-height: 1;
+}
+
+#split .word {
+    color: #7c4b1f;
+    padding: 0.08em 0.2em;
+    border-radius: 0.15em;
+    display: inline-block;
+}
+
+svg#anim-path {
+    position: relative;
+    top: 0;
+    width: min(96vw, 1200px);
+    height: 100%;
+    stroke: white;
+    fill: none;
+    display: block;
+    margin: 0 auto;
+    overflow: visible;
+    pointer-events: none;
+}
+
+#anim-path .st0 {
+    opacity: 1;
+}
+
+#path-text {
+    font-family: var(--blockProRegular);
+    font-size: 6rem;
+    letter-spacing: 0.05em;
+    word-spacing: 0.1em;
+    fill: #7c4b1f;
+    text-transform: uppercase;
+    stroke: none;
+}
+
+@media (max-width: 900px) {
+    #split {
+        font-size: calc(clamp(1rem, 2.8vw, 2.1rem) * var(--split-responsive-scale, 1));
+    }
+}
+/*snake animation css end*/
