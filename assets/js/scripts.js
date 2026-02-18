@@ -259,6 +259,54 @@ document.fonts.ready.then((fontFaceSet) => {
         }
     }
 
+    //about decor 1 mask
+    const aboutDecor1Svg = document.querySelector(".about-decor1 svg");
+    const aboutDecor1 = aboutDecor1Svg ? aboutDecor1Svg.querySelector("#aboutDecor1") : null;
+    if (aboutDecor1) {
+        const aboutbrush1Tag = aboutDecor1.tagName.toLowerCase();
+
+        if (aboutbrush1Tag === "path") {
+            revealBrush2.removeAttribute("transform");
+            const aboutpathLength2 = aboutDecor1.getTotalLength();
+
+            gsap.set(aboutDecor1, {
+                attr: { fill: "none", stroke: "white" },
+                strokeWidth: 200,
+                strokeLinecap: "round",
+                strokeDasharray: aboutpathLength2,
+                strokeDashoffset: aboutpathLength2
+            });
+
+            gsap.to(aboutDecor1, {
+                strokeDashoffset: 0,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".about-decor1 .decor-bg",
+                    start: "20% bottom",
+                    end: "bottom bottom",
+                    scrub: true,
+                }
+            });
+        } else {
+            gsap.set(aboutDecor1, {
+                attr: { r: 0, fill: "white" }
+            });
+
+            gsap.to(aboutDecor1, {
+                attr: { r: 670 },
+                ease: "none",
+                duration: 5,
+                scrollTrigger: {
+                    trigger: ".about-decor1 .decor-bg",
+                    start: "top bottom",
+                    end: "bottom 50%",
+                    scrub: true,
+                    markers: false
+                }
+            });
+        }
+    }
+
     const initSectionDecorReveal = () => {
         const svgTargets = document.querySelectorAll(".decor-reveal svg");
         let autoIndex = 0;
