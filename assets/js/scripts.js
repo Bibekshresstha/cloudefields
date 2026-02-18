@@ -307,6 +307,150 @@ document.fonts.ready.then((fontFaceSet) => {
         }
     }
 
+    //about decor 2 mask
+    const aboutDecor2Svg = document.querySelector(".about-decor2 svg");
+    const aboutDecor2 = aboutDecor2Svg ? aboutDecor2Svg.querySelector("#aboutBrush2") : null;
+    if (aboutDecor2) {
+        const aboutbrush2Tag = aboutDecor2.tagName.toLowerCase();
+
+        if (aboutbrush2Tag === "path") {
+            aboutDecor2.removeAttribute("transform");
+            const aboutpathLength2 = aboutDecor2.getTotalLength();
+
+            gsap.set(aboutDecor2, {
+                attr: { fill: "none", stroke: "white" },
+                strokeWidth: 200,
+                strokeLinecap: "round",
+                strokeDasharray: aboutpathLength2,
+                strokeDashoffset: aboutpathLength2
+            });
+
+            gsap.to(aboutDecor2, {
+                strokeDashoffset: 0,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".about-decor2 .decor-bg",
+                    start: "20% bottom",
+                    end: "bottom bottom",
+                    scrub: true,
+                }
+            });
+        } else {
+            gsap.set(aboutDecor2, {
+                attr: { r: 0, fill: "white" }
+            });
+
+            gsap.to(aboutDecor2, {
+                attr: { r: 670 },
+                ease: "none",
+                duration: 5,
+                scrollTrigger: {
+                    trigger: ".about-decor2 .decor-bg",
+                    start: "top bottom",
+                    end: "bottom 50%",
+                    scrub: true,
+                    markers: false
+                }
+            });
+        }
+    }
+
+    //about decor 3 mask
+    const aboutDecor3Svg = document.querySelector(".about-decor3 svg");
+    const aboutDecor3 = aboutDecor3Svg ? aboutDecor3Svg.querySelector("#aboutBrush3") : null;
+    if (aboutDecor3) {
+        const aboutbrush3Tag = aboutDecor3.tagName.toLowerCase();
+
+        if (aboutbrush3Tag === "path") {
+            aboutDecor3.removeAttribute("transform");
+            const aboutpathLength3 = aboutDecor3.getTotalLength();
+
+            gsap.set(aboutDecor3, {
+                attr: { fill: "none", stroke: "white" },
+                strokeWidth: 200,
+                strokeLinecap: "round",
+                strokeDasharray: aboutpathLength3,
+                strokeDashoffset: aboutpathLength3
+            });
+
+            gsap.to(aboutDecor3, {
+                strokeDashoffset: 0,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".about-decor3 .decor-bg",
+                    start: "20% bottom",
+                    end: "bottom bottom",
+                    scrub: true,
+                }
+            });
+        } else {
+            gsap.set(aboutDecor3, {
+                attr: { r: 0, fill: "white" }
+            });
+
+            gsap.to(aboutDecor3, {
+                attr: { r: 670 },
+                ease: "none",
+                duration: 5,
+                scrollTrigger: {
+                    trigger: ".about-decor3 .decor-bg",
+                    start: "top bottom",
+                    end: "bottom 50%",
+                    scrub: true,
+                    markers: false
+                }
+            });
+        }
+    }
+
+    //about decor 4 mask (belief-decor4)
+    const aboutDecor4Svg = document.querySelector(".belief-decor4 svg");
+    const aboutDecor4 = aboutDecor4Svg ? aboutDecor4Svg.querySelector("#aboutBrush4") : null;
+    if (aboutDecor4) {
+        const aboutbrush4Tag = aboutDecor4.tagName.toLowerCase();
+
+        if (aboutbrush4Tag === "path") {
+            aboutDecor4.removeAttribute("transform");
+            const aboutpathLength4 = aboutDecor4.getTotalLength();
+
+            gsap.set(aboutDecor4, {
+                attr: { fill: "none", stroke: "white" },
+                strokeWidth: 200,
+                strokeLinecap: "round",
+                strokeDasharray: aboutpathLength4,
+                strokeDashoffset: aboutpathLength4
+            });
+
+            gsap.to(aboutDecor4, {
+                strokeDashoffset: 0,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".belief-decor4 .decor-bg",
+                    start: "20% bottom",
+                    end: "bottom bottom",
+                    scrub: true,
+                }
+            });
+        } else {
+            gsap.set(aboutDecor4, {
+                attr: { r: 0, fill: "white" }
+            });
+
+            gsap.to(aboutDecor4, {
+                attr: { r: 670 },
+                ease: "none",
+                duration: 5,
+                scrollTrigger: {
+                    trigger: ".belief-decor4 .decor-bg",
+                    start: "top bottom",
+                    end: "bottom 50%",
+                    scrub: true,
+                    markers: false
+                }
+            });
+        }
+    }
+
     const initSectionDecorReveal = () => {
         const svgTargets = document.querySelectorAll(".decor-reveal svg");
         let autoIndex = 0;
