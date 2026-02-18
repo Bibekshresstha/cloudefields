@@ -168,44 +168,96 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     });
 
-    gsap.set("#revealBrush", {
-        attr: { r: 0 }
-    });
+    const revealBrush = document.querySelector("#revealBrush");
+    if (revealBrush) {
+        const brushTag = revealBrush.tagName.toLowerCase();
 
-    gsap.to("#revealBrush", {
-        attr: { r: 470 },
-        ease: "none",
-        scrollTrigger: {
-            trigger: ".banner-decor-top .decor-bg",
-            start: "top 50%",
-            end: "bottom 20%",
-            scrub: false,
+        if (brushTag === "path") {
+            const pathLength = revealBrush.getTotalLength();
+
+            gsap.set(revealBrush, {
+                attr: { fill: "none", stroke: "white" },
+                strokeWidth: 150,
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                strokeDasharray: pathLength,
+                strokeDashoffset: pathLength
+            });
+
+            gsap.to(revealBrush, {
+                strokeDashoffset: 0,
+                duration: 2.5,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ".banner-decor-top .decor-bg",
+                    start: "top 60%",
+                    toggleActions: "play none none none"
+                }
+            });
+        } else {
+            gsap.set(revealBrush, {
+                attr: { r: 0, fill: "white" }
+            });
+
+            gsap.to(revealBrush, {
+                attr: { r: 470 },
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".banner-decor-top .decor-bg",
+                    start: "top 50%",
+                    end: "bottom 20%",
+                    scrub: false
+                }
+            });
         }
-    });
+    }
 
-    gsap.set("#revealBrush2", {
-        attr: { r: 0 }
-    });
+    const bottomDecorSvg = document.querySelector(".banner-decor-bottom svg");
+    const revealBrush2 = bottomDecorSvg ? bottomDecorSvg.querySelector("#revealBrush2") : null;
+    if (revealBrush2) {
+        const brush2Tag = revealBrush2.tagName.toLowerCase();
 
-    gsap.to("#revealBrush2", {
-        attr: { r: 670 },
-        ease: "none",
-        motionPath: {
-            path: "#motionPath",
-            align: "#revealMask2",
-            autoRotate: 40,
+        if (brush2Tag === "path") {
+            revealBrush2.removeAttribute("transform");
+            const pathLength2 = revealBrush2.getTotalLength();
 
-        },
-        duration: 5,
-        ease: "none",
-        scrollTrigger: {
-            trigger: ".banner-decor-bottom .decor-bg",
-            start: "top bottom",
-            end: "bottom 50%",
-            scrub: true,
-            markers: false
+            gsap.set(revealBrush2, {
+                attr: { fill: "none", stroke: "white" },
+                strokeWidth: 200,
+                strokeLinecap: "round",
+                strokeDasharray: pathLength2,
+                strokeDashoffset: pathLength2
+            });
+
+            gsap.to(revealBrush2, {
+                strokeDashoffset: 0,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".banner-decor-bottom .decor-bg",
+                    start: "20% bottom",
+                    end: "bottom bottom",
+                    scrub: true,
+                }
+            });
+        } else {
+            gsap.set(revealBrush2, {
+                attr: { r: 0, fill: "white" }
+            });
+
+            gsap.to(revealBrush2, {
+                attr: { r: 670 },
+                ease: "none",
+                duration: 5,
+                scrollTrigger: {
+                    trigger: ".banner-decor-bottom .decor-bg",
+                    start: "top bottom",
+                    end: "bottom 50%",
+                    scrub: true,
+                    markers: false
+                }
+            });
         }
-    });
+    }
 
     const initSectionDecorReveal = () => {
         const svgTargets = document.querySelectorAll(".decor-reveal svg");
@@ -818,6 +870,32 @@ jQuery(document).ready(function ($) {
             }
         }
     });
+
+    // JS-driven SVG draw animation (works for inline SVG only)
+    (function initHeroBannerDecor2MaskDraw() {
+        const basePath = document.querySelector('#hero-banner-decor2-mask-path');
+        if (!basePath || !basePath.parentNode) return;
+
+        const drawPath = basePath.cloneNode(false);
+        drawPath.removeAttribute('id');
+        drawPath.setAttribute('fill', 'none');
+        drawPath.setAttribute('stroke', '#FCFDFF');
+        drawPath.setAttribute('stroke-width', '4');
+        drawPath.setAttribute('stroke-linecap', 'round');
+        drawPath.setAttribute('stroke-linejoin', 'round');
+        drawPath.setAttribute('aria-hidden', 'true');
+        basePath.parentNode.appendChild(drawPath);
+
+        const totalLength = drawPath.getTotalLength();
+        drawPath.style.strokeDasharray = totalLength;
+        drawPath.style.strokeDashoffset = totalLength;
+
+        gsap.to(drawPath, {
+            strokeDashoffset: 0,
+            duration: 3,
+            ease: 'power2.out'
+        });
+    })();
 
 }); //document close
 
