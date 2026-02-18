@@ -261,12 +261,12 @@ document.fonts.ready.then((fontFaceSet) => {
 
     //about decor 1 mask
     const aboutDecor1Svg = document.querySelector(".about-decor1 svg");
-    const aboutDecor1 = aboutDecor1Svg ? aboutDecor1Svg.querySelector("#aboutDecor1") : null;
+    const aboutDecor1 = aboutDecor1Svg ? aboutDecor1Svg.querySelector("#aboutBrush1") : null;
     if (aboutDecor1) {
         const aboutbrush1Tag = aboutDecor1.tagName.toLowerCase();
 
         if (aboutbrush1Tag === "path") {
-            revealBrush2.removeAttribute("transform");
+            aboutDecor1.removeAttribute("transform");
             const aboutpathLength2 = aboutDecor1.getTotalLength();
 
             gsap.set(aboutDecor1, {
