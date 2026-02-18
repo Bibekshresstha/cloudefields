@@ -451,6 +451,150 @@ document.fonts.ready.then((fontFaceSet) => {
         }
     }
 
+    //belief decor 1 mask
+    const beliefDecor1Svg = document.querySelector(".belief-decor1 svg");
+    const beliefDecor1 = beliefDecor1Svg ? beliefDecor1Svg.querySelector("#beliefBrush1") : null;
+    if (beliefDecor1) {
+        const beliefbrush1Tag = beliefDecor1.tagName.toLowerCase();
+
+        if (beliefbrush1Tag === "path") {
+            beliefDecor1.removeAttribute("transform");
+            const beliefpathLength1 = beliefDecor1.getTotalLength();
+
+            gsap.set(beliefDecor1, {
+                attr: { fill: "none", stroke: "white" },
+                strokeWidth: 200,
+                strokeLinecap: "round",
+                strokeDasharray: beliefpathLength1,
+                strokeDashoffset: beliefpathLength1
+            });
+
+            gsap.to(beliefDecor1, {
+                strokeDashoffset: 0,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".belief-decor1 .decor-bg",
+                    start: "20% bottom",
+                    end: "bottom bottom",
+                    scrub: true,
+                }
+            });
+        } else {
+            gsap.set(beliefDecor1, {
+                attr: { r: 0, fill: "white" }
+            });
+
+            gsap.to(beliefDecor1, {
+                attr: { r: 670 },
+                ease: "none",
+                duration: 5,
+                scrollTrigger: {
+                    trigger: ".belief-decor1 .decor-bg",
+                    start: "top bottom",
+                    end: "bottom 50%",
+                    scrub: true,
+                    markers: false
+                }
+            });
+        }
+    }
+
+    //cloud decor 1 mask
+    const cloudDecor1Svg = document.querySelector(".cloud-decor1 svg");
+    const cloudDecor1 = cloudDecor1Svg ? cloudDecor1Svg.querySelector("#cloudBrush1") : null;
+    if (cloudDecor1) {
+        const cloudbrush1Tag = cloudDecor1.tagName.toLowerCase();
+
+        if (cloudbrush1Tag === "path") {
+            cloudDecor1.removeAttribute("transform");
+            const cloudpathLength1 = cloudDecor1.getTotalLength();
+
+            gsap.set(cloudDecor1, {
+                attr: { fill: "none", stroke: "white" },
+                strokeWidth: 200,
+                strokeLinecap: "round",
+                strokeDasharray: cloudpathLength1,
+                strokeDashoffset: cloudpathLength1
+            });
+
+            gsap.to(cloudDecor1, {
+                strokeDashoffset: 0,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".cloud-decor1 .decor-bg",
+                    start: "20% bottom",
+                    end: "bottom bottom",
+                    scrub: true,
+                }
+            });
+        } else {
+            gsap.set(cloudDecor1, {
+                attr: { r: 0, fill: "white" }
+            });
+
+            gsap.to(cloudDecor1, {
+                attr: { r: 670 },
+                ease: "none",
+                duration: 5,
+                scrollTrigger: {
+                    trigger: ".cloud-decor1 .decor-bg",
+                    start: "top bottom",
+                    end: "bottom 50%",
+                    scrub: true,
+                    markers: false
+                }
+            });
+        }
+    }
+
+    //cloud decor 2 mask
+    const cloudDecor2Svg = document.querySelector(".cloud-decor2 svg");
+    const cloudDecor2 = cloudDecor2Svg ? cloudDecor2Svg.querySelector("#cloudBrush2") : null;
+    if (cloudDecor2) {
+        const cloudbrush2Tag = cloudDecor2.tagName.toLowerCase();
+
+        if (cloudbrush2Tag === "path") {
+            cloudDecor2.removeAttribute("transform");
+            const cloudpathLength2 = cloudDecor2.getTotalLength();
+
+            gsap.set(cloudDecor2, {
+                attr: { fill: "none", stroke: "white" },
+                strokeWidth: 200,
+                strokeLinecap: "round",
+                strokeDasharray: cloudpathLength2,
+                strokeDashoffset: cloudpathLength2
+            });
+
+            gsap.to(cloudDecor2, {
+                strokeDashoffset: 0,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".cloud-decor2 .decor-bg",
+                    start: "20% bottom",
+                    end: "bottom bottom",
+                    scrub: true,
+                }
+            });
+        } else {
+            gsap.set(cloudDecor2, {
+                attr: { r: 0, fill: "white" }
+            });
+
+            gsap.to(cloudDecor2, {
+                attr: { r: 670 },
+                ease: "none",
+                duration: 5,
+                scrollTrigger: {
+                    trigger: ".cloud-decor2 .decor-bg",
+                    start: "top bottom",
+                    end: "bottom 50%",
+                    scrub: true,
+                    markers: false
+                }
+            });
+        }
+    }
+
     const initSectionDecorReveal = () => {
         const svgTargets = document.querySelectorAll(".decor-reveal svg");
         let autoIndex = 0;
@@ -977,7 +1121,7 @@ jQuery(document).ready(function ($) {
 
     //add animated class on main banner
     setTimeout(function () {
-        jQuery('.main-banner').addClass('is-animated');
+        jQuery('.main-banner, body:not(.home) .logo').addClass('is-animated');
     }, 700);
 
     if (jQuery(window).width() > 1023) {
