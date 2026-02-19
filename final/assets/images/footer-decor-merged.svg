@@ -1,0 +1,38 @@
+<svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Top arc: Left (100,300) to Right (500,300) with Radius 200 -->
+    <path id="topPath" d="M 100, 300 A 200,200 0 1,1 500,300" />
+    
+    <!-- Bottom arc: Right (500,300) to Left (100,300) with Radius 200 -->
+    <path id="bottomPath" d="M 500, 300 A 200,200 0 1,1 100,300" />
+  </defs>
+
+  <!-- Background Sticker Layer (Merged) -->
+  <g stroke="#FDFEFF" stroke-width="50" stroke-linecap="round" stroke-linejoin="round" fill="none" font-family="'BlockPro-Condensed', Impact, sans-serif" font-weight="bold">
+    <!-- Adjusted size to 36 to fit long text on 200px radius -->
+    <text font-size="36" letter-spacing="4">
+      <textPath href="#topPath" startOffset="50%" text-anchor="middle">
+        PAUSE, SMILE, ENJOY AND DREAM.
+      </textPath>
+    </text>
+    <text font-size="40" letter-spacing="1">
+      <textPath href="#bottomPath" startOffset="50%" text-anchor="middle">
+        ICE CREAMS THAT MAKE YOU
+      </textPath>
+    </text>
+  </g>
+
+  <!-- Foreground Text Layer (Merged) -->
+  <g fill="#F05423" font-family="'BlockPro-Condensed', Impact, sans-serif" font-weight="bold">
+    <text font-size="36" letter-spacing="4">
+      <textPath href="#topPath" startOffset="50%" text-anchor="middle">
+        PAUSE, SMILE, ENJOY AND DREAM.
+      </textPath>
+    </text>
+    <text font-size="40" letter-spacing="1">
+      <textPath href="#bottomPath" startOffset="50%" text-anchor="middle">
+        ICE CREAMS THAT MAKE YOU
+      </textPath>
+    </text>
+  </g>
+</svg>

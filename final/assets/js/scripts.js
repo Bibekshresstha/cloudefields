@@ -476,7 +476,7 @@ document.fonts.ready.then((fontFaceSet) => {
                     trigger: ".belief-decor1 .decor-bg",
                     start: "top 85%",
                     end: "bottom 20%",
-                    scrub: true
+                    scrub: true,
                 }
             });
         } else {
