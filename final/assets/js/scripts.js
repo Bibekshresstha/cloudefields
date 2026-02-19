@@ -221,6 +221,7 @@ document.fonts.ready.then((fontFaceSet) => {
             revealBrush2.removeAttribute("transform");
             const pathLength2 = revealBrush2.getTotalLength();
 
+            gsap.set(bottomDecorSvg, { opacity: 0 });
             gsap.set(revealBrush2, {
                 attr: { fill: "none", stroke: "white" },
                 strokeWidth: 200,
@@ -237,6 +238,8 @@ document.fonts.ready.then((fontFaceSet) => {
                     start: "20% bottom",
                     end: "bottom bottom",
                     scrub: true,
+                    onEnter: () => gsap.to(bottomDecorSvg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
+                    onLeaveBack: () => gsap.to(bottomDecorSvg, { opacity: 0, duration: 0.3 }),
                 }
             });
         } else {
@@ -269,6 +272,7 @@ document.fonts.ready.then((fontFaceSet) => {
             aboutDecor1.removeAttribute("transform");
             const aboutpathLength2 = aboutDecor1.getTotalLength();
 
+            gsap.set(aboutDecor1Svg, { opacity: 0 });
             gsap.set(aboutDecor1, {
                 attr: { fill: "none", stroke: "white" },
                 strokeWidth: 200,
@@ -285,6 +289,8 @@ document.fonts.ready.then((fontFaceSet) => {
                     start: "20% bottom",
                     end: "bottom bottom",
                     scrub: true,
+                    onEnter: () => gsap.to(aboutDecor1Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
+                    onLeaveBack: () => gsap.to(aboutDecor1Svg, { opacity: 0, duration: 0.3 }),
                 }
             });
         } else {
@@ -317,6 +323,7 @@ document.fonts.ready.then((fontFaceSet) => {
             aboutDecor2.removeAttribute("transform");
             const aboutpathLength2 = aboutDecor2.getTotalLength();
 
+            gsap.set(aboutDecor2Svg, { opacity: 0 });
             gsap.set(aboutDecor2, {
                 attr: { fill: "none", stroke: "white" },
                 strokeWidth: 200,
@@ -333,6 +340,8 @@ document.fonts.ready.then((fontFaceSet) => {
                     start: "20% bottom",
                     end: "bottom bottom",
                     scrub: true,
+                    onEnter: () => gsap.to(aboutDecor2Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
+                    onLeaveBack: () => gsap.to(aboutDecor2Svg, { opacity: 0, duration: 0.3 }),
                 }
             });
         } else {
@@ -365,6 +374,7 @@ document.fonts.ready.then((fontFaceSet) => {
             aboutDecor3.removeAttribute("transform");
             const aboutpathLength3 = aboutDecor3.getTotalLength();
 
+            gsap.set(aboutDecor3Svg, { opacity: 0 });
             gsap.set(aboutDecor3, {
                 attr: { fill: "none", stroke: "white" },
                 strokeWidth: 200,
@@ -381,6 +391,8 @@ document.fonts.ready.then((fontFaceSet) => {
                     start: "20% bottom",
                     end: "bottom bottom",
                     scrub: true,
+                    onEnter: () => gsap.to(aboutDecor3Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
+                    onLeaveBack: () => gsap.to(aboutDecor3Svg, { opacity: 0, duration: 0.3 }),
                 }
             });
         } else {
@@ -413,6 +425,7 @@ document.fonts.ready.then((fontFaceSet) => {
             aboutDecor4.removeAttribute("transform");
             const aboutpathLength4 = aboutDecor4.getTotalLength();
 
+            gsap.set(aboutDecor4Svg, { opacity: 0 });
             gsap.set(aboutDecor4, {
                 attr: { fill: "none", stroke: "white" },
                 strokeWidth: 200,
@@ -429,6 +442,8 @@ document.fonts.ready.then((fontFaceSet) => {
                     start: "20% bottom",
                     end: "bottom bottom",
                     scrub: true,
+                    onEnter: () => gsap.to(aboutDecor4Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
+                    onLeaveBack: () => gsap.to(aboutDecor4Svg, { opacity: 0, duration: 0.3 }),
                 }
             });
         } else {
@@ -461,6 +476,7 @@ document.fonts.ready.then((fontFaceSet) => {
             beliefDecor1.removeAttribute("transform");
             const beliefpathLength1 = 3000;
 
+            gsap.set(beliefDecor1Svg, { opacity: 0 });
             gsap.set(beliefDecor1, {
                 attr: { fill: "none", stroke: "white" },
                 strokeWidth: 200,
@@ -477,6 +493,8 @@ document.fonts.ready.then((fontFaceSet) => {
                     start: "top 85%",
                     end: "bottom 20%",
                     scrub: true,
+                    onEnter: () => gsap.to(beliefDecor1Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
+                    onLeaveBack: () => gsap.to(beliefDecor1Svg, { opacity: 0, duration: 0.3 }),
                 }
             });
         } else {
@@ -509,6 +527,7 @@ document.fonts.ready.then((fontFaceSet) => {
             cloudDecor1.removeAttribute("transform");
             const cloudpathLength1 = cloudDecor1.getTotalLength();
 
+            gsap.set(cloudDecor1Svg, { opacity: 0 });
             gsap.set(cloudDecor1, {
                 attr: { fill: "none", stroke: "white" },
                 strokeWidth: 200,
@@ -525,6 +544,8 @@ document.fonts.ready.then((fontFaceSet) => {
                     start: "20% bottom",
                     end: "bottom bottom",
                     scrub: true,
+                    onEnter: () => gsap.to(cloudDecor1Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
+                    onLeaveBack: () => gsap.to(cloudDecor1Svg, { opacity: 0, duration: 0.3 }),
                 }
             });
         } else {
@@ -557,6 +578,7 @@ document.fonts.ready.then((fontFaceSet) => {
             cloudDecor2.removeAttribute("transform");
             const cloudpathLength2 = cloudDecor2.getTotalLength();
 
+            gsap.set(cloudDecor2Svg, { opacity: 0 });
             gsap.set(cloudDecor2, {
                 attr: { fill: "none", stroke: "white" },
                 strokeWidth: 320,
@@ -573,6 +595,8 @@ document.fonts.ready.then((fontFaceSet) => {
                     start: "20% bottom",
                     end: "bottom bottom",
                     scrub: true,
+                    onEnter: () => gsap.to(cloudDecor2Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
+                    onLeaveBack: () => gsap.to(cloudDecor2Svg, { opacity: 0, duration: 0.3 }),
                 }
             });
         } else {
