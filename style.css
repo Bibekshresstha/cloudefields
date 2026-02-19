@@ -2637,10 +2637,6 @@ body.page:not(.home) .site-header .logo {
     background: var(--purple-color);
 }
 
-.page .site-navigation ul.main-menu li a {
-    background: rgba(20, 36, 51, 0.3);
-}
-
 .contact-page-outer {
     padding: 10rem 3.125rem;
 }
@@ -2810,6 +2806,10 @@ RESPONSIVE CSS
     .site-navigation .close {
         display: none;
     }
+
+    .page .site-navigation ul.main-menu li a {
+        background: rgba(20, 36, 51, 0.3);
+    }
 }
 
 @media (min-width: 1025px) {
@@ -2830,7 +2830,7 @@ RESPONSIVE CSS
     }
 
     .site-header .site-navigation {
-        padding-left: 167px;
+        padding-left: 10.4375rem;
     }
 
     /*================================
@@ -3148,6 +3148,10 @@ RESPONSIVE CSS
     /*=======================================
     SITE HEADER
     =======================================*/
+    .nav_active .site-header {
+        z-index: 9999;    
+    }
+
     .site-header .header-top {
         padding: 1.25rem 0.9375rem;
     }
@@ -3162,8 +3166,13 @@ RESPONSIVE CSS
         font-size: 1rem;
     }
 
+    body.nav_active {
+        overflow: hidden;
+    }
+
     .site-header .site-navigation {
         position: fixed;
+        padding: 0;
         inset: 0;
         background: rgba(0, 0, 0, 0.75);
         justify-content: center;
@@ -3171,6 +3180,8 @@ RESPONSIVE CSS
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
+        z-index: 999;
+        height: 100svh;
     }
 
     .nav_active .site-header .site-navigation {
