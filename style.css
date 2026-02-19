@@ -2601,6 +2601,199 @@ SINGLE PAGE
     margin-top: -3.75rem;
 }
 
+/*=======================================
+PAGE
+=======================================*/
+body.page:not(.home) .site-header .logo {
+    color: var(--orange-color);
+}
+
+.page #wrapper {
+    background: var(--purple-color);
+}
+
+.page .site-header {
+    background: var(--purple-color);
+}
+
+.page .site-header .social-list li a {
+    background: #5A5B5B;
+    color: var(--white-color);
+}
+
+.page .site-header .social-list li a:hover {
+    background: var(--orange-color);
+}
+
+.page .menu-toggle-holder .menu-toggle {
+    background: #5a5b5b;
+}
+
+.page .menu-toggle-holder .menu-toggle span {
+    background: var(--purple-color);
+}
+
+.page .site-navigation ul.main-menu li a {
+    background: rgba(20, 36, 51, 0.3);
+}
+
+.contact-page-outer {
+    padding: 10rem 3.125rem;
+}
+
+.contact-page-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.contact-page-inner .contact-info-holder {
+    flex-basis: 27%;
+    max-width: 27%;
+}
+
+.contact-page-inner .contact-form-holder {
+    flex-basis: 65%;
+    max-width: 65%;
+}
+
+.page-title {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-family: 'BlockPro-Condensed';
+    font-size: 4.6875rem;
+    line-height: 0.76;
+    letter-spacing: -0.1px;
+    color: var(--orange-color);
+}
+
+.page-content {
+    margin: 0;
+    font-size: 1.4375rem;
+    line-height: 1;
+    letter-spacing: -0.05px;
+    color: var(--white-color);
+}
+
+.page-content > * {
+    margin-bottom: 1.2rem;
+}
+
+.page-content > *:last-child {
+    margin-bottom: 0;
+}
+
+.contact-page-outer .page-content {
+    max-width: 25rem;
+}
+
+.contact-page-outer .contact-info {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.contact-page-outer .contact-info li {
+    margin-top: 3.75rem;
+    margin-bottom: 0;
+    color: var(--white-color);
+    font-size: 1.75rem;
+    line-height: 1;
+    letter-spacing: -0.05px;
+}
+
+.contact-page-outer .contact-info li .contact-info-title {
+    display: block;
+    margin-bottom: 1.25rem;
+    font-size: 1.1875rem;
+    line-height: 1.2;
+    color: rgba(252, 252, 252, 0.6);
+}
+
+.contact-page-outer .contact-info li a {
+    color: inherit;
+}
+
+.contact-page-outer .contact-info li a:hover {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.375rem;
+}
+
+.form-row .form-group {
+    flex-basis: calc(50% - 0.6875rem);
+    max-width: calc(50% - 0.6875rem);
+}
+
+.form-group {
+    flex-basis: 100%;
+    max-width: 100%;
+    margin-bottom: 1.875rem;
+}
+
+.form-group .form-label {
+    display: block;
+    margin-bottom: 0.875rem;
+    font-size: 1.1875rem;
+    line-height: 1.2;
+    color: var(--white-color);
+    letter-spacing: -0.05px;
+}
+
+.form-group .form-label .required {
+    border: none;
+    cursor: default;
+}
+
+.form-group .form-control {
+    background: #b698a6;
+    border-radius: 0.75rem;
+    height: 4.375rem;
+    padding: 0.625rem 1.25rem;
+    border: none;
+    font-size: 1.1875rem;
+    color: var(--purple-color);
+}
+
+.form-group .form-control:focus {
+    color: var(--purple-color);
+}
+
+.form-group textarea.form-control {
+    height: 12.625rem;
+}
+
+button.btn.btn-submit {
+    min-height: 4.375rem;
+    min-width: 17.5rem;
+    border-radius: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 0.625rem 1.25rem;
+    letter-spacing: -0.05px;
+    font-weight: 400;
+    background: var(--orange-color);
+    border-color: var(--orange-color);
+}
+
+button.btn.btn-submit:not(.disabled):not([disabled]):hover {
+    background: none;
+    color: var(--orange-color);
+}
+
+button.btn.btn-submit:focus {
+    outline: none;
+    color: var(--white-color);
+}
+
 /*====================================
 RESPONSIVE CSS
 ===================================*/
@@ -2905,6 +3098,32 @@ RESPONSIVE CSS
 
     .single-prod-outer .single-prod-subtitle {
         font-size: 2rem;
+    }
+
+    /*=======================================
+    PAGE
+    =======================================*/
+    .contact-page-outer {
+        padding: 5rem 1.875rem;
+    }
+
+    .contact-page-inner {
+        gap: 1.5rem;
+    }
+
+    .contact-page-inner .contact-info-holder, 
+    .contact-page-inner .contact-form-holder {
+        flex-basis: calc(50% - 0.75rem);
+        max-width: calc(50% - 0.75rem);
+    }
+
+    .contact-page-outer .contact-info li {
+        font-size: 1.4rem;
+    }
+
+    .form-row .form-group {
+        flex-basis: 100%;
+        max-width: 100%;
     }
 }
 
@@ -3422,6 +3641,31 @@ RESPONSIVE CSS
         flex-basis: 100%;
         max-width: 100%;
         background: none;
+    }
+
+    /*=======================================
+    PAGE
+    =======================================*/
+    .contact-page-outer {
+        padding: 3.75rem 1.25rem;
+    }
+
+    .contact-page-inner {
+        gap: 0;
+    }
+
+    .contact-page-inner .contact-info-holder, 
+    .contact-page-inner .contact-form-holder {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+
+    .contact-page-inner .contact-info-holder {
+        margin-bottom: 5rem;
+    }
+
+    .contact-page-outer .contact-info li {
+        font-size: 1.75rem;
     }
 
 }
