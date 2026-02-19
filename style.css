@@ -2304,6 +2304,10 @@ SITE FOOTER
     color: #95f1f6;
 }
 
+.footer-newsletter .form-row {
+    display: block;
+}
+
 .site-footer form .footer-group {
     margin-bottom: 1.25rem;
 }
