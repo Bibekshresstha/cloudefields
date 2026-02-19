@@ -459,7 +459,7 @@ document.fonts.ready.then((fontFaceSet) => {
 
         if (beliefbrush1Tag === "path") {
             beliefDecor1.removeAttribute("transform");
-            const beliefpathLength1 = beliefDecor1.getTotalLength();
+            const beliefpathLength1 = 3000;
 
             gsap.set(beliefDecor1, {
                 attr: { fill: "none", stroke: "white" },
@@ -474,9 +474,10 @@ document.fonts.ready.then((fontFaceSet) => {
                 ease: "none",
                 scrollTrigger: {
                     trigger: ".belief-decor1 .decor-bg",
-                    start: "20% bottom",
-                    end: "bottom bottom",
+                    start: "top 85%",
+                    end: "bottom 20%",
                     scrub: true,
+                    markers : true
                 }
             });
         } else {
