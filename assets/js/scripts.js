@@ -559,7 +559,7 @@ document.fonts.ready.then((fontFaceSet) => {
 
             gsap.set(cloudDecor2, {
                 attr: { fill: "none", stroke: "white" },
-                strokeWidth: 200,
+                strokeWidth: 320,
                 strokeLinecap: "round",
                 strokeDasharray: cloudpathLength2,
                 strokeDashoffset: cloudpathLength2
