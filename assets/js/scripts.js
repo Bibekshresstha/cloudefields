@@ -286,7 +286,7 @@ document.fonts.ready.then((fontFaceSet) => {
                 ease: "none",
                 scrollTrigger: {
                     trigger: ".about-decor1 .decor-bg",
-                    start: "20% bottom",
+                    start: "20% 95%",
                     end: "bottom bottom",
                     scrub: true,
                     onEnter: () => gsap.to(aboutDecor1Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
@@ -337,8 +337,8 @@ document.fonts.ready.then((fontFaceSet) => {
                 ease: "none",
                 scrollTrigger: {
                     trigger: ".about-decor2 .decor-bg",
-                    start: "20% bottom",
-                    end: "bottom bottom",
+                    start: "20% 60%",
+                    end: "40% center",
                     scrub: true,
                     onEnter: () => gsap.to(aboutDecor2Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
                     onLeaveBack: () => gsap.to(aboutDecor2Svg, { opacity: 0, duration: 0.3 }),
@@ -388,8 +388,8 @@ document.fonts.ready.then((fontFaceSet) => {
                 ease: "none",
                 scrollTrigger: {
                     trigger: ".about-decor3 .decor-bg",
-                    start: "20% bottom",
-                    end: "bottom bottom",
+                    start: "20% 60%",
+                    end: "center center",
                     scrub: true,
                     onEnter: () => gsap.to(aboutDecor3Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
                     onLeaveBack: () => gsap.to(aboutDecor3Svg, { opacity: 0, duration: 0.3 }),
@@ -424,6 +424,7 @@ document.fonts.ready.then((fontFaceSet) => {
         if (aboutbrush4Tag === "path") {
             aboutDecor4.removeAttribute("transform");
             const aboutpathLength4 = aboutDecor4.getTotalLength();
+            console.log(aboutpathLength4);
 
             gsap.set(aboutDecor4Svg, { opacity: 0 });
             gsap.set(aboutDecor4, {
@@ -439,8 +440,8 @@ document.fonts.ready.then((fontFaceSet) => {
                 ease: "none",
                 scrollTrigger: {
                     trigger: ".belief-decor4 .decor-bg",
-                    start: "20% bottom",
-                    end: "bottom bottom",
+                    start: "20% 85%",
+                    end: "bottom 80%",
                     scrub: true,
                     onEnter: () => gsap.to(aboutDecor4Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
                     onLeaveBack: () => gsap.to(aboutDecor4Svg, { opacity: 0, duration: 0.3 }),
@@ -734,7 +735,7 @@ document.fonts.ready.then((fontFaceSet) => {
         });
     });
 
-    jQuery('.about-sec div[class*="about-decor"], .belief-sec .belief-decor4').each(function () {
+    jQuery('.about-sec div[class*="about-decor"]').each(function () {
         var element = jQuery(this);
 
         gsap.to(element, {
@@ -743,7 +744,7 @@ document.fonts.ready.then((fontFaceSet) => {
             ease: "none",
             scrollTrigger: {
                 trigger: element,
-                start: "clamp(top 70%)",
+                start: "clamp(top 80%)",
                 end: "clamp(200% 10%)",
                 scrub: true,
             }
