@@ -1872,10 +1872,11 @@ MAIN BANNER
     overflow: hidden;
     position: absolute;
     bottom: 0;
-    left: -11.375rem;
+    left: -8.375rem;
     right: 0;
     max-width: 47.5rem;
     margin: 0 auto;
+    z-index: 9999;
 }
 
 .main-banner .banner-img img {
@@ -2003,7 +2004,7 @@ BELIEF SECTION
 ====================================*/
 .belief-sec {
     padding: 3.125rem 3.125rem 10.625rem 4.375rem;
-    min-height: 62rem;
+    min-height: 62.5rem;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -2025,7 +2026,7 @@ BELIEF SECTION
 
 .belief-sec .belief-decor1 {
     position: absolute;
-    top: 10.5625rem;
+    top: 2rem;
     left: 0;
     width: 38.5625rem;
     right: 19.375rem;
@@ -2038,6 +2039,7 @@ BELIEF SECTION
     top: -7.5rem;
     right: 43.75rem;
     width: 6.25rem;
+    pointer-events: none;
 }
 
 .belief-sec .section-header {
@@ -2100,6 +2102,7 @@ CLOUD SECTION
 }
 
 .cloud-sec div.cloud-decor1 {
+    top: -3.75rem;
     left: -0.25rem;
     right: 0;
     width: 25.625rem;

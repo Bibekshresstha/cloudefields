@@ -39,60 +39,60 @@ document.fonts.ready.then((fontFaceSet) => {
         }
     });
 
-    jQuery('.is-sticky').each(function () {
-        const $sectionBg = jQuery(this);
+    // jQuery('.is-sticky').each(function () {
+    //     const $sectionBg = jQuery(this);
 
-        // Store original height once
-        const originalHeight = $sectionBg.outerHeight();
-        $sectionBg.data('originalHeight', originalHeight);
+    //     // Store original height once
+    //     const originalHeight = $sectionBg.outerHeight();
+    //     $sectionBg.data('originalHeight', originalHeight);
 
-        // Pre-sticky parallax tween with live height update
-        gsap.to($sectionBg, {
-            yPercent: -20, // negative or positive
-            ease: "none",
-            scrollTrigger: {
-                trigger: $sectionBg,
-                start: "clamp(top 80%)",
-                end: "clamp(bottom top)",
-                scrub: true,
-                markers: false,
-                onUpdate: function () {
-                    const yPercent = Math.abs(gsap.getProperty($sectionBg[0], "yPercent") || 0);
-                    const newHeight = `calc(${originalHeight}px + ${yPercent}%)`;
-                    $sectionBg.css({
-                        'height': newHeight,
-                        'max-height': newHeight
-                    });
-                }
-            }
-        });
+    //     // Pre-sticky parallax tween with live height update
+    //     gsap.to($sectionBg, {
+    //         yPercent: -20, // negative or positive
+    //         ease: "none",
+    //         scrollTrigger: {
+    //             trigger: $sectionBg,
+    //             start: "clamp(top 80%)",
+    //             end: "clamp(bottom top)",
+    //             scrub: true,
+    //             markers: false,
+    //             onUpdate: function () {
+    //                 const yPercent = Math.abs(gsap.getProperty($sectionBg[0], "yPercent") || 0);
+    //                 const newHeight = `calc(${originalHeight}px + ${yPercent}%)`;
+    //                 $sectionBg.css({
+    //                     'height': newHeight,
+    //                     'max-height': newHeight
+    //                 });
+    //             }
+    //         }
+    //     });
 
-        // Pin the element
-        ScrollTrigger.create({
-            trigger: $sectionBg[0],
-            start: "top top",
-            end: "bottom top",
-            pin: $sectionBg[0],
-            pinSpacing: false,
-            onEnter: function () { $sectionBg.addClass('is-pinned'); },
-            onLeave: function () { $sectionBg.removeClass('is-pinned'); },
-            onEnterBack: function () { $sectionBg.addClass('is-pinned'); },
-            onLeaveBack: function () { $sectionBg.removeClass('is-pinned'); },
-            onRefresh: function () {
-                // Ensure height is correct on refresh
-                const yPercent = Math.abs(gsap.getProperty($sectionBg[0], "yPercent") || 0);
-                const newHeight = `calc(${originalHeight}px + ${yPercent}%)`;
-                $sectionBg.css({
-                    'height': newHeight,
-                    'max-height': newHeight
-                });
-            }
-        });
+    //     // Pin the element
+    //     ScrollTrigger.create({
+    //         trigger: $sectionBg[0],
+    //         start: "top top",
+    //         end: "bottom top",
+    //         pin: $sectionBg[0],
+    //         pinSpacing: false,
+    //         onEnter: function () { $sectionBg.addClass('is-pinned'); },
+    //         onLeave: function () { $sectionBg.removeClass('is-pinned'); },
+    //         onEnterBack: function () { $sectionBg.addClass('is-pinned'); },
+    //         onLeaveBack: function () { $sectionBg.removeClass('is-pinned'); },
+    //         onRefresh: function () {
+    //             // Ensure height is correct on refresh
+    //             const yPercent = Math.abs(gsap.getProperty($sectionBg[0], "yPercent") || 0);
+    //             const newHeight = `calc(${originalHeight}px + ${yPercent}%)`;
+    //             $sectionBg.css({
+    //                 'height': newHeight,
+    //                 'max-height': newHeight
+    //             });
+    //         }
+    //     });
 
-        // Set initial height
-        $sectionBg.css('height', originalHeight + 'px');
-        $sectionBg.css('max-height', originalHeight + 'px');
-    });
+    //     // Set initial height
+    //     $sectionBg.css('height', originalHeight + 'px');
+    //     $sectionBg.css('max-height', originalHeight + 'px');
+    // });
 
     jQuery(".anim-opacity").each(function () {
         var element = this;
@@ -142,16 +142,21 @@ document.fonts.ready.then((fontFaceSet) => {
         ease: "none"
     });
 
-    gsap.to("section[class*='-sec'] > .container-fluid", {
-        scrollTrigger: {
-            trigger: "section[class*='-sec']",
-            start: "clamp(top top)",
-            end: "clamp(bottom top)",
-            scrub: true,
-        },
-        opacity: 1,
-        y: 0,
-        ease: "none"
+    jQuery('section[class*="-sec"] > .container-fluid').each(function() {
+        let self = jQuery(this);
+        let parent = self.closest('section[class*="-sec"]');
+
+        gsap.to(self, {
+            scrollTrigger: {
+                trigger: parent,
+                start: "clamp(top 80%)",
+                end: "clamp(bottom top)",
+                scrub: true,
+            },
+            opacity: 1,
+            y: -25,
+            ease: "none"
+        });
     });
 
     jQuery('.main-banner .banner-img img').each(function () {
@@ -424,18 +429,20 @@ document.fonts.ready.then((fontFaceSet) => {
         if (aboutbrush4Tag === "path") {
             aboutDecor4.removeAttribute("transform");
             const aboutpathLength4 = aboutDecor4.getTotalLength();
-            console.log(aboutpathLength4);
+            const aboutDrawLength4 = aboutpathLength4 + 1;
 
             gsap.set(aboutDecor4Svg, { opacity: 0 });
             gsap.set(aboutDecor4, {
                 attr: { fill: "none", stroke: "white" },
                 strokeWidth: 200,
                 strokeLinecap: "round",
-                strokeDasharray: aboutpathLength4,
-                strokeDashoffset: aboutpathLength4
+                strokeDasharray: `${aboutDrawLength4} ${aboutDrawLength4}`,
+                strokeDashoffset: aboutDrawLength4
             });
 
-            gsap.to(aboutDecor4, {
+            gsap.fromTo(aboutDecor4, {
+                strokeDashoffset: aboutDrawLength4
+            }, {
                 strokeDashoffset: 0,
                 ease: "none",
                 scrollTrigger: {
@@ -444,6 +451,7 @@ document.fonts.ready.then((fontFaceSet) => {
                     end: "bottom 80%",
                     scrub: true,
                     onEnter: () => gsap.to(aboutDecor4Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
+                    onEnterBack: () => gsap.to(aboutDecor4Svg, { opacity: 1, duration: 0.2, overwrite: "auto" }),
                     onLeaveBack: () => gsap.to(aboutDecor4Svg, { opacity: 0, duration: 0.3 }),
                 }
             });
@@ -542,8 +550,8 @@ document.fonts.ready.then((fontFaceSet) => {
                 ease: "none",
                 scrollTrigger: {
                     trigger: ".cloud-decor1 .decor-bg",
-                    start: "20% bottom",
-                    end: "bottom bottom",
+                    start: "75% 90%",
+                    end: "bottom center",
                     scrub: true,
                     onEnter: () => gsap.to(cloudDecor1Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
                     onLeaveBack: () => gsap.to(cloudDecor1Svg, { opacity: 0, duration: 0.3 }),
@@ -593,8 +601,8 @@ document.fonts.ready.then((fontFaceSet) => {
                 ease: "none",
                 scrollTrigger: {
                     trigger: ".cloud-decor2 .decor-bg",
-                    start: "20% bottom",
-                    end: "bottom bottom",
+                    start: "20% 80%",
+                    end: "bottom center",
                     scrub: true,
                     onEnter: () => gsap.to(cloudDecor2Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
                     onLeaveBack: () => gsap.to(cloudDecor2Svg, { opacity: 0, duration: 0.3 }),
@@ -723,81 +731,81 @@ document.fonts.ready.then((fontFaceSet) => {
         var element = jQuery(this);
 
         gsap.to(element, {
-            yPercent: -100,
-            duration: 5,
-            ease: "none",
-            scrollTrigger: {
-                trigger: element,
-                start: "clamp(top 70%)",
-                end: "clamp(bottom top)",
-                scrub: true,
-            }
-        });
-    });
-
-    jQuery('.about-sec div[class*="about-decor"]').each(function () {
-        var element = jQuery(this);
-
-        gsap.to(element, {
-            yPercent: -100,
-            duration: 5,
-            ease: "none",
-            scrollTrigger: {
-                trigger: element,
-                start: "clamp(top 80%)",
-                end: "clamp(200% 10%)",
-                scrub: true,
-            }
-        });
-    });
-
-    jQuery('.belief-sec .belief-decor1').each(function () {
-        var element = jQuery(this);
-
-        gsap.to(element, {
-            yPercent: -100,
-            duration: 5,
+            yPercent: -25,
+            duration: 50,
             ease: "none",
             scrollTrigger: {
                 trigger: element,
                 start: "top 70%",
-                end: "200% 10%",
+                end: "10% 60%",
                 scrub: true,
-                toggleActions: "play pause none none",
+                toggleActions: "play pause none none"
             }
         });
     });
 
-    jQuery('.cloud-sec .cloud-decor1').each(function () {
-        var element = jQuery(this);
+    // jQuery('.about-sec div[class*="about-decor"]').each(function () {
+    //     var element = jQuery(this);
 
-        gsap.to(element, {
-            yPercent: -100,
-            opacity: 0,
-            ease: "none",
-            scrollTrigger: {
-                trigger: element,
-                start: "clamp(top 150%)",
-                end: "clamp(bottom center)",
-                scrub: true,
-            }
-        });
-    });
+    //     gsap.to(element, {
+    //         yPercent: -100,
+    //         duration: 5,
+    //         ease: "none",
+    //         scrollTrigger: {
+    //             trigger: element,
+    //             start: "clamp(top 80%)",
+    //             end: "clamp(200% 10%)",
+    //             scrub: true,
+    //         }
+    //     });
+    // });
 
-    jQuery('.cloud-sec .cloud-decor2').each(function () {
-        var element = jQuery(this);
+    // jQuery('.belief-sec .belief-decor1').each(function () {
+    //     var element = jQuery(this);
 
-        gsap.to(element, {
-            yPercent: -100,
-            ease: "none",
-            scrollTrigger: {
-                trigger: element,
-                start: "clamp(top bottom)",
-                end: "clamp(200% 10%)",
-                scrub: true,
-            }
-        });
-    });
+    //     gsap.to(element, {
+    //         yPercent: -100,
+    //         duration: 5,
+    //         ease: "none",
+    //         scrollTrigger: {
+    //             trigger: element,
+    //             start: "top 70%",
+    //             end: "200% 10%",
+    //             scrub: true,
+    //             toggleActions: "play pause none none",
+    //         }
+    //     });
+    // });
+
+    // jQuery('.cloud-sec .cloud-decor1').each(function () {
+    //     var element = jQuery(this);
+
+    //     gsap.to(element, {
+    //         yPercent: -100,
+    //         ease: "none",
+    //         scrollTrigger: {
+    //             trigger: element,
+    //             start: "clamp(top 150%)",
+    //             end: "clamp(bottom center)",
+    //             scrub: true,
+    //         }
+    //     });
+    // });
+
+    // jQuery('.cloud-sec .cloud-decor2').each(function () {
+    //     var element = jQuery(this);
+
+    //     gsap.to(element, {
+    //         yPercent: -100,
+    //         ease: "none",
+    //         scrollTrigger: {
+    //             trigger: element,
+    //             start: "clamp(top bottom)",
+    //             end: "clamp(200% 10%)",
+    //             scrub: true,
+    //         }
+    //     });
+    // });
 
     // Wrap each word with span
     jQuery('.wrap-word').each(function () {
