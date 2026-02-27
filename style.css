@@ -2004,7 +2004,7 @@ BELIEF SECTION
 ====================================*/
 .belief-sec {
     padding: 3.125rem 3.125rem 10.625rem 4.375rem;
-    min-height: 62.5rem;
+    min-height: 62rem;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -2026,7 +2026,7 @@ BELIEF SECTION
 
 .belief-sec .belief-decor1 {
     position: absolute;
-    top: 2rem;
+    top: 2.5625rem;
     left: 0;
     width: 38.5625rem;
     right: 19.375rem;
