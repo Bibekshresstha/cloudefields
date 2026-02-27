@@ -39,61 +39,6 @@ document.fonts.ready.then((fontFaceSet) => {
         }
     });
 
-    // jQuery('.is-sticky').each(function () {
-    //     const $sectionBg = jQuery(this);
-
-    //     // Store original height once
-    //     const originalHeight = $sectionBg.outerHeight();
-    //     $sectionBg.data('originalHeight', originalHeight);
-
-    //     // Pre-sticky parallax tween with live height update
-    //     gsap.to($sectionBg, {
-    //         yPercent: -20, // negative or positive
-    //         ease: "none",
-    //         scrollTrigger: {
-    //             trigger: $sectionBg,
-    //             start: "clamp(top 80%)",
-    //             end: "clamp(bottom top)",
-    //             scrub: true,
-    //             markers: false,
-    //             onUpdate: function () {
-    //                 const yPercent = Math.abs(gsap.getProperty($sectionBg[0], "yPercent") || 0);
-    //                 const newHeight = `calc(${originalHeight}px + ${yPercent}%)`;
-    //                 $sectionBg.css({
-    //                     'height': newHeight,
-    //                     'max-height': newHeight
-    //                 });
-    //             }
-    //         }
-    //     });
-
-    //     // Pin the element
-    //     ScrollTrigger.create({
-    //         trigger: $sectionBg[0],
-    //         start: "top top",
-    //         end: "bottom top",
-    //         pin: $sectionBg[0],
-    //         pinSpacing: false,
-    //         onEnter: function () { $sectionBg.addClass('is-pinned'); },
-    //         onLeave: function () { $sectionBg.removeClass('is-pinned'); },
-    //         onEnterBack: function () { $sectionBg.addClass('is-pinned'); },
-    //         onLeaveBack: function () { $sectionBg.removeClass('is-pinned'); },
-    //         onRefresh: function () {
-    //             // Ensure height is correct on refresh
-    //             const yPercent = Math.abs(gsap.getProperty($sectionBg[0], "yPercent") || 0);
-    //             const newHeight = `calc(${originalHeight}px + ${yPercent}%)`;
-    //             $sectionBg.css({
-    //                 'height': newHeight,
-    //                 'max-height': newHeight
-    //             });
-    //         }
-    //     });
-
-    //     // Set initial height
-    //     $sectionBg.css('height', originalHeight + 'px');
-    //     $sectionBg.css('max-height', originalHeight + 'px');
-    // });
-
     jQuery(".anim-opacity").each(function () {
         var element = this;
         gsap.to(element, {
@@ -189,14 +134,22 @@ document.fonts.ready.then((fontFaceSet) => {
                 strokeDashoffset: pathLength
             });
 
+            let triggerStart;
+
+            if(jQuery(window).width() < 1025){
+                triggerStart = "20% 80%";
+            } else {
+                triggerStart = "top 61%";
+            }
+
             gsap.to(revealBrush, {
                 strokeDashoffset: 0,
                 duration: 2.5,
                 ease: "power2.out",
                 scrollTrigger: {
                     trigger: ".banner-decor-top .decor-bg",
-                    start: "top 60%",
-                    toggleActions: "play none none none"
+                    start: triggerStart,
+                    toggleActions: "play none none none",
                 }
             });
         } else {
@@ -235,13 +188,24 @@ document.fonts.ready.then((fontFaceSet) => {
                 strokeDashoffset: pathLength2
             });
 
+            let triggerStart;
+            let triggerEnd;
+
+            if(jQuery(window).width() < 1025){
+                triggerStart = "20% 80%";
+                triggerEnd = "bottom center";
+            } else {
+                triggerStart = "20% bottom";
+                triggerEnd = "bottom bottom";
+            }
+
             gsap.to(revealBrush2, {
                 strokeDashoffset: 0,
                 ease: "none",
                 scrollTrigger: {
                     trigger: ".banner-decor-bottom .decor-bg",
-                    start: "20% bottom",
-                    end: "bottom bottom",
+                    start: triggerStart,
+                    end: triggerEnd,
                     scrub: true,
                     onEnter: () => gsap.to(bottomDecorSvg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
                     onLeaveBack: () => gsap.to(bottomDecorSvg, { opacity: 0, duration: 0.3 }),
@@ -286,13 +250,24 @@ document.fonts.ready.then((fontFaceSet) => {
                 strokeDashoffset: aboutpathLength2
             });
 
+            let triggerStart;
+            let triggerEnd;
+
+            if(jQuery(window).width() < 1025){
+                triggerStart = "20% center";
+                triggerEnd = "bottom 30%";
+            } else {
+                triggerStart = "20% 95%";
+                triggerEnd = "bottom bottom";
+            }
+
             gsap.to(aboutDecor1, {
                 strokeDashoffset: 0,
                 ease: "none",
                 scrollTrigger: {
                     trigger: ".about-decor1 .decor-bg",
-                    start: "20% 95%",
-                    end: "bottom bottom",
+                    start: triggerStart,
+                    end: triggerEnd,
                     scrub: true,
                     onEnter: () => gsap.to(aboutDecor1Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
                     onLeaveBack: () => gsap.to(aboutDecor1Svg, { opacity: 0, duration: 0.3 }),
@@ -337,13 +312,24 @@ document.fonts.ready.then((fontFaceSet) => {
                 strokeDashoffset: aboutpathLength2
             });
 
+            let triggerStart;
+            let triggerEnd;
+
+            if(jQuery(window).width() < 1025){
+                triggerStart = "60% 30%";
+                triggerEnd = "bottom 30%";
+            } else {
+                triggerStart = "20% 60%";
+                triggerEnd = "40% center";
+            }
+
             gsap.to(aboutDecor2, {
                 strokeDashoffset: 0,
                 ease: "none",
                 scrollTrigger: {
                     trigger: ".about-decor2 .decor-bg",
-                    start: "20% 60%",
-                    end: "40% center",
+                    start: triggerStart,
+                    end: triggerEnd,
                     scrub: true,
                     onEnter: () => gsap.to(aboutDecor2Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
                     onLeaveBack: () => gsap.to(aboutDecor2Svg, { opacity: 0, duration: 0.3 }),
@@ -388,13 +374,27 @@ document.fonts.ready.then((fontFaceSet) => {
                 strokeDashoffset: aboutpathLength3
             });
 
+            let triggerStart;
+            let triggerEnd;
+
+            if(jQuery(window).width() < 768){
+                triggerStart = "20% 80%";
+                triggerEnd = "center 10%";
+            } else if(jQuery(window).width() < 1025){
+                triggerStart = "20% 20%";
+                triggerEnd = "center 10%";
+            } else {
+                triggerStart = "20% 60%";
+                triggerEnd = "center center";
+            }
+
             gsap.to(aboutDecor3, {
                 strokeDashoffset: 0,
                 ease: "none",
                 scrollTrigger: {
                     trigger: ".about-decor3 .decor-bg",
-                    start: "20% 60%",
-                    end: "center center",
+                    start: triggerStart,
+                    end: triggerEnd,
                     scrub: true,
                     onEnter: () => gsap.to(aboutDecor3Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
                     onLeaveBack: () => gsap.to(aboutDecor3Svg, { opacity: 0, duration: 0.3 }),
@@ -440,6 +440,20 @@ document.fonts.ready.then((fontFaceSet) => {
                 strokeDashoffset: aboutDrawLength4
             });
 
+            let triggerStart;
+            let triggerEnd;
+
+            if(jQuery(window).width() < 768){
+                triggerStart = "20% 40%";
+                triggerEnd = "bottom 10%";
+            } else if(jQuery(window).width() < 1025){
+                triggerStart = "20% 37%";
+                triggerEnd = "bottom 20%";
+            } else {
+                triggerStart = "20% 85%";
+                triggerEnd = "bottom 80%";
+            }
+
             gsap.fromTo(aboutDecor4, {
                 strokeDashoffset: aboutDrawLength4
             }, {
@@ -447,8 +461,8 @@ document.fonts.ready.then((fontFaceSet) => {
                 ease: "none",
                 scrollTrigger: {
                     trigger: ".belief-decor4 .decor-bg",
-                    start: "20% 85%",
-                    end: "bottom 80%",
+                    start: triggerStart,
+                    end: triggerEnd,
                     scrub: true,
                     onEnter: () => gsap.to(aboutDecor4Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
                     onEnterBack: () => gsap.to(aboutDecor4Svg, { opacity: 1, duration: 0.2, overwrite: "auto" }),
@@ -494,13 +508,27 @@ document.fonts.ready.then((fontFaceSet) => {
                 strokeDashoffset: beliefpathLength1
             });
 
+            let triggerStart;
+            let triggerEnd;
+
+            if(jQuery(window).width() < 768){
+                triggerStart = "top 33%";
+                triggerEnd = "bottom 20%";
+            } else if(jQuery(window).width() < 1025){
+                triggerStart = "top 35%";
+                triggerEnd = "bottom top";
+            } else {
+                triggerStart = "top 85%";
+                triggerEnd = "bottom 20%";
+            }
+
             gsap.to(beliefDecor1, {
                 strokeDashoffset: 0,
                 ease: "none",
                 scrollTrigger: {
                     trigger: ".belief-decor1 .decor-bg",
-                    start: "top 85%",
-                    end: "bottom 20%",
+                    start: triggerStart,
+                    end: triggerEnd,
                     scrub: true,
                     onEnter: () => gsap.to(beliefDecor1Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
                     onLeaveBack: () => gsap.to(beliefDecor1Svg, { opacity: 0, duration: 0.3 }),
@@ -545,13 +573,24 @@ document.fonts.ready.then((fontFaceSet) => {
                 strokeDashoffset: cloudpathLength1
             });
 
+            let triggerStart;
+            let triggerEnd;
+
+            if(jQuery(window).width() < 1025){
+                triggerStart = "85% 72%";
+                triggerEnd = "bottom 10%";
+            } else {
+                triggerStart = "75% 90%";
+                triggerEnd = "bottom center";
+            }
+
             gsap.to(cloudDecor1, {
                 strokeDashoffset: 0,
                 ease: "none",
                 scrollTrigger: {
                     trigger: ".cloud-decor1 .decor-bg",
-                    start: "75% 90%",
-                    end: "bottom center",
+                    start: triggerStart,
+                    end: triggerEnd,
                     scrub: true,
                     onEnter: () => gsap.to(cloudDecor1Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
                     onLeaveBack: () => gsap.to(cloudDecor1Svg, { opacity: 0, duration: 0.3 }),
@@ -596,13 +635,27 @@ document.fonts.ready.then((fontFaceSet) => {
                 strokeDashoffset: cloudpathLength2
             });
 
+            let triggerStart;
+            let triggerEnd;
+
+            if(jQuery(window).width() < 768){
+                triggerStart = "20% 63%";
+                triggerEnd = "bottom 20%";
+            } else if(jQuery(window).width() < 1025){
+                triggerStart = "20% 35%";
+                triggerEnd = "bottom 20%";
+            } else {
+                triggerStart = "20% 80%";
+                triggerEnd = "bottom center";
+            }
+
             gsap.to(cloudDecor2, {
                 strokeDashoffset: 0,
                 ease: "none",
                 scrollTrigger: {
                     trigger: ".cloud-decor2 .decor-bg",
-                    start: "20% 80%",
-                    end: "bottom center",
+                    start: triggerStart,
+                    end: triggerEnd,
                     scrub: true,
                     onEnter: () => gsap.to(cloudDecor2Svg, { opacity: 1, duration: 0.5, ease: "power1.out" }),
                     onLeaveBack: () => gsap.to(cloudDecor2Svg, { opacity: 0, duration: 0.3 }),
@@ -1133,6 +1186,7 @@ document.fonts.ready.then((fontFaceSet) => {
             stagger: { amount: 0 }
         });
     });
+    
 });
 
 jQuery(window).on('load', function () {

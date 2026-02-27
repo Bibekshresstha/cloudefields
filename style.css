@@ -1825,7 +1825,7 @@ MAIN BANNER
 
 .main-banner .btn-holder {
     margin-top: 3.75rem;
-    max-width: 28.25rem;
+    max-width: 26rem;
     width: 100%;
     position: relative;
 }
@@ -1932,7 +1932,7 @@ ABOUT SECTION
 }
 
 .about-sec div.about-decor1 {
-    left: 28.75rem;
+    left: 24rem;
     top: 4.6875rem;
     width: 20.9375rem;
 }
@@ -2029,7 +2029,7 @@ BELIEF SECTION
     top: 2.5625rem;
     left: 0;
     width: 38.5625rem;
-    right: 19.375rem;
+    right: 25.375rem;
     margin: 0 auto;
     pointer-events: none;
 }
@@ -2103,16 +2103,16 @@ CLOUD SECTION
 
 .cloud-sec div.cloud-decor1 {
     top: -3.75rem;
-    left: -0.25rem;
+    left: -6rem;
     right: 0;
     width: 25.625rem;
     margin: 0 auto;
 }
 
 .cloud-sec div.cloud-decor2 {
-    top: 19.375rem;
+    top: 17.375rem;
     width: 42.8125rem;
-    left: -3.75rem;
+    left: -4.75rem;
 }
 
 .cloud-sec div[class*="cloud-decor"] img {
@@ -2821,7 +2821,7 @@ RESPONSIVE CSS
     }
 }
 
-@media (min-width: 1801px) {
+@media (min-width: 1921px) {
     html {
         font-size: var(--root-font-size, 16px);
     }
@@ -2888,7 +2888,7 @@ RESPONSIVE CSS
     .main-banner .banner-decor-bottom {
         width: 15rem;
         left: -3rem;
-        bottom: -5rem;
+        bottom: -10rem;
     }
 
     .main-banner .banner-text {
@@ -2983,7 +2983,7 @@ RESPONSIVE CSS
     .belief-sec div.belief-decor4 {
         right: 20rem;
         width: 4rem;
-        bottom: -8rem;
+        top: -6rem;
     }
 
     .belief-sec .section-desc {
@@ -3009,9 +3009,9 @@ RESPONSIVE CSS
     .cloud-sec div.cloud-decor1 {
         width: 17rem;
         left: auto;
-        right: -1.05rem;
+        right: -2.97rem;
         transform: rotate(-22deg);
-        top: -10.45rem;
+        top: -14.9rem;
     }
 
     .cloud-sec div.cloud-decor2 {
@@ -3394,7 +3394,7 @@ RESPONSIVE CSS
 
     .belief-sec div.belief-decor4 {
         width: 3rem;
-        bottom: -6rem;
+        top: -5rem;
     }
 
     .belief-sec .section-header {
