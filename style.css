@@ -1931,6 +1931,39 @@ ABOUT SECTION
     pointer-events: none;
 }
 
+.index-about .about-sec div[class*="about-decor"] {
+    z-index: 9;
+}
+
+.index-about .about-sec div.about-decor1 {
+    width: 17rem;
+    top: 7.25rem;
+    left: 26.25rem;
+}
+
+.index-about .about-sec div.about-decor2 {
+    width: 44rem;
+    top: 11rem;
+    left: 37rem;
+}
+
+.index-about .about-sec div.about-decor3 {
+    width: 35rem;
+    right: 4rem;
+    top: 18rem;
+}
+
+.index-about .about-sec div.about-decor-new {
+    width: 74.5rem;
+    right: 2.25rem;
+    top: 4.5rem;
+    z-index: 10;
+}
+
+.index-about svg {
+    overflow: visible;
+}
+
 .about-sec div.about-decor1 {
     left: 24rem;
     top: 4.6875rem;
