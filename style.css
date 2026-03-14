@@ -1957,7 +1957,7 @@ ABOUT SECTION
     width: 74.5rem;
     right: 2.25rem;
     top: 4.5rem;
-    z-index: 10;
+    z-index: 0;
 }
 
 .index-about svg {
