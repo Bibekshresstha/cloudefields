@@ -1920,6 +1920,10 @@ ABOUT SECTION
     /* overflow: hidden; */
 }
 
+.index-about .about-sec {
+    overflow: hidden;
+}
+
 .about-sec .section-grid {
     position: relative;
 }
@@ -1954,14 +1958,24 @@ ABOUT SECTION
 }
 
 .index-about .about-sec div.about-decor-new {
-    width: 74.5rem;
-    right: 2.25rem;
-    top: 4.5rem;
+    width: 80.5rem;
+    right: 1.875rem;
+    top: -5rem;
     z-index: 0;
 }
 
 .index-about svg {
     overflow: visible;
+}
+
+.index-about svg text {
+    display: block;
+    white-space: collapse;
+}
+
+.index-about svg textPath {
+    display: block;
+    white-space: pre;
 }
 
 .about-sec div.about-decor1 {
@@ -2995,6 +3009,11 @@ RESPONSIVE CSS
         width: 100%;
         z-index: -1;
         top: -5%;
+    }
+
+    .index-about .about-sec div.about-decor-new {
+        width: 100%;
+        transform: rotate(15deg);
     }
 
     /*===================================

@@ -1,10 +1,9 @@
 document.fonts.ready.then((fontFaceSet) => {
 
     //register plugins first
-    gsap.registerPlugin(MotionPathPlugin);
+    gsap.registerPlugin(MotionPathPlugin, ScrollSmoother);
 
     //init scrollsmoother
-    gsap.registerPlugin(ScrollSmoother);
     ScrollSmoother.create({
         wrapper: "#wrapper",
         content: "#wrapper-inn",
@@ -55,24 +54,25 @@ document.fonts.ready.then((fontFaceSet) => {
         };
     })();
 
-    fitAboutDecorTextPath();
-    window.addEventListener("resize", fitAboutDecorTextPath);
-    window.addEventListener("orientationchange", fitAboutDecorTextPath);
+    // fitAboutDecorTextPath();
+    // window.addEventListener("resize", fitAboutDecorTextPath);
+    // window.addEventListener("orientationchange", fitAboutDecorTextPath);
 
     //new svg animation
     jQuery('.about-decor-new svg').each(function() {
         const element = jQuery(this);
         const textPath = element.find("#about-decor-txt");
+        const textPath1 = element.find("#about-decor-txt1");
         const aboutDecor1 = element.find("#about-decor-new-path");
         const pathNode = aboutDecor1.get(0);
 
-        if (!pathNode || textPath.length === 0) return;
+        if (!pathNode || textPath.length === 0 || textPath1.length === 0) return;
 
         const aboutPathLength = pathNode.getTotalLength();
-        gsap.set(pathNode, {
-            strokeDasharray: aboutPathLength,
-            strokeDashoffset: 0
-        });
+        // gsap.set(pathNode, {
+        //     strokeDasharray: aboutPathLength,
+        //     strokeDashoffset: 0
+        // });
 
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -89,11 +89,17 @@ document.fonts.ready.then((fontFaceSet) => {
             duration: 1
         }, 0);
 
-        tl.to(pathNode, {
-            strokeDashoffset: aboutPathLength,
+        tl.to(textPath1, {
+            attr: { startOffset: "-100%" },
             ease: "power1",
             duration: 1
         }, 0);
+
+        // tl.to(pathNode, {
+        //     strokeDashoffset: aboutPathLength,
+        //     ease: "power1",
+        //     duration: 1
+        // }, 0);
     });
 
     // Custom parallax implementation
