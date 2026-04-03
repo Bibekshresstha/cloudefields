@@ -1751,6 +1751,7 @@ MAIN BANNER
 ====================================*/
 .main-banner {
     padding: 0 3.125rem;
+    overflow: hidden;
 }
 
 .main-banner .banner-item {
@@ -1868,6 +1869,16 @@ MAIN BANNER
     height: 100%;
 }
 
+.index-about .main-banner .banner-decor-new {
+    max-width: 75.625rem;
+    margin: 0 auto;
+    position: absolute;
+    bottom: -16rem;
+    left: 0;
+    right: 4rem;
+    pointer-events: none;
+}
+
 .main-banner .banner-img {
     overflow: hidden;
     position: absolute;
@@ -1958,8 +1969,8 @@ ABOUT SECTION
 }
 
 .index-about .about-sec div.about-decor-new {
-    width: 80.5rem;
-    right: 1.875rem;
+    width: 70.5rem;
+    right: 5rem;
     top: -5rem;
     z-index: 0;
 }
@@ -2089,6 +2100,40 @@ BELIEF SECTION
     pointer-events: none;
 }
 
+.belief-sec .belief-decor-and {
+    position: absolute;
+    top: -8rem;
+    left: 0;
+    right: -15.5rem;
+    max-width: 8rem;
+    margin: 0 auto;
+    height: 10rem;
+    overflow: hidden;
+    padding-top: 1rem;
+    padding-right: 2rem;
+    padding-bottom: 1rem;
+}
+
+.belief-sec .belief-decor-and svg {
+    width: 100%;
+    height: 100%;
+}
+
+.belief-sec .belief-decor-new {
+    position: absolute;
+    top: -3.125rem;
+    left: -17rem;
+    right: 0;
+    margin: 0 auto;
+    max-width: 42.4rem;
+    padding-inline: 5rem;
+    overflow: hidden;
+}
+.belief-sec .belief-decor-new svg {
+    position: relative;
+    top: -2rem;
+}
+
 .belief-sec .section-header {
     display: flex;
     flex-wrap: wrap;
@@ -2146,6 +2191,14 @@ CLOUD SECTION
     top: 0;
     z-index: 9;
     pointer-events: none;
+}
+
+.cloud-sec div.cloud-decor-new {
+    max-width: 70rem;
+    left: -14rem;
+    right: 0;
+    top: -3.5rem;
+    z-index: 99;
 }
 
 .cloud-sec div.cloud-decor1 {
@@ -3024,6 +3077,11 @@ RESPONSIVE CSS
         padding-inline: 1.875rem;
     }
 
+    .belief-sec .belief-decor-new {
+        max-width: 30rem;
+        top: -2.6rem;
+    }
+
     .belief-sec .belief-decor1 {
         width: 27rem;
         right: 7.25rem;
@@ -3056,6 +3114,10 @@ RESPONSIVE CSS
     .cloud-sec {
         padding-inline: 1.875rem;
         overflow: hidden;
+    }
+
+    .cloud-sec div.cloud-decor-new {
+        max-width: 50rem;
     }
 
     .cloud-sec div.cloud-decor1 {
@@ -3339,6 +3401,11 @@ RESPONSIVE CSS
         top: 0;
     }
 
+    .index-about .main-banner .banner-decor-new {
+        bottom: -12rem;
+        right: 0;
+    }
+
     .main-banner .banner-decor-top {
         top: auto;
         width: 8rem;
@@ -3435,6 +3502,19 @@ RESPONSIVE CSS
         padding-inline: 0.9375rem;
         padding-bottom: 3.125rem;
         min-height: 45rem;
+    }
+
+    .belief-sec .belief-decor-and {
+        max-width: 5rem;
+        height: 6.5rem;
+        top: -5.5rem;
+        right: -11.5rem;
+    }
+
+    .belief-sec .belief-decor-new {
+        width: 100%;
+        top: -3.125rem;
+        left: -7rem;
     }
 
     .belief-sec .belief-decor1 {

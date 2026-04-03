@@ -14,51 +14,46 @@ document.fonts.ready.then((fontFaceSet) => {
         ignoreMobileResize: true
     });
 
-    const fitAboutDecorTextPath = (() => {
-        let rafId = 0;
-
-        const fitOnce = () => {
-            const textPath = document.getElementById("about-decor-txt");
-            const pathNode = document.getElementById("about-decor-new-path");
-            if (!textPath || !pathNode) return;
-
-            const existingBase = parseFloat(textPath.getAttribute("data-base-font-size"));
-            const baseFontSize = Number.isFinite(existingBase)
-                ? existingBase
-                : parseFloat(getComputedStyle(textPath).fontSize || "16");
-
-            if (!textPath.hasAttribute("data-base-font-size")) {
-                textPath.setAttribute("data-base-font-size", String(baseFontSize));
-            }
-
-            textPath.style.fontSize = `${baseFontSize}px`;
-            textPath.removeAttribute("textLength");
-            textPath.removeAttribute("lengthAdjust");
-
-            const textLength = textPath.getComputedTextLength();
-            const pathLength = pathNode.getTotalLength();
-            if (textLength < 2 || pathLength < 2) return;
-            const scale = (pathLength / textLength) * 0.95;
-
-            if (!Number.isFinite(scale) || scale <= 0) return;
-
-            textPath.style.fontSize = `${baseFontSize * scale}px`;
-        };
-
-        return () => {
-            if (rafId) cancelAnimationFrame(rafId);
-            rafId = requestAnimationFrame(() => {
-                rafId = 0;
-                fitOnce();
-            });
-        };
-    })();
-
-    // fitAboutDecorTextPath();
-    // window.addEventListener("resize", fitAboutDecorTextPath);
-    // window.addEventListener("orientationchange", fitAboutDecorTextPath);
-
     //new svg animation
+    jQuery('.banner-decor-new svg').each(function() {
+        const element = jQuery(this);
+        const textPath = element.find("#banner-decor-txt");
+        const textPath1 = element.find("#banner-decor-txt1");
+        const bannerDecor1 = element.find("#banner-decor-new-path");
+        const pathNode = bannerDecor1.get(0);
+
+        if (!pathNode || textPath.length === 0 || textPath1.length === 0) return;
+
+        const bannerPathLength = pathNode.getTotalLength();
+
+        let scrollStart = "top 20%";
+
+        if(jQuery(window).width() < 1025) {
+            scrollStart = "top 60%";
+        }
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: element,
+                start: scrollStart,
+                end: "bottom top",
+                scrub: true,
+            }
+        });
+
+        tl.to(textPath, {
+            attr: { startOffset: "-100%" },
+            ease: "power1",
+            duration: 1,
+        }, 0);
+
+        tl.to(textPath1, {
+            attr: { startOffset: "-100%" },
+            ease: "power1",
+            duration: 1,
+        }, 0);
+    });
+
     jQuery('.about-decor-new svg').each(function() {
         const element = jQuery(this);
         const textPath = element.find("#about-decor-txt");
@@ -100,6 +95,105 @@ document.fonts.ready.then((fontFaceSet) => {
         //     ease: "power1",
         //     duration: 1
         // }, 0);
+    });
+
+    jQuery('.belief-decor-and svg').each(function() {
+        const element = jQuery(this);
+        const textPath = element.find("#belief-decor-and-txt");
+        const textPath1 = element.find("#belief-decor-and-txt1");
+        const beliefDecor1 = element.find("#belief-decor-and-path");
+        const pathNode = beliefDecor1.get(0);
+
+        if (!pathNode || textPath.length === 0 || textPath1.length === 0) return;
+
+        const beliefPathLength = pathNode.getTotalLength();
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: element,
+                start: "top 95%",
+                end: "bottom bottom",
+                scrub: true,
+            }
+        });
+
+        tl.to(textPath, {
+            attr: { startOffset: "-100%" },
+            ease: "power1",
+            duration: 1,
+        }, 0);
+
+        tl.to(textPath1, {
+            attr: { startOffset: "-100%" },
+            ease: "power1",
+            duration: 1,
+        }, 0);
+    });
+
+    jQuery('.belief-decor-new svg').each(function() {
+        const element = jQuery(this);
+        const textPath = element.find("#belief-decor-txt");
+        const textPath1 = element.find("#belief-decor-txt1");
+        const beliefDecor1 = element.find("#belief-decor-new-path");
+        const pathNode = beliefDecor1.get(0);
+
+        if (!pathNode || textPath.length === 0 || textPath1.length === 0) return;
+
+        const beliefPathLength = pathNode.getTotalLength();
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: element,
+                start: "top 95%",
+                end: "bottom top",
+                scrub: true,
+            }
+        });
+
+        tl.to(textPath, {
+            attr: { startOffset: "-100%" },
+            ease: "power1",
+            duration: 1,
+        }, 0);
+
+        tl.to(textPath1, {
+            attr: { startOffset: "-100%" },
+            ease: "power1",
+            duration: 1,
+        }, 0);
+    });
+
+    jQuery('.cloud-decor-new svg').each(function() {
+        const element = jQuery(this);
+        const textPath = element.find("#cloud-decor-txt");
+        const textPath1 = element.find("#cloud-decor-txt1");
+        const cloudDecor1 = element.find("#cloud-decor-new-path");
+        const pathNode = cloudDecor1.get(0);
+
+        if (!pathNode || textPath.length === 0 || textPath1.length === 0) return;
+
+        const cloudPathLength = pathNode.getTotalLength();
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: element,
+                start: "top 95%",
+                end: "bottom top",
+                scrub: true,
+            }
+        });
+
+        tl.to(textPath, {
+            attr: { startOffset: "-100%" },
+            ease: "power1",
+            duration: 1,
+        }, 0);
+
+        tl.to(textPath1, {
+            attr: { startOffset: "-100%" },
+            ease: "power1",
+            duration: 1,
+        }, 0);
     });
 
     // Custom parallax implementation
