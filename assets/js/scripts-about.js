@@ -28,7 +28,9 @@ document.fonts.ready.then((fontFaceSet) => {
 
         let scrollStart = "top 20%";
 
-        if(jQuery(window).width() < 1025) {
+        if(jQuery(window).width() < 768) {
+            scrollStart = "top center";
+        } else if(jQuery(window).width() < 1025) {
             scrollStart = "top 60%";
         }
 
@@ -64,10 +66,6 @@ document.fonts.ready.then((fontFaceSet) => {
         if (!pathNode || textPath.length === 0 || textPath1.length === 0) return;
 
         const aboutPathLength = pathNode.getTotalLength();
-        // gsap.set(pathNode, {
-        //     strokeDasharray: aboutPathLength,
-        //     strokeDashoffset: 0
-        // });
 
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -89,12 +87,6 @@ document.fonts.ready.then((fontFaceSet) => {
             ease: "power1",
             duration: 1
         }, 0);
-
-        // tl.to(pathNode, {
-        //     strokeDashoffset: aboutPathLength,
-        //     ease: "power1",
-        //     duration: 1
-        // }, 0);
     });
 
     jQuery('.belief-decor-and svg').each(function() {
@@ -108,11 +100,19 @@ document.fonts.ready.then((fontFaceSet) => {
 
         const beliefPathLength = pathNode.getTotalLength();
 
+        let scrollStart = "top 95%";
+
+        if(jQuery(window).width() < 768) {
+            scrollStart = "top 90%";
+        } else if(jQuery(window).width() < 1025) {
+            scrollStart = "top 95%";
+        }
+
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: element,
-                start: "top 95%",
-                end: "bottom bottom",
+                start: scrollStart,
+                end: "bottom 80%",
                 scrub: true,
             }
         });
@@ -141,10 +141,18 @@ document.fonts.ready.then((fontFaceSet) => {
 
         const beliefPathLength = pathNode.getTotalLength();
 
+        let scrollStart = "top 95%";
+
+        if(jQuery(window).width() < 768) {
+            scrollStart = "top 85%";
+        } else if(jQuery(window).width() < 1025) {
+            scrollStart = "top 90%";
+        }
+
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: element,
-                start: "top 95%",
+                start: scrollStart,
                 end: "bottom top",
                 scrub: true,
             }
