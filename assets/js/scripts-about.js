@@ -1383,17 +1383,46 @@ jQuery(window).on('load', function () {
     jQuery(window).scrollTop(0);
 });
 
+jQuery(window).on('load resize', function() {
+    var scrollbarWidth = window.innerWidth - $(window).width();
+    jQuery('html').css('--scrollbar-width', scrollbarWidth + 'px');
+});
+
 
 jQuery(document).ready(function ($) {
+    initOpenClose();
+    initRangeSlider();
 
-    //add sticky class on header
-    // jQuery(window).on('load scroll', function () {
-    //     if (jQuery(this).scrollTop() > 10) {
-    //         jQuery('.site-header').addClass('sticky');
-    //     } else {
-    //         jQuery('.site-header').removeClass('sticky');
-    //     }
-    // });
+    //move filter sidebar out of the wrapper div to appl css fixed position property
+    jQuery('.filter-sidebar').insertAfter(jQuery('#wrapper'));
+
+    //toggle archive filter
+    jQuery('.filter_control').on('click', function () {
+
+        if(jQuery('body').hasClass('filter_active')){
+            setTimeout(function () {
+                jQuery('body').removeClass('filter_active');
+            }, 200);
+            jQuery('body').removeClass('top');
+        } else {
+            jQuery('body').addClass('filter_active');
+            
+            setTimeout(function () {
+                jQuery('body').addClass('top');
+            }, 200);
+        }
+    });
+
+    //close on outside click
+    jQuery('html').on('click touchstart pointerdown MSPointerDown', function(event) {
+        var target = jQuery(event.target);
+        if(!target.closest('.filter_control').length && !target.closest('.filter-sidebar-inn').length) {
+            setTimeout(function () {
+                jQuery('body').removeClass('filter_active');
+            }, 200);
+            jQuery('body').removeClass('top');
+        }
+    });
 
     //add animated class on main banner
     setTimeout(function () {
@@ -1511,6 +1540,81 @@ jQuery(document).ready(function ($) {
 
 }); //document close
 
+// open-close init
+function initOpenClose() {
+    jQuery('.filter-block-holder .filter-block').openClose({
+        activeClass: 'filter-drop-active',
+        opener: '.filter-block-title',
+        slider: '.filter-list',
+        animSpeed: 400,
+        effect: 'slide',
+    });
+}
+
+//init range slider
+function initRangeSlider() {
+    jQuery("#priceRange").each( function() {
+        var sliderBlock = jQuery(this);
+
+        var initialMinValue = parseInt(sliderBlock.attr('data-initial-min'));
+        var initialMaxValue = parseInt(sliderBlock.attr('data-initial-max'));
+        var minRange = parseInt(sliderBlock.attr('data-min-amount'));
+        var maxRange = parseInt(sliderBlock.attr('data-max-amount'));
+        // initial slider value
+        var initialValue = [initialMinValue,initialMaxValue];
+        var sliderTooltip = function(event, ui) {
+            var newMinVal = function(){
+                if(jQuery.isEmptyObject(ui)){
+                    minValue = initialValue[0];
+                    return minValue;
+                } else {
+                    minValue = ui.values[0];
+                    return minValue;
+                }
+            };
+
+            var newMmaxVal = function(){
+                if(jQuery.isEmptyObject(ui)){
+                    maxValue = initialValue[1];
+                    return maxValue;
+                } else {
+                    maxValue = ui.values[1];
+                    return maxValue;
+                }
+            };
+
+            var minValue = newMinVal();
+            var maxValue = newMmaxVal();
+            var minTooltip = '<div class="slider-tooltip">$' + minValue + '</div>';
+            var maxTooltip = '<div class="slider-tooltip">$' + maxValue + '</div>';
+            jQuery('.filter-price .filtered-items').text('$'+minValue+' - $'+maxValue)
+            jQuery('.filter-price .filter-amount-low').text('$' + minValue);
+            jQuery('.filter-price .filter-amount-high').text('$' + maxValue);
+            jQuery( "#minPrice" ).val(minValue);
+            jQuery( "#maxPrice" ).val(maxValue);
+        }
+
+        sliderBlock.slider({
+            values: initialValue,
+            min: minRange,
+            max: maxRange,
+            range: true,
+            step: 5,
+            create: sliderTooltip,
+            slide: sliderTooltip,
+            change: function( event, ui ) {
+                jQuery('.filter-sidebar button.btn').prop('disabled', false);
+                if(jQuery(window).width() > 767) {
+                    jQuery('.archive-products-row').addClass('filter_triggered');
+                    jQuery(event.target).closest('.filter-form').submit();
+                }
+            }
+        });
+
+        sliderBlock.draggable();
+    });
+}
+
 jQuery.fn.isOnScreen = function () {
 
     var win = jQuery(window);
@@ -1529,3 +1633,203 @@ jQuery.fn.isOnScreen = function () {
     return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
 
 };
+
+/*
+ * jQuery Open/Close plugin
+ */
+;(function($) {
+    function OpenClose(options) {
+        this.options = $.extend({
+            addClassBeforeAnimation: true,
+            hideOnClickOutside: false,
+            activeClass: 'active',
+            opener: '.opener',
+            slider: '.slide',
+            animSpeed: 400,
+            effect: 'fade',
+            event: 'click'
+        }, options);
+        this.init();
+    }
+    OpenClose.prototype = {
+        init: function() {
+            if (this.options.holder) {
+                this.findElements();
+                this.attachEvents();
+                this.makeCallback('onInit', this);
+            }
+        },
+        findElements: function() {
+            this.holder = $(this.options.holder);
+            this.opener = this.holder.find(this.options.opener);
+            this.slider = this.holder.find(this.options.slider);
+        },
+        attachEvents: function() {
+            // add handler
+            var self = this;
+            this.eventHandler = function(e) {
+                e.preventDefault();
+                if (self.slider.hasClass(slideHiddenClass)) {
+                    self.showSlide();
+                } else {
+                    self.hideSlide();
+                }
+            };
+            self.opener.on(self.options.event, this.eventHandler);
+
+            // hover mode handler
+            if (self.options.event === 'hover') {
+                self.opener.on('mouseenter', function() {
+                    if (!self.holder.hasClass(self.options.activeClass)) {
+                        self.showSlide();
+                    }
+                });
+                self.holder.on('mouseleave', function() {
+                    self.hideSlide();
+                });
+            }
+
+            // outside click handler
+            self.outsideClickHandler = function(e) {
+                if (self.options.hideOnClickOutside) {
+                    var target = $(e.target);
+                    if (!target.is(self.holder) && !target.closest(self.holder).length) {
+                        self.hideSlide();
+                    }
+                }
+            };
+
+            // set initial styles
+            if (this.holder.hasClass(this.options.activeClass)) {
+                $(document).on('click touchstart', self.outsideClickHandler);
+            } else {
+                this.slider.addClass(slideHiddenClass);
+            }
+        },
+        showSlide: function() {
+            var self = this;
+            if (self.options.addClassBeforeAnimation) {
+                self.holder.addClass(self.options.activeClass);
+            }
+            self.slider.removeClass(slideHiddenClass);
+            $(document).on('click touchstart', self.outsideClickHandler);
+
+            self.makeCallback('animStart', true);
+            toggleEffects[self.options.effect].show({
+                box: self.slider,
+                speed: self.options.animSpeed,
+                complete: function() {
+                    if (!self.options.addClassBeforeAnimation) {
+                        self.holder.addClass(self.options.activeClass);
+                    }
+                    setTimeout(()=> {
+                        self.slider.removeAttr('style');
+                    },100)
+                    self.makeCallback('animEnd', true);
+                }
+            });
+        },
+        hideSlide: function() {
+            var self = this;
+            if (self.options.addClassBeforeAnimation) {
+                self.holder.removeClass(self.options.activeClass);
+            }
+            $(document).off('click touchstart', self.outsideClickHandler);
+
+            self.makeCallback('animStart', false);
+            toggleEffects[self.options.effect].hide({
+                box: self.slider,
+                speed: self.options.animSpeed,
+                complete: function() {
+                    if (!self.options.addClassBeforeAnimation) {
+                        self.holder.removeClass(self.options.activeClass);
+                    }
+                    self.slider.addClass(slideHiddenClass);
+                    setTimeout(()=> {
+                        self.slider.removeAttr('style');
+                    },100)
+                    self.makeCallback('animEnd', false);
+                }
+            });
+        },
+        destroy: function() {
+            this.slider.removeClass(slideHiddenClass).css({
+                display: ''
+            });
+            this.opener.off(this.options.event, this.eventHandler);
+            this.holder.removeClass(this.options.activeClass).removeData('OpenClose');
+            $(document).off('click touchstart', this.outsideClickHandler);
+        },
+        makeCallback: function(name) {
+            if (typeof this.options[name] === 'function') {
+                var args = Array.prototype.slice.call(arguments);
+                args.shift();
+                this.options[name].apply(this, args);
+            }
+        }
+    };
+
+    // add stylesheet for slide on DOMReady
+    var slideHiddenClass = 'js-slide-hidden';
+    (function() {
+        var tabStyleSheet = $('<style type="text/css">')[0];
+        var tabStyleRule = '.' + slideHiddenClass;
+        tabStyleRule += '{position:absolute !important;left:-9999px !important;top:-9999px !important;display:block !important}';
+        if (tabStyleSheet.styleSheet) {
+            tabStyleSheet.styleSheet.cssText = tabStyleRule;
+        } else {
+            tabStyleSheet.appendChild(document.createTextNode(tabStyleRule));
+        }
+        $('head').append(tabStyleSheet);
+    }());
+
+    // animation effects
+    var toggleEffects = {
+        slide: {
+            show: function(o) {
+                o.box.stop(true).hide().slideDown(o.speed, o.complete);
+            },
+            hide: function(o) {
+                o.box.stop(true).slideUp(o.speed, o.complete);
+            }
+        },
+        fade: {
+            show: function(o) {
+                o.box.stop(true).hide().fadeIn(o.speed, o.complete);
+            },
+            hide: function(o) {
+                o.box.stop(true).fadeOut(o.speed, o.complete);
+            }
+        },
+        none: {
+            show: function(o) {
+                o.box.hide().show(0, o.complete);
+            },
+            hide: function(o) {
+                o.box.hide(0, o.complete);
+            }
+        }
+    };
+
+    // jQuery plugin interface
+    $.fn.openClose = function(opt) {
+        var args = Array.prototype.slice.call(arguments);
+        var method = args[0];
+
+        return this.each(function() {
+            var $holder = jQuery(this);
+            var instance = $holder.data('OpenClose');
+
+            if (typeof opt === 'object' || typeof opt === 'undefined') {
+                $holder.data('OpenClose', new OpenClose($.extend({
+                    holder: this
+                }, opt)));
+            } else if (typeof method === 'string' && instance) {
+                if (typeof instance[method] === 'function') {
+                    args.shift();
+                    instance[method].apply(instance, args);
+                }
+            }
+        });
+    };
+}(jQuery));
