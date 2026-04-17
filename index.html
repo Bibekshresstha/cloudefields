@@ -135,7 +135,7 @@
 					</div>
 				</section>
 
-				<section class="about-sec" id="about-section">
+				<section class="about-sec" id="about">
 					<div class="section-bg is-sticky" style="background-color: var(--pink-color)"></div>
 					<div class="container-fluid">
 						<div class="section-grid">
@@ -190,7 +190,7 @@
 					</div>
 				</section>
 
-				<section class="belief-sec">
+				<section class="belief-sec" id="belief">
 					<div class="section-bg is-sticky" style="background-color: var(--purple-color)"></div>
 					<div class="container-fluid">
 						<div class="section-grid">
@@ -385,10 +385,10 @@
 										<a href="#">Products</a>
 									</li>
 									<li>
-										<a href="#">About Cloudfields</a>
+										<a href="#about">About Cloudfields</a>
 									</li>
 									<li>
-										<a href="#">Our Beliefs</a>
+										<a href="#belief">Our Beliefs</a>
 									</li>
 									<li>
 										<a href="#">Contact</a>
@@ -467,6 +467,44 @@
 	<script src="assets/js/swiper-bundle.min.js"></script>
 	<script src="assets/js/stickyScrollBlock.js"></script>
 	<script src="assets/js/scripts-about.js"></script>
+	<script>
+		// Smooth scroll for anchor nav links — handles both click and page-load hash
+		(() => {
+			const anchorSelectors = 'a[href="#about"], a[href="#belief"]';
+
+			const scrollToTarget = (target) => {
+				if (!target) return;
+				const smoother = (typeof ScrollSmoother !== 'undefined' && ScrollSmoother.get) ? ScrollSmoother.get() : null;
+				if (smoother) {
+					smoother.scrollTo(target, true);
+				} else {
+					target.scrollIntoView({ behavior: 'smooth' });
+				}
+			};
+
+			// Handle clicks
+			document.querySelectorAll(anchorSelectors).forEach((link) => {
+				link.addEventListener('click', (e) => {
+					const target = document.querySelector(link.getAttribute('href'));
+					if (!target) return;
+					e.preventDefault();
+					scrollToTarget(target);
+				});
+			});
+
+			// Handle page load with a hash in the URL
+			const hash = window.location.hash;
+			if (hash === '#about' || hash === '#belief') {
+				window.addEventListener('load', () => {
+					// Small delay so ScrollSmoother finishes initialising
+					setTimeout(() => {
+						const target = document.querySelector(hash);
+						scrollToTarget(target);
+					}, 300);
+				});
+			}
+		})();
+	</script>
 	<script>
 		(() => {
 			const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
